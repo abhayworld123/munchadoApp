@@ -1,0 +1,31 @@
+page-takeout {
+
+
+    p.thead {
+    font-weight: bold;
+    font-size: 13px;
+    text-align: left;
+    /* float: left; */
+    width: 61%;
+    display: inline-block;
+}
+
+span.thead-change {
+    /* float: right; */
+    /* clear: left; */
+    display: inline-block;
+    width: 33%;
+    color: red;
+    text-align: right;
+}
+
+span.thead-add {
+    /* float: right; */
+    /* clear: left; */
+    display: inline-block;
+    width: 33%;
+    color: red;
+    text-align: right;
+}
+
+}

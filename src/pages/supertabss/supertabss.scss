@@ -1,0 +1,112 @@
+
+
+page-supertabss {
+  .food-card span {
+    text-align: right;
+    display: block;
+    position: relative;
+    top: -25px;
+  }
+  span.price-badge-top {
+    position: absolute;
+    right: 17px;
+    top: 24px;
+    font-size: 12px;
+    font-weight: lighter;
+  }
+  img.cart-icon {
+    position: absolute;
+    width: 26px;
+    height: 23px;
+    right: 4%;
+    top: -6px;
+  }
+  span.badge-span-top {
+    background: red;
+    border-radius: 50%;
+    width: 19px;
+    height: 19px;
+    color: #fff;
+    position: absolute;
+    right: 2%;
+    display: inline-block;
+    top: 5px;
+    padding: 3px;
+    font-size: 12px;
+    text-align: center;
+  }
+  .image-desc {
+    /* max-width: 40ch; */
+    padding: 2% 5% 2% 15%;
+    position: absolute;
+    top: 27.5%;
+    font-size: 11px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.35);
+  }
+  .image-ratings {
+    border-radius: 50%;
+    background: rgba(193, 175, 175, 0);
+    text-align: center;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 29.4%;
+    border: 1px solid #fff;
+    color: #fff;
+    z-index: 999;
+    left: 2%;
+    padding: 1% 0;
+    font-size: 10px;
+  }
+  .tabs-footer div {
+    display: inline-block;
+    color: #fff;
+    padding: 1% 7% 5% 8%;
+  }
+  .tabs-footer {
+    width: 100%;
+    background: #3a261f;
+    /* display: inline-block; */
+    position: fixed;
+    padding: 4% 0 2%;
+    bottom: -5px;
+    z-index: 99;
+  }
+  .footer-in-share {
+    background: orange;
+    border-radius: 50%;
+    padding: 6% 6% !important;
+    height: 81px;
+    width: 80px;
+    top: -12px;
+    left: 39%;
+    position: absolute;
+    z-index: 99;
+  }
+  .footer-in-snag {
+    position: absolute;
+    right: 0;
+  }
+
+   .display-none{
+      display: none;
+   }
+
+
+  
+
+
+}
+
+img.bannerimg {
+    height: 20rem;
+    width: 100%;
+}
+
+
+
+// super-tabs-toolbar > ion-toolbar.toolbar .tab-buttons-container .tab-buttons super-tab-button{
+//     font-size: 11px ;
+//     padding: 0px;
+// }

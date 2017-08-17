@@ -1,0 +1,74 @@
+<!--
+  Generated template for the ReviewsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>reviews</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+
+<ion-content padding>
+
+  <div *ngIf="reviews" #slide4>
+    <h1>Reviews</h1>
+    <ion-list> Total: {{reviews.total_review_count}} reviews {{reviews.positive_sentiment_percent}}% customers expressed positive sentiment</ion-list>
+
+    <div *ngFor="let rev of  reviews.reviews;let i = index ">
+      <!-- <img src="{{rev.display_pic_url}}" onError="this.src='../assets/img/temp/place_holder_home.png'"> {{rev.first_name}}{{rev.tip_id}}
+              {{rev.joined_on}} -->
+      <div *ngIf="rev.review_id">
+
+        <ion-list>
+          <ion-item>
+            <ion-avatar item-start>
+              <img onError="this.src='assets/images/temp/place_holder_home.png'" [src]="rev.stats.display_pic_url">
+            </ion-avatar>
+            <!-- <h2>{{stats[i].first_name}}</h2> -->
+            <h2 class="rev-name">{{rev.stats.first_name}}</h2> <span class="rev-joined">{{rev.stats.joined_on}}</span>
+
+            <h3>{{rev.review_desc}}</h3>
+            <!-- <p> {{rev.review_id}}</p> -->
+            <div class="over-rev-stats">
+              <span>{{rev.stats.total_beenthere}}</span>
+              <span>{{rev.stats.total_reservations}}</span>
+              <span>{{rev.stats.total_tryit}}</span>
+              <span>{{rev.stats.total_reviews}}</span>
+            </div>
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+    <div *ngFor="let rev of  reviews.reviews ">
+
+       <ion-list   *ngIf="rev.reviewer">
+          <ion-item>
+            <ion-avatar item-start>
+              <img onError="this.src='assets/images/temp/place_holder_home.png'" src="">
+            </ion-avatar>
+            <!-- <h2>{{stats[i].first_name}}</h2> -->
+            <h2 class="rev-name"> {{rev.reviewer}}</h2> <span class="rev-joined">{{rev.date}}</span>
+
+            <h3 class="rev-description">{{rev.reviews}}</h3>
+            <!-- <p> {{rev.review_id}}</p> -->
+           
+          </ion-item>
+        </ion-list>
+
+
+
+
+    
+
+
+
+    </div>
+
+  </div>
+
+</ion-content>

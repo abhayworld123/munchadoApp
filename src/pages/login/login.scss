@@ -1,0 +1,47 @@
+page-login {
+
+
+
+  .backg {
+    position: relative;
+    background: url('../assets/1.jpg') no-repeat transparent;
+    background: darken( orange, 20%);
+    // background-size: 392%;
+    height: 600%;
+    z-index: 1;
+    background-repeat: repeat-y;
+        animation: animatedBackground 110s ease-in-out infinite;
+  }
+ .logoimg img {
+    width: 32%;
+    /* position: absolute; */
+    background: rgba(12, 117, 217, 0.27);
+    padding: 7%;
+    border-radius: 50%;
+}
+.logoimg p {
+    color: rgba(255, 255, 255, 0.31);
+    font-size: 30px;
+    font-weight: BOLD;
+    font-family: fantasy;
+    position: relative;
+    margin: 0;
+}
+
+.logoimg {
+    text-align: center;
+    width: 95%;
+    position: absolute;
+    /* height: 8px; */
+    top: 50px;
+}
+
+  @keyframes animatedBackground {
+    from { background-position: 0% 100%; }
+    to  { background-position: 0% 0%; }
+  }
+.xyz {
+    margin-top: 120%;
+}
+
+}

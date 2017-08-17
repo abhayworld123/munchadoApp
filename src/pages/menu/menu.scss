@@ -1,0 +1,98 @@
+page-menu {
+
+    div.scrollmenu {
+    // background-color: #333;
+    overflow: auto;
+    white-space: nowrap;
+    overflow-y: hidden;
+}
+
+ion-segment-button.section.segment-button {
+    display: inline-block;
+    width: auto;
+}
+
+
+div.scrollmenu  .segment-button {
+    display: inline-block;
+   
+    text-align: center;
+    color:red;
+    
+    
+}
+
+
+  .dinenmore {
+    width: 100%;
+    padding: 6% 10% 2%;
+    background:  #dad9d8; 
+    text-align: center;
+    img{
+        width: 80%;
+    }
+}
+
+ ion-slide.mysli.swiper-slide {
+    width: 7.1em !important;
+    font-size: 12px;
+    padding: 2px 0;
+    background: darken( gray,20%);
+    color: #fff;
+    letter-spacing: 0px;
+}
+
+.fix-but-check {
+    position: absolute;
+    bottom: 32%;
+    padding: 24px 0;
+    z-index: 99;
+    background: orange;
+}
+
+.item-descript{
+    font-size: 10px;
+    text-align: left;
+}
+   ion-slides.menu-slider-block.slides.slides-md.slides-0 {
+    position: fixed;
+    height: 44px;
+        z-index: 999;
+        background: #5d4646;
+}
+   .spacer-menu {
+    padding: 6% 0;
+}
+
+.menu-category-name {
+    margin: 0;
+    font-size: 2rem;
+    background: #bbb8b8;
+    padding: 2% 5%;
+}
+
+.menu-subcategories {
+    position: relative;
+    top: -16px;
+}
+   h3.menu-subcategory-name {
+    font-size: 1.8rem;
+    background: #bbb8b8;
+    padding: 3% 5%;
+    font-weight: lighter;
+}
+
+.tabs-footer-m {
+    width: 100%;
+    display: block;
+    /* display: inline-block; */
+    position: fixed;
+    padding: 4% 0 2%;
+    bottom: -2%;
+    z-index: 999;
+    /* background: red; */
+}
+
+
+
+}

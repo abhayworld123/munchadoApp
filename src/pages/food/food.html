@@ -1,0 +1,202 @@
+<ion-header>
+  <ion-navbar ion-navbar color="orangee">
+    <ion-title>
+      <!-- <button ion-button block (click)="closeModal()">Close</button> -->
+      <!-- <div style="float:right">
+        <ion-icon ios="ios-backspace" md="md-backspace"></ion-icon>
+      </div> -->
+
+      <span *ngIf="menuoverviewdata"> {{menuoverviewdata.name}} </span>
+      <img class="cart-icon" src="assets/img/temp/cart_icon.png">
+      <span class="badge-span-top" (click)="openCheckout()">{{ this.service.globalVar}}</span>
+      <span class="price-badge-top ">{{this.service.globaltotalbill}} $</span>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content #content>
+
+  <div *ngIf="menuoverviewdata">
+    <!-- <ion-img width="80" height="80" [src]="baseurl + menuoverviewdata.cover_image"></ion-img>    -->
+    <img class="bannerimg" [src]="baseurl + menuoverviewdata.cover_image">
+
+    <div *ngIf="menuoverviewdata">
+
+
+      <div>
+        <ion-slides #slidero autoHeight="true" (ionSlideWillChange)="ok($event)">
+          <ion-slide #slideo>
+            <div #slide1>
+
+              <div class="dinenmore">
+                <img src="../assets/img/i_dinemore.png">
+                <p>Get Rewarded your loyalty</p>
+              </div>
+
+
+
+              <div class="border-block">
+
+                <button ion-button (click)="optab()" >pledda</button>
+
+                <!-- <h1>Overview</h1> -->
+                <h3>{{menuoverviewdata.name}}</h3>
+                <p>{{menuoverviewdata.cuisine_offerd}}</p>
+                {{menuoverviewdata.landmark}} {{menuoverviewdata.short_address}}
+                <p> {{menuoverviewdata.description}}</p>
+
+                {{menuoverviewdata.is_review}}
+              </div>
+              <!-- 
+                <div class="scrollmenu">
+   <ion-segment> 
+     <ion-segment-button class="section" *ngFor="let mostpopular of populardishes;let i=index" value="{{i}}"   > 
+           <span [innerHTML]="mostpopular.item_name"></span> 
+        </ion-segment-button>
+   </ion-segment>
+</div>          -->
+
+              <h2>TYPE OF PLACE</h2>
+              <ion-slides freeMode="true" slidesPerView="1">
+                <ion-slide class="mysli typeimgsli" *ngFor="let typeofpl of typeofplace">
+
+                  <img onError="this.src='../assets/img/temp/imgpsh_share.png'" src="../assets/img/temp/{{typeofpl.name}}.png">
+                  <p>{{typeofpl.name}}</p>
+                </ion-slide>
+
+
+              </ion-slides>
+
+
+              <h2>MOST POPULAR</h2>
+              <ion-slides freeMode="true" slidesPerView="4">
+                <ion-slide class="mysli typeimgsli" *ngFor="let mostpopular of populardishes">
+                  <img onError="this.src='../assets/img/temp/imgpsh_share.png'" src="../assets/img/temp/{{mostpopular.name}}.png">
+
+                  <p> {{mostpopular.item_name}} </p>
+                </ion-slide>
+
+              </ion-slides>
+              <!-- <div *ngFor="let review of menuoverviewdata.restaurant_reviews">  
+     {{review.review_id}}
+       
+  </div> -->
+
+              <h2> Reviews </h2>
+              <div class="review-block" *ngFor="let rev of restaurantreviews ">
+                <img src="{{rev.display_pic_url}}" onError="this.src='../assets/img/temp/place_holder_home.png'"> {{rev.first_name}}{{rev.tip_id}}
+                {{rev.joined_on}}
+              </div>
+
+
+
+
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <div #slide2>
+              <h1>Menu</h1>
+              <!-- <div *ngFor="let gallary of gallary">
+              {{gallary.image}}
+
+            </div> -->
+
+              <ion-slides freeMode="true" slidesPerView="4">
+                <ion-slide class="mysli typeimgsli" *ngFor="let datamenu of menudata; let i= index">
+                  <!-- <img onError="this.src='../assets/img/temp/imgpsh_share.png'" src="../assets/img/temp/{{mostpopular.name}}.png"> -->
+
+                  <p (click)="scrolllto($event,i)"> {{datamenu.category_name}} </p>
+
+
+                </ion-slide>
+
+              </ion-slides>
+
+
+              <div *ngFor="let m of menusubcategories">
+                <div #abc *ngFor="let datamenu of menudata ;let i= index ">
+                  <h1 [id]="datamenu.category_name">{{datamenu.category_name}}</h1>
+                  <div>
+
+                  </div>
+
+                  <!-- <h1>  {{m.category_name}} </h1> -->
+                  <div *ngFor="let n of m   ">
+                    <h3> {{n.category_name}} </h3>
+                    <div *ngFor="let a of n.category_items ; let j = index   ">
+
+                      <ion-card (click)="presentModal(a,i)">
+
+                        <ion-card-content class="food-card">
+                          <div style="text-align:left"> {{a.item_name}} </div>
+                          <span style="text-align:right"> {{a.prices[0].value}}      </span>
+                          <!-- Add card content here! -->
+                        </ion-card-content>
+
+                      </ion-card>
+                    </div>
+
+                  </div>
+                </div>
+
+
+
+
+              </div>
+
+
+
+
+            </div>
+
+          </ion-slide>
+          <ion-slide *ngIf="stories">
+            <div #slide3>
+              <h1>Story</h1>
+
+              <div [innerHTML]="stories.story">
+
+              </div>
+            </div>
+          </ion-slide>
+          <ion-slide>
+            <div #slide4>
+              <h1>Reviews</h1>
+              Total reviews are {{reviews.total_review_count}}
+
+
+              <div *ngFor="let rev of  reviews.reviews ">
+                <!-- <img src="{{rev.display_pic_url}}" onError="this.src='../assets/img/temp/place_holder_home.png'"> {{rev.first_name}}{{rev.tip_id}}
+              {{rev.joined_on}} -->
+
+                {{rev.review_id}}
+
+                <ion-card *ngIf="rev.reviewer">
+
+                  <ion-card-header>
+                    {{rev.reviewer}}
+                  </ion-card-header>
+
+                  <ion-card-content>
+                    <!-- Add card content here! -->
+                    {{rev.reviews}}
+                  </ion-card-content>
+
+                </ion-card>
+
+
+
+              </div>
+            </div>
+          </ion-slide>
+        </ion-slides>
+
+      </div>
+
+
+
+
+    </div>
+
+  </div>
+</ion-content>

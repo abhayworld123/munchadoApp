@@ -1,0 +1,29 @@
+page-gallarydetails .prev-button {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  z-index: 99999;
+}
+
+page-gallarydetails .nxt-button {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  z-index: 99999;
+}
+
+page-gallarydetails .swiper-slide {
+  background: #000;
+}
+
+page-gallarydetails .prev-button ion-icon {
+  font-size: 2.3em;
+  color: #fff;
+  text-shadow: black;
+}
+
+page-gallarydetails .nxt-button ion-icon {
+  font-size: 2.3em;
+  color: #fff;
+  text-shadow: black;
+}

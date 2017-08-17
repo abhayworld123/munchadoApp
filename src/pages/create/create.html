@@ -1,0 +1,39 @@
+<!--
+  Generated template for the CreatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>create</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <ion-item>
+    <ion-label stacked>Name</ion-label>
+    <ion-input [(ngModel)]="name" type="text" placeholder="Fill yor first and last name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Post</ion-label>
+    <ion-input [(ngModel)]="post" type="text" placeholder="Type your Post"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Phone</ion-label>
+    <ion-input [(ngModel)]="phone" type="text" placeholder="Fill your phone number"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>City</ion-label>
+    <ion-input [(ngModel)]="city" type="text" placeholder="Fill your city"></ion-input>
+  </ion-item>
+  <button ion-button block (click)="addSong(name, post, phone, city)"> Add Info </button>
+
+</ion-content>
+

@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Profile</ion-title>
+     <ion-buttons end>
+  <button ion-button icon-only (click)="logout()">
+    <ion-icon name=""></ion-icon>Logout
+  </button>
+</ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  
+
+  <div class="propic">
+    <img [src]="userProfile?.photoURL" onError="this.src='assets/logo.png';" alt="user Profile">
+    
+     <h2 *ngIf="userProfile">{{ userProfile?.displayName }}</h2>
+     <h2 *ngIf="!userProfile">Anonymous</h2>
+    <p *ngIf="userProfile">{{ userProfile?.email }}</p>
+    <p *ngIf="!userProfile">Anonymous@anonymous.com</p>
+  
+  </div>
+
+</ion-content>

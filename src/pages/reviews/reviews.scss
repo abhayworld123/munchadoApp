@@ -1,0 +1,22 @@
+page-reviews {
+span.rev-joined {
+    display: inline-block;
+    font-size: 11px;
+}
+   h2.rev-name {
+    width: 61%;
+    display: inline-block;
+}
+   .over-rev-stats {
+    clear: both;
+    width: 100%;
+    margin-left: 18%;
+}
+   .over-rev-stats span {
+    display: inline-block;
+    padding: 0 6%;
+} 
+   h3.rev-description {
+    white-space: normal;
+}
+}

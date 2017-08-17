@@ -1,0 +1,51 @@
+page-cartpage .summary {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ed1c24;
+  text-align: center;
+  letter-spacing: 1px;
+  font-size: 1.5em;
+}
+
+page-cartpage button.ubtn.blackbtn.btn_service {
+  width: 100%;
+  background: transparent;
+  color: #000;
+  border: 1px solid #000;
+}
+
+page-cartpage button.ubtn.btn_service {
+  width: 100%;
+  background: #ed1c24;
+  color: #fff;
+  letter-spacing: 3px;
+  font-size: 11px;
+  border: 1px solid #ed1c24;
+}
+
+@media (min-width: 300px) and (min-height: 500px) {
+  ion-modal.my-popup ion-backdrop {
+    visibility: visible;
+  }
+}
+
+ion-modal.my-popup .modal-wrapper {
+  position: absolute;
+  overflow: hidden;
+  max-width: 280px;
+  border-radius: 2px;
+  width: 80vw;
+  height: 50vh;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border: 0;
+  box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+  background-color: #fafafa;
+}
+
+.leftalign {
+  text-align: left;
+}

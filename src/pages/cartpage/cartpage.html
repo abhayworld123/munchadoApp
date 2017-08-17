@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar ion-navbar color="orangee">
+    <ion-title>
+
+      Checkout
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+ <div style="text-align:center; padding: 0 10px"  >
+  <h1 class="summary"> Order Summary </h1>
+  <ion-grid>
+    <ion-row>
+       <ion-col> <button class="ubtn blackbtn btn_service" ion-button> DELIVERY </button> </ion-col>   
+       <ion-col> <button class="ubtn btn_service" ion-button> TAKEOUT </button>  </ion-col>    
+ 
+    </ion-row>   
+  </ion-grid>
+   <button></button> 
+   <p  class="leftalign"> Expected Time of TakeOut</p>
+  
+    <p class="leftalign">Change</p>
+
+
+  <p> Your Order</p>
+
+  <div >
+  <p class="leftalign"> <span *ngFor= "let item of allorder"> {{item.item_name}}  </span> </p>
+  
+  
+  <p>SUBTOTAL</p> <span>{{subtotal}}</span>
+  <p>TAX</p> <span>0.36 $</span>
+  </div>
+
+  <button class="ubtn blackbtn btn_service" ion-button block> Checkout </button>
+  
+     <!-- <button (click)="openMo()" ion-button block> openModal </button> -->
+ 
+  <ion-grid>
+     <ion-row>
+         <ion-col col-8>Total</ion-col>
+         <ion-col >{{this.servicee.globaltotalbill}}$</ion-col>
+     </ion-row>
+  </ion-grid>
+
+</div>
+
+ 
+  
+</ion-content>
