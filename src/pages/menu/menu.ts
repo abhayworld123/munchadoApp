@@ -1,3 +1,4 @@
+import { checkouttabPage } from './../checkouttab/checkouttab';
 import { SupertabssPage } from './../supertabss/supertabss';
 import { Observer } from 'rxjs/Observer';
 import { addtocardPage } from './../addtocard/addtocard';
@@ -8,7 +9,6 @@ import { HomePage } from '../../pages/home/home';
 import { Storage } from '@ionic/storage';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ServiceClass } from '../../providers/servicee';
-
 
 /**
  * Generated class for the MenuPage page.
@@ -65,6 +65,10 @@ export class MenuPage {
       // this.already= true;
 
 
+   }
+
+   openCartpage(){
+      this.navCtrl.push(checkouttabPage);
    }
 
 
