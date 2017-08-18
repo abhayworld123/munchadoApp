@@ -31,17 +31,13 @@ export class addtocardPage {
 
    constructor(public formBuilder: FormBuilder, public service: ServiceClass, public storage: Storage, public navCtrl: NavController, public navparam: NavParams, public viewCtrl: ViewController) {
 
-      console.log(this.navparam.get("dish"));
-
       // this.resname = this.navparam.get("resname");
       this.selectedDish = JSON.parse(JSON.stringify(this.navparam.get("dish")))
       this.itemId = this.selectedDish.item_id;
-      console.log(this.itemId);
       this.quant = 0;
    }
 
    ngOnInit() {
-      console.log('onin' + this.itemId);
       this.service.getaddons(this.itemId)
          .subscribe(
          (menuaddons) => {
@@ -50,7 +46,6 @@ export class addtocardPage {
             } else {
                this.addons = [];
             }
-            console.log('this.addons: ', this.addons);
          },
          (err: any) => {
             console.log('err: ', err);
@@ -77,7 +72,7 @@ export class addtocardPage {
          delete addon[option.id];
       }
       this.selectedAddons[item.name] = addon;
-      console.log('this.selectedAddons: ', this.selectedAddons);
+      // console.log('this.selectedAddons: ', this.selectedAddons);
    }
 
    public selectedAddOnLength(itemName) {

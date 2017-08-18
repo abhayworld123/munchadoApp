@@ -61,7 +61,6 @@ export class TakeoutPage {
    ngOnInit() {
       this.allOrders = this.servicee.globalCartitems;
       this.totalBillAmount = this.servicee.globaltotalbill;
-      console.log('this.allOrders: ' + JSON.stringify(this.allOrders));
 
    }
 
