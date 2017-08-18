@@ -51,7 +51,9 @@ export class ServiceClass {
 
    gettoken(url: string, param: any): Observable<any> {
       console.log(url);
+
       let body = JSON.stringify(param);
+      //  console.log(url);
       return this._http
          .post(url, body, this.options)
          .catch(this.handleError);
@@ -63,6 +65,15 @@ export class ServiceClass {
       console.error(errMsg);
       return Observable.throw(errMsg);
    }
+
+   doLogin(url: string, param: any): Observable<any> {
+      console.log(param);
+      // let body = JSON.stringify(param);
+      //  console.log(url);
+      return this._http
+         .post(url, param, this.options)
+         .catch(this.handleError);
+    }
 
 
 
@@ -78,7 +89,9 @@ export class ServiceClass {
 
 
 
-   }
+   } 
+
+
 
 
 

@@ -1,4 +1,4 @@
-page-login {
+page-register {
 
 
 
@@ -26,6 +26,17 @@ page-login {
     font-family: fantasy;
     position: relative;
     margin: 0;
+}
+
+.check-block-items{
+    display: inline-block;
+    width: 89%;
+    padding-left: 10px;
+}
+
+.Name-block ion-item {
+    display: inline-block;
+    width: 46%;
 }
 
 button.btn-paddingall ion-icon {

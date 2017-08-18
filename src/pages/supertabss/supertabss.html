@@ -13,10 +13,12 @@
       </div> -->
 
       <span *ngIf="menuoverviewdata"> {{menuoverviewdata.name}} </span>
-      <img class="cart-icon"  (click)="openCheckout()" src="assets/img/temp/cart_icon.png">
+      <div *ngIf="activateTabIndex == 1"> 
+      <img   class="cart-icon"  (click)="openCheckout()" src="assets/img/temp/cart_icon.png">
       <span class="badge-span-top" (click)="openCheckout()">{{ this.service.globalVar}}</span>
       <span  (click)="openCheckout()" class="price-badge-top ">{{this.service.globaltotalbill}} $</span>
-    </ion-title>
+      </div>
+   </ion-title>
   </ion-navbar>
 </ion-header>
  

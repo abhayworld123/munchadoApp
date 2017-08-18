@@ -1,0 +1,92 @@
+<ion-header>
+
+  <ion-navbar color=light>
+    <ion-title>Register </ion-title>
+    <span (click)="openSignin()" class="right-top">SIGN IN </span>
+  </ion-navbar>
+
+</ion-header>
+<!-- <div class="backg"></div> -->
+
+<ion-content padding>
+
+   <p style="text-align:center">Register Now, Eat Soon</p>
+
+  <button class="btn-paddingall" ion-button block color="fb_bg" (click)="facebookLogin()">
+     <ion-icon name="logo-facebook"></ion-icon>
+           Connect with Facebook
+  </button>
+
+
+  <button class="btn-paddingall" ion-button block color="twitter_bg" (click)="googleLogin()">
+    <ion-icon name="logo-googleplus"></ion-icon>
+             Connect with Twitter
+  </button>
+
+  <button class="btn-paddingall" ion-button block color="google_bg" (click)="googleLogin()">
+    <ion-icon name="logo-googleplus"></ion-icon>
+             Connect In with Google
+  </button>
+
+  <p style="text-align:center">-- or register with your email address--</p>
+  <hr>
+  <ion-list>
+
+    <div class="Name-block">
+      <ion-item>
+        <ion-label floating>Firstname</ion-label>
+        <ion-input type="text"></ion-input>
+
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Lastname</ion-label>
+        <ion-input type="text"></ion-input>
+
+      </ion-item>
+    </div>
+
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="email"></ion-input>
+    </ion-item>
+  <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+     <ion-item>
+      <ion-label floating>Dine & More (optional)</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+   <p>Get access to irresistable rewards and start earning points towards exclusive specials 
+      and free food today!
+   </p>
+   <hr>
+
+   <p>By registering , you accept our Terms and Privacy Policy.</p>
+  
+   <div class="checkbox-block">
+      <ion-checkbox >
+      </ion-checkbox>   
+       <p class="check-block-items">Would you like to subscribe to MunchAdo Newletter to stay up-to-date 
+          on launches, offer and promotions </p>
+      
+      
+  
+   </div>
+</ion-list>
+
+  <p>  </p>
+
+
+  <button class="btn-paddingall" ion-button block color="login_bg" (click)="anonymous()">
+    <!--<ion-icon name="logo-facebook"></ion-icon>-->
+    Register
+  </button>
+
+  <!--   
+  <div class="logoimg">
+  <img  src="assets/logo.png"><p>Logo</p></div> -->
+
+  <!-- <div class="xyz"></div> -->
+
+</ion-content>

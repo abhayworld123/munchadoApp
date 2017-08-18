@@ -1,33 +1,60 @@
+<ion-header>
 
+  <ion-navbar color=light>
+    <ion-title>Sign In or SignUp</ion-title>
+     <span (click)=" openRegister()" class="right-top">REGISTER </span>
+   </ion-navbar>
 
-<!--<ion-header>
-
-  <ion-navbar color=primary>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
-
-</ion-header>-->
-<div class="backg"></div>
+</ion-header>
+<!-- <div class="backg"></div> -->
 
 <ion-content padding>
-  
-  <div class="logoimg">
-  <img  src="assets/logo.png"><p>Logo</p></div>
 
-<div class="xyz"></div>
-  <button ion-button block color="danger" (click)="googleLogin()">
+  <button class="btn-paddingall" ion-button block color="fb_bg" (click)="facebookLogin()">
+     <ion-icon name="logo-facebook"></ion-icon>
+           Sign In with Facebook
+  </button>
+
+ 
+  <button class="btn-paddingall" ion-button block color="twitter_bg" (click)="googleLogin()">
     <ion-icon name="logo-googleplus"></ion-icon>
-            Login with Google
+             Sign In with Twitter
   </button>
 
-  <button ion-button block color="possitive" (click)="facebookLogin()">
-    <ion-icon name="logo-facebook"></ion-icon>
-          Login with Facebook
+   <button class="btn-paddingall" ion-button block color="google_bg" (click)="googleLogin()">
+    <ion-icon name="logo-googleplus"></ion-icon>
+             Sign In with Google
+  </button>
+ 
+  <p style="text-align:center"> or Sign In using your MunchAdo account</p>
+  <hr>
+  <ion-list>
+
+    <ion-item>
+      <ion-label floating>Username</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <p (click)="openForgot()"> Forgot your Password ? </p> 
+
+
+  <button class="btn-paddingall" ion-button block color="login_bg" (click)="anonymous()">
+     <!--<ion-icon name="logo-facebook"></ion-icon>-->
+    SignIn
   </button>
 
-  <button ion-button block color="possitive" (click)="anonymous()">
-    <!--<ion-icon name="logo-facebook"></ion-icon>-->
-     Anonymous Login
-  </button>
+  <button (click)="Login()" ion-button >login</button>
+  <!--   
+  <div class="logoimg">
+  <img  src="assets/logo.png"><p>Logo</p></div> -->
+
+  <!-- <div class="xyz"></div> -->
 
 </ion-content>

@@ -1,3 +1,5 @@
+import { ForgotPage } from './../pages/forgot/forgot';
+import { RegisterPage } from './../pages/register/register';
 import { CheckNull } from './../pipes/CheckNull.pipe';
 import { GallarydetailsPage } from './../pages/gallarydetails/gallarydetails';
 import { GallaryPage } from './../pages/gallary/gallary';
@@ -66,7 +68,7 @@ firebase.initializeApp(firebaseConfig);
       MyApp, CartPage, addtocardPage, foodPage, StoryComponent, TakeoutPage, DeliveryPage,
       HomePage, CreatePage, LoginPage, IntroPage, SupertabssPage, checkouttabPage,
       StoryComponent, ReviewsPage, MenuPage, OverviewPage, DinenmorePage, TruncatePipe, SpaceConvertPipe,
-      ReviewDescComponent, GallaryPage, GallarydetailsPage, CheckNull
+      ReviewDescComponent, GallaryPage, GallarydetailsPage, CheckNull,RegisterPage,ForgotPage
    ],
    imports: [
       BrowserModule, SuperTabsModule.forRoot(),
@@ -80,7 +82,8 @@ firebase.initializeApp(firebaseConfig);
       SupertabssPage, StoryComponent, DeliveryPage, TakeoutPage,
       MyApp, CartPage, addtocardPage, foodPage, GallaryPage,
       HomePage, CreatePage, LoginPage, IntroPage, StoryComponent, ReviewsPage
-      , MenuPage, OverviewPage, DinenmorePage, checkouttabPage, GallarydetailsPage
+      , MenuPage, OverviewPage, DinenmorePage, checkouttabPage, GallarydetailsPage,RegisterPage,
+      ForgotPage
    ],
    providers: [
       StatusBar,

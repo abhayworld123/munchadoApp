@@ -24,6 +24,7 @@ export class MyApp {
    errorMessage: any;
    rootPage: any;
    loader: any;
+   body:any;
 
 
    constructor(platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, public dataservice: ServiceClass,
@@ -89,10 +90,12 @@ export class MyApp {
       });
    }
 
+   
    private getToken() {
+      this.body='username=myusername&password=mypassword';
       return new Promise((resolve, reject) => {
          this.dataservice
-            .gettoken('http://api.munchado.in/api/auth/token', '')
+            .gettoken('http://api.munchado.in/api/auth/token', this.body)
             .subscribe(
             result => {
                result = JSON.parse(result._body);
