@@ -13,22 +13,16 @@
 </ion-header> -->
 
 
-<ion-content class="overview-content" >
+<ion-content class="overview-content">
 
-
+<div width="100" height="20" #map id="map"></div>
   <div *ngIf="menuoverviewdata" #slide1>
 
-     <div class="dinenmore">
+    <div class="dinenmore">
       <img src="assets/images/i_dinemore.png">
       <p>Get Rewarded your loyalty</p>
-     </div>
-
-
-
+    </div>
     <div class="border-block">
-
-
-      <!-- <h1>Overview</h1> -->
       <h3 class="rest-name">{{menuoverviewdata.name}}</h3>
 
       <p class="rest-type-offered">{{menuoverviewdata.cuisine_offerd}}</p>
@@ -42,8 +36,6 @@
 
       </div>
       <div class="over-landmark">{{menuoverviewdata.landmark}} </div>
-
-
     </div>
     <div class="border-block">
       <div class="over-in-block">
@@ -55,6 +47,7 @@
       </div>
     </div>
     <div class="border-block">
+      
       <div>{{menuoverviewdata.short_address}}</div>
 
     </div>
@@ -122,14 +115,14 @@
         <span class="over-total-rev">{{menuoverviewdata.total_reviews}} Reviews</span>
       </div>
 
-      
+
       <div class="review-block" *ngFor="let rev of restaurantreviews ">
 
         <div class="over-rev-tips">{{rev.tip}}</div>
 
         <div class="over-rev-nameblock">
           <img src="{{rev.display_pic_url}}" onError="this.src='assets/images/temp/place_holder_home.png'">
-          <p>{{rev.reviews}}</p>  
+          <p>{{rev.reviews}}</p>
           <div class="over-rev-name">{{rev.reviewer}}</div> <span class="">{{rev.joined_on}}</span>
         </div>
 
@@ -145,6 +138,6 @@
 
 
   </div>
-   
+
 
 </ion-content>

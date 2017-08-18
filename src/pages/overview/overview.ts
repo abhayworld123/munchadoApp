@@ -1,17 +1,17 @@
 import { TruncatePipe } from './../../pipes/limitchar.pipe';
-import {CheckNull} from './../../pipes/CheckNull.pipe';
+import { CheckNull } from './../../pipes/CheckNull.pipe';
 import { SupertabssPage } from './../supertabss/supertabss';
 import { Observer } from 'rxjs/Observer';
 import { addtocardPage } from './../addtocard/addtocard';
 import { CartPage } from './../cartpage/cartpage';
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { ViewController, Slides, Content } from 'ionic-angular';
 import { HomePage } from '../../pages/home/home';
 import { Storage } from '@ionic/storage';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ServiceClass } from '../../providers/servicee';
 
-
+declare const google: any;
 /**
  * Generated class for the OverviewPage page.
  *
@@ -24,8 +24,10 @@ import { ServiceClass } from '../../providers/servicee';
 
    templateUrl: 'overview.html',
 })
-export class OverviewPage {
+export class OverviewPage implements AfterViewInit {
 
+   @ViewChild('map') mapElement: any;
+   map: any;
    menuoverviewdata: any;
    menudata: any;
    baseurl: any;
@@ -45,10 +47,24 @@ export class OverviewPage {
    reviews: any;
    d = new Date();
    n = this.d.getDay();
-   showMorevar:any =0 ;
-   
+   showMorevar: any = 0;
+   mapApi = "AIzaSyDtp2_V1VghnpwAOlnUi6xyVmoSWTVv2YI";
+
 
    constructor(public modalCtrl: ModalController, public service: ServiceClass, public storage: Storage, public navCtrl: NavController, public navparam: NavParams, public viewCtrl: ViewController) {
+   }
+
+   public ngAfterViewInit() {
+      // setTimeout(
+      //    () => {
+            console.log('this.mapElement: ', this.mapElement);
+            this.map = new google.maps.Map(this.mapElement.nativeElement, {
+               zoom: 9,
+               center: { lat: 41.85, lng: -87.65 }
+            });
+
+         // }, 2000
+      // )
    }
 
    ionViewDidLoad() {
@@ -59,13 +75,16 @@ export class OverviewPage {
       }, 1000)
 
 
-   }
-    
-   showMore(){
-     this.showMorevar = 1;
+
    }
 
-   showLess(){
+
+
+   showMore() {
+      this.showMorevar = 1;
+   }
+
+   showLess() {
       this.showMorevar = 0;
    }
 
@@ -86,16 +105,19 @@ export class OverviewPage {
    }
    OperateTime: any;
    GetOperatinghours() {
-       this.menuoverviewdata.opening_hours.forEach((element, index) => {
+      this.menuoverviewdata.opening_hours.forEach((element, index) => {
 
          if (this.n == index) {
             this.OperateTime = element.operation_hrs_ft;
          }
       });
       return this.OperateTime;
-  }
+   }
 
    ngOnInit() {
+
+
+
       this.service.getmenuoverview(this.service.token)
          .subscribe(menuoverview => {
             // console.log('okkkkkkkk' + menuoverview);
