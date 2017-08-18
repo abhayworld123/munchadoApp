@@ -5,16 +5,17 @@ page-takeout {
     font-weight: bold;
     font-size: 13px;
     text-align: left;
-    /* float: left; */
-    width: 61%;
+   //  /* float: left; */
+   //  width: 61%;
     display: inline-block;
+    margin: 0;
 }
 
 span.thead-change {
     /* float: right; */
     /* clear: left; */
     display: inline-block;
-    width: 33%;
+   //  width: 33%;
     color: red;
     text-align: right;
 }
@@ -23,7 +24,7 @@ span.thead-add {
     /* float: right; */
     /* clear: left; */
     display: inline-block;
-    width: 33%;
+   //  width: 33%;
     color: red;
     text-align: right;
 }

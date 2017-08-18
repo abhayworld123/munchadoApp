@@ -26,28 +26,43 @@ import { DatePipe } from '@angular/common';
  */
 
 @Component({
-  selector: 'page-takeout',
-  templateUrl: 'takeout.html',
+   selector: 'page-takeout',
+   templateUrl: 'takeout.html',
 })
 export class TakeoutPage {
 
-  allorder:any;
-  mydate:Date;
-  mydate1:any;
-  subtotal:any =0 ;
+   totalBillAmount: number = 0;
+   allOrders: any;
+
+   mydate: Date;
+   mydate1: any;
+   subtotal: any = 0;
 
 
-  constructor(public navCtrl: NavController ,public modalCtrl: ModalController, public viewCtrl:ViewController , public servicee:ServiceClass) {
+   constructor(public navCtrl: NavController,
+      public modalCtrl: ModalController,
+      public viewCtrl: ViewController,
+      public servicee: ServiceClass) {
 
-  }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TakeoutPage');
-  }
+   }
 
-  ngOnInit(){
-    this.allorder = this.servicee.globalCartitems;
-    console.log(this.allorder);
-  
-  }
+   public getPrice(amount) {
+      if (!amount || isNaN(amount)) {
+         amount = 0;
+      }
+      this.totalBillAmount += amount;
+      return amount;
+   }
+
+   public get totalBil(){
+      return this.totalBillAmount;
+   }
+
+   ngOnInit() {
+      this.allOrders = this.servicee.globalCartitems;
+      this.totalBillAmount = this.servicee.globaltotalbill;
+      console.log('this.allOrders: ' + JSON.stringify(this.allOrders));
+
+   }
 
 }

@@ -6,40 +6,84 @@
 -->
 <ion-header>
 
- 
+
 
 </ion-header>
 
 
 <ion-content padding>
 
-  <ion-item>
-  <ion-label>Time</ion-label>
-  <ion-datetime pickerFormat="HH:mm A" displayFormat=" HH:mm A" [(ngModel)]="mydate"></ion-datetime>
-</ion-item>
-<ion-item>
-  <ion-label>Date</ion-label>
-  <ion-datetime pickerFormat="MM DDDD YYYY" displayFormat="MM DDDD, YYYY" [(ngModel)]="mydate1"></ion-datetime>
+   <ion-item>
+      <ion-label>Time</ion-label>
+      <ion-datetime pickerFormat="HH:mm A" displayFormat=" HH:mm A" [(ngModel)]="mydate"></ion-datetime>
+   </ion-item>
+   <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime pickerFormat="MM DDDD YYYY" displayFormat="MM DDDD, YYYY" [(ngModel)]="mydate1"></ion-datetime>
+   </ion-item>
 
+   <div class="takeout-block">
+      <div style="width: 100%; height: 30px; margin-top: 10px;">
+         <div style="float: left;">
+            <p class=thead>TIME OF TAKEOUT </p>
+         </div>
+         <div style="float: right;">
+            <span class="thead-change">Change</span>
+         </div>
+      </div>
+      <p><span></span> <span>{{mydate1 }}</span> <span>{{mydate }}</span> </p>
+   </div>
 
-   
-</ion-item>
- 
-  <div class="takeout-block">
-  <p class=thead>TIME OF TAKEOUT </p>         <span class="thead-change">Change</span>   
-   <p><span></span> <span >{{mydate1 }}</span>  <span >{{mydate }}</span>  </p> 
-  </div>
+   <div class="your-order-block">
+      <div style="width: 100%; height: 30px; margin-top: 10px;">
+         <div style="float: left;">
+            <p class="thead">YOUR ORDER </p>
+         </div>
+         <div style="float: right;">
+            <span class="thead-add">Add more items</span>
+         </div>
+      </div>
 
-  <div class="your-order-block" >
-    <p class="thead">YOUR ORDER </p>         <span class="thead-add">Add more items</span>   
-     <div *ngFor= "let item of allorder">  
-    <p   ><span class=item-name > {{item.item_name}} </span> <span class="item-price">{{item.prices[0].value}}</span>  </p> 
-     </div>
-           <hr>
-      <p class="item-block"><span>Subtotal</span> <span>{{this.servicee.globaltotalbill}}$</span>  </p>  
-       <p class="item-block"><span>TAX</span> <span> 0</span>  </p>
+      <div *ngFor="let item of allOrders">
+         <div style="width: 100%;">
+            <div style="width: 100%; height: 35px;">
+               <div style="float: left; width: calc(100% - 80px);">
+                  {{ item.item_name }}
+               </div>
+               <div style="float: right; width: 80px;">
+                  <div style="width: 40px; float: left; color: rgb(165, 165, 165);">
+                     {{ item.quantity }}
+                     <ion-icon style="color: #a17810;" name="trash"></ion-icon>
+                  </div>
+                  <div style="width: 40px; float: right; text-align: right;">
+                     {{ item.totalAmount }}$
+                  </div>
+               </div>
+            </div>
 
-        <p class="item-block"><span>TOTAL</span> <span>{{this.servicee.globaltotalbill}}$</span>  </p>  
- </div>
+            <div *ngIf="item.extraInfo" style=" width: calc(100% - 60px); font-size: 10px; padding-left: 8px; height: 25px; overflow: hidden;">{{ item.extraInfo }}</div>
+
+            <div *ngFor="let addOn of item.addOns" style="width: 100%; height: 35px; margin-bottom: 5px; padding-left: 10px;">
+               <div style="float: left; width: calc(100% - 80px);">
+                  + {{ addOn.name }}
+               </div>
+               <div style="float: right; width: 80px;">
+                  <div style="width: 40px; float: left; color: rgb(165, 165, 165);">
+                     {{ item.quantity }}
+                     <ion-icon style="color: #a17810;" name="trash"></ion-icon>
+                  </div>
+                  <div style="width: 40px; float: right; text-align: right;">
+                     {{ addOn.totalPrice }}$
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <hr style="height: 2px;">
+      <p class="item-block"><span>Subtotal</span> <span>{{ totalBil }}$</span> </p>
+      <p class="item-block"><span>TAX</span> <span> 0</span> </p>
+
+      <p class="item-block"><span>TOTAL</span> <span>{{ totalBil }}$</span> </p>
+   </div>
 
 </ion-content>

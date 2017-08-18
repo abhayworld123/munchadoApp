@@ -55,30 +55,12 @@ export class OverviewPage implements AfterViewInit {
    }
 
    public ngAfterViewInit() {
-      // setTimeout(
-      //    () => {
-            console.log('this.mapElement: ', this.mapElement);
-            this.map = new google.maps.Map(this.mapElement.nativeElement, {
-               zoom: 9,
-               center: { lat: 41.85, lng: -87.65 }
-            });
-
-         // }, 2000
-      // )
+      console.log('this.mapElement: ', this.mapElement);
+      this.map = new google.maps.Map(this.mapElement.nativeElement, {
+         zoom: 9,
+         center: { lat: 41.85, lng: -87.65 }
+      });
    }
-
-   ionViewDidLoad() {
-      // console.log('ionViewDidLoad OverviewPage');
-
-      setTimeout(() => {
-         // console.log(this.service.menuoverviewdataglobal);
-      }, 1000)
-
-
-
-   }
-
-
 
    showMore() {
       this.showMorevar = 1;

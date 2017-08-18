@@ -1,107 +1,106 @@
 <ion-header>
-  <ion-navbar ion-navbar color="orangee">
-    <ion-title>
-      <!-- <button ion-button block (click)="closeModal()">Close</button> -->
-      <div style="float:right" (click)="closeModal()">
-        <ion-icon ios="ios-backspace" md="md-backspace"></ion-icon>
-      </div>
-      addtocard
-    </ion-title>
-  </ion-navbar>
+   <ion-navbar ion-navbar color="orangee">
+      <ion-title>
+         
+         Add To Cart
+      </ion-title>
+      <ion-buttons item-right right end>
+         <button (click)="closeModal()">
+            <ion-icon ios="ios-backspace" md="md-backspace"></ion-icon>
+         </button>
+      </ion-buttons>
+   </ion-navbar>
 </ion-header>
 
 <ion-content>
+   <div style="height: 100%; width: 100%; padding: 0 10px;">
+   <ion-card style="margin: 10px 0; width: 100%;">
+      <ion-card-content>
+         <div style="width: 100%; height: 30px;">
+            <div style="float: left; font-size: 17px;">
+               <b>{{selectedDish.item_name}}</b>
+            </div>
+            <div style="float: right">
+               {{selectedDish.prices[0].value || 0.0}}$
+            </div>
+         </div>
+         <p>{{selectedDish.item_desc}}</p>
+      </ion-card-content>
 
+   </ion-card>
 
-  <ion-card>
-
-    <ion-item>
-      <!-- <ion-avatar item-start>
-      <img src="{{baseurl+dishorder.item_image_url}}">
-    </ion-avatar> -->
-      <h2>{{dishorder.item_name}}</h2>
-
-    </ion-item>
-
-
-
-    <ion-card-content>
-      <p>{{dishorder.item_desc}}</p>
-      <p>{{dishorder.prices[0].value}}</p>
-
-    </ion-card-content>
-
-
-
-    <img src="{{baseurl+dishorder.item_image_url}}">
-    <ion-list>
+   <img [src]="baseurl+selectedDish.item_image_url">
+   <ion-list>
       <em>E.g. extra cheese, sauce on the side etc. Any additional charges will be directly charged to your credit card.
                   <span>And remember to inform the restaurant of all dietary restrictions and food allergies in the box below.</span></em>
-    </ion-list>
+   </ion-list>
 
 
-    <div *ngIf="addons">
+   <div *ngIf="addons">
       <!-- <ion-list> -->
       <div *ngFor="let item of addons">
-        <h2>{{ item.name }}</h2>
-        <ion-list *ngIf="item.selection_type == 1">
-          <ion-item *ngFor="let option of item.options">
-            <ion-label>
-              {{ option.name }}
-            </ion-label>
-            <ion-checkbox (ionChange)="ionChange(item.name, option, $event.checked)"></ion-checkbox>
-          </ion-item>
-        </ion-list>
-        <ion-list *ngIf="item.selection_type == 0" radio-group>
-          <ion-item *ngFor="let option of item.options">
-            <ion-label>
-              {{ option.name }}
-            </ion-label>
-            <ion-radio [value]="option" (ionSelect)="ionSelect(item.name, option)"></ion-radio>
-          </ion-item>
-        </ion-list>
+         <h3 style="font-size: 18px;">{{ item.name }}</h3>
+         <ion-list *ngIf="item.selection_type == 1">
+            <ion-item *ngFor="let option of item.options">
+               
+               <ion-checkbox
+                  item-right end
+                  (ionChange)="ionChange(item, option, $event.checked)"
+                  [disabled]="isAddOnDisabled(item, option)"
+               >
+               </ion-checkbox>
+               <ion-label>
+                  {{ option.name }} - <b>${{ option.price }}</b>
+               </ion-label>
+            
+            </ion-item>
+         </ion-list>
+         <ion-list *ngIf="item.selection_type == 0" radio-group>
+            <ion-item *ngFor="let option of item.options">
+               <ion-radio [value]="option" (ionSelect)="ionSelect(item, option)"></ion-radio>
+               <ion-label>
+                  {{ option.name }} - <b>${{ option.price }}</b>
+               </ion-label>
+            </ion-item>
+         </ion-list>
       </div>
 
-    </div>
-    <button type="submit">Submit</button>
+   </div>
 
+   <textarea [(ngModel)]="extraInfo" style="width:100%; resize: none; height: 50px; border-radius: 3px; box-shadow: 0px 0px 2px 0px;" placeholder="Enter extra info"></textarea>
 
-    <p>Form value: {{ addonsGroup.value | json }}</p>
-
-    <textarea [(ngModel)]="extraInfo" style="width:100%" placeholder="Enter extra info"></textarea>
-
-    <ion-row>
+   <ion-row>
       <ion-col>
-        <button (click)="removequantity()" ion-button icon-left clear small>
-      <ion-icon ios="ios-remove" md="md-remove"></ion-icon>
-       </button>
+         <button (click)="removeQuantity()" [disabled]="dishQuantity <= 0" ion-button icon-left clear small style="background: rgba(128, 128, 128, 0.37);">
+            <ion-icon ios="ios-remove" md="md-remove" style="color: black;"></ion-icon>
+         </button>
       </ion-col>
       <ion-col>
-
-        <div> {{totalctr}} </div>
-
+         <button ion-button icon-left clear small style="color: black;">
+            <b>{{dishQuantity}}</b>
+         </button>
       </ion-col>
       <ion-col>
-        <button (click)="addquantity(dishorder)" ion-button icon-left clear small>
-         <ion-icon ios="ios-add" md="md-add"></ion-icon>
-
-        <!-- <div>+</div> -->
-      </button>
+         <button (click)="addQuantity()" ion-button icon-left clear small style="background: rgba(128, 128, 128, 0.37);">
+            <ion-icon ios="ios-add" md="md-add" style="color: black;"></ion-icon>
+         </button>
       </ion-col>
       <ion-col center text-center>
-
-        <span>  {{dishorder.prices[0].value}}$ </span>
-
+         <button ion-button icon-left clear small style="color: black;">
+            {{selectedDish.prices[0].value}}$
+         </button>
       </ion-col>
       <ion-col center text-center>
-        <span>  {{ dishorder.prices[0].value  * totalctr  }} $ </span>
+         <button ion-button icon-left clear small style="color: black;">
+            {{ selectedDish.prices[0].value  * dishQuantity  }}$
+         </button>
       </ion-col>
-    </ion-row>
+   </ion-row>
 
-    <button (click)="addToOrder(totalctr)" ion-button full color="light"> Add To Order </button>
+   <button [disabled]="dishQuantity <= 0" (click)="addToOrder()" ion-button full color="light"> Add To Order </button>
 
 
+   </div>
 
-  </ion-card>
 
 </ion-content>
