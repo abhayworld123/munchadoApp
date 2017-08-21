@@ -76,7 +76,7 @@ export class foodPage {
   ionViewDidEnter() {
     this.content.resize();
     // setInterval(() => {
-    //   console.log(this.service.globalVar);
+    //   console.log(this.service.globalTotalItemSelected);
     // }, 15000);
 
   }

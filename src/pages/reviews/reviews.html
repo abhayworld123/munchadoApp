@@ -20,7 +20,7 @@
     <ion-list> Total: {{reviews.total_review_count}} reviews {{reviews.positive_sentiment_percent}}% customers expressed positive sentiment</ion-list>
 
     <div *ngFor="let rev of  reviews.reviews;let i = index ">
-      <!-- <img src="{{rev.display_pic_url}}" onError="this.src='../assets/img/temp/place_holder_home.png'"> {{rev.first_name}}{{rev.tip_id}}
+      <!-- <img src="{{rev.display_pic_url}}" onError="this.src='../assets/images/temp/place_holder_home.png'"> {{rev.first_name}}{{rev.tip_id}}
               {{rev.joined_on}} -->
       <div *ngIf="rev.review_id">
 

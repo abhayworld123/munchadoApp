@@ -102,13 +102,14 @@ export class OverviewPage implements AfterViewInit {
 
       this.service.getmenuoverview(this.service.token)
          .subscribe(menuoverview => {
-            // console.log('okkkkkkkk' + menuoverview);
+            // console.log('menuoverview: ' + JSON.stringify(menuoverview));
 
 
             this.menuoverviewdata = menuoverview.data,
-               console.log(menuoverview.data), console.log(this.baseurl + menuoverview.data.cover_image)
+               // console.log(menuoverview.data);
+               // console.log(this.baseurl + menuoverview.data.cover_image);
 
-               , this.menuoverviewdata.restaurant_reviews.forEach(element => {
+               this.menuoverviewdata.restaurant_reviews.forEach(element => {
 
                   this.restaurantreviews.push(element);
 
