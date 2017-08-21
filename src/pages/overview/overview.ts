@@ -2,7 +2,7 @@ import { TruncatePipe } from './../../pipes/limitchar.pipe';
 import { CheckNull } from './../../pipes/CheckNull.pipe';
 import { SupertabssPage } from './../supertabss/supertabss';
 import { Observer } from 'rxjs/Observer';
-import { addtocardPage } from './../addtocard/addtocard';
+import { AddToCartPage } from './../addtocard/addtocard';
 import { CartPage } from './../cartpage/cartpage';
 import { Component, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { ViewController, Slides, Content } from 'ionic-angular';

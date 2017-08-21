@@ -37,7 +37,7 @@
         "cordova-plugin-datepicker": "^0.9.3",
         "cordova-plugin-device": "^1.1.6",
         "cordova-plugin-facebook4": "^1.9.1",
-        "cordova-plugin-googleplus": "^5.1.1",
+        "cordova-plugin-inappbrowser": "^1.7.1",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "^2.2.2",
         "cordova-plugin-whitelist": "^1.3.1",
@@ -67,9 +67,6 @@
     },
     "cordova": {
         "plugins": {
-            "cordova-plugin-googleplus": {
-                "REVERSED_CLIENT_ID": "com.googleusercontent.apps.58557016177-0n12jmqft03mebihd5li4ktfu6vp579h"
-            },
             "cordova-plugin-console": {},
             "cordova-plugin-device": {},
             "cordova-plugin-splashscreen": {},
@@ -83,7 +80,8 @@
             "cordova-plugin-browsertab": {},
             "cordova-plugin-buildinfo": {},
             "cordova-universal-links-plugin": {},
-            "cordova-plugin-datepicker": {}
+            "cordova-plugin-datepicker": {},
+            "cordova-plugin-inappbrowser": {}
         },
         "platforms": [
             "android"

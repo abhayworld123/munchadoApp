@@ -49,7 +49,7 @@
          </div>
       </div>
 
-      <div *ngFor="let item of allOrders; let orderIndex = index;">
+      <div *ngFor="let item of allOrders; let orderIndex = index;" (click)="editItem($event, item)">
          <div style="width: 100%;">
             <div style="width: 100%; height: 35px;">
                <div style="float: left; width: calc(100% - 80px);">
@@ -58,7 +58,7 @@
                <div style="float: right; width: 80px;">
                   <div style="width: 40px; float: left; color: rgb(165, 165, 165);">
                      {{ item.quantity }}
-                     <ion-icon style="color: #a17810;" name="trash" (click)="removeMainItem(item, orderIndex)"></ion-icon>
+                     <ion-icon style="color: #a17810;" name="trash" (click)="removeMainItem($event, item, orderIndex)"></ion-icon>
                   </div>
                   <div style="width: 40px; float: right; text-align: right;">
                      {{ item.totalAmount }}$
@@ -75,7 +75,7 @@
                <div style="float: right; width: 80px;">
                   <div style="width: 40px; float: left; color: rgb(165, 165, 165);">
                      {{ item.quantity }}
-                     <ion-icon style="color: #a17810;" name="trash" (click)="removeAddOnItem(item, orderIndex, addOnIndex)"></ion-icon>
+                     <ion-icon style="color: #a17810;" name="trash" (click)="removeAddOnItem($event, item, orderIndex, addOnIndex)"></ion-icon>
                   </div>
                   <div style="width: 40px; float: right; text-align: right;">
                      {{ addOn.totalPrice }}$

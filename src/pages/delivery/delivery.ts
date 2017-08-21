@@ -6,7 +6,7 @@ import { ReviewsPage } from './../reviews/reviews';
 import { MenuPage } from './../menu/menu';
 import { OverviewPage } from './../overview/overview';
 import { Observer } from 'rxjs/Observer';
-import { addtocardPage } from './../addtocard/addtocard';
+import { AddToCartPage } from './../addtocard/addtocard';
 import { CartPage } from './../cartpage/cartpage';
 import { foodPage } from './../food/food';
 

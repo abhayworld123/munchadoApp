@@ -1,8 +1,7 @@
 <ion-header>
    <ion-navbar ion-navbar color="orangee">
       <ion-title>
-         
-         Add To Cart
+         {{ title }}
       </ion-title>
       <ion-buttons item-right right end>
          <button (click)="closeModal()">
@@ -45,6 +44,7 @@
                
                <ion-checkbox
                   item-right end
+                  [checked]="option.checked"
                   (ionChange)="ionChange(item, option, $event.checked)"
                   [disabled]="isAddOnDisabled(item, option)"
                >
@@ -57,7 +57,12 @@
          </ion-list>
          <ion-list *ngIf="item.selection_type == 0" radio-group>
             <ion-item *ngFor="let option of item.options">
-               <ion-radio [value]="option" (ionSelect)="ionSelect(item, option)"></ion-radio>
+               <ion-radio
+                  [checked]="option.checked"
+                  [value]="option"
+                  (ionSelect)="ionSelect(item, option)"
+               >
+               </ion-radio>
                <ion-label>
                   {{ option.name }} - <b>${{ option.price }}</b>
                </ion-label>
@@ -71,7 +76,7 @@
 
    <ion-row>
       <ion-col>
-         <button (click)="removeQuantity()" [disabled]="dishQuantity <= 0" ion-button icon-left clear small style="background: rgba(128, 128, 128, 0.37);">
+         <button (click)="removeQuantity()" [disabled]="dishQuantity <= 1" ion-button icon-left clear small style="background: rgba(128, 128, 128, 0.37);">
             <ion-icon ios="ios-remove" md="md-remove" style="color: black;"></ion-icon>
          </button>
       </ion-col>
@@ -97,7 +102,8 @@
       </ion-col>
    </ion-row>
 
-   <button [disabled]="dishQuantity <= 0" (click)="addToOrder()" ion-button full color="light"> Add To Order </button>
+   <button [disabled]="dishQuantity <= 0" (click)="addToOrder()" ion-button full color="light" *ngIf="!isEditMode"> Add To Order </button>
+   <button [disabled]="dishQuantity <= 0" (click)="updateOrder()" ion-button full color="light" *ngIf="isEditMode"> Update </button>
 
 
    </div>

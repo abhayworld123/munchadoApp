@@ -26,7 +26,7 @@ export class ServiceClass {
    public token: any;
    public token2: any;
    public extractdata: any;
-
+   public loginInfo :any; 
    public cartcount: number = 0;
    // private _producturl= constants.API_URL + 'userlist'; 
    constructor(private _http: Http) {
@@ -73,6 +73,14 @@ export class ServiceClass {
       return this._http
          .post(url, param, this.options)
          .catch(this.handleError);
+    }
+
+    doRegister(url:string , param:any): Observable<any>{
+      console.log(param);
+      return this._http
+         .post(url, param, this.options)
+        
+
     }
 
 

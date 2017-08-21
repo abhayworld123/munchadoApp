@@ -12,6 +12,7 @@ export class AuthProvider {
     public facebook: Facebook) {}
 
   getUser():firebase.User {
+     console.log(this.afAuth.auth.currentUser);
     return this.afAuth.auth.currentUser;
   }
 

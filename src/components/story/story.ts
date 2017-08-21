@@ -1,7 +1,7 @@
 
 import { SupertabssPage } from '../../pages/supertabss/supertabss';
 import { Observer } from 'rxjs/Observer';
-import { addtocardPage } from '../../pages/addtocard/addtocard';
+import { AddToCartPage } from '../../pages/addtocard/addtocard';
 import { CartPage } from '../../pages/cartpage/cartpage';
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { ViewController, Slides, Content } from 'ionic-angular';

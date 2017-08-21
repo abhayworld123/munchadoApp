@@ -1,23 +1,23 @@
-import { foodPage } from './../food/food';
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
-import { HomePage } from '../../pages/home/home';
 import { Storage } from '@ionic/storage';
 import { NavController, NavParams } from 'ionic-angular';
 import { ServiceClass } from '../../providers/servicee';
 import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { EditItemService } from '../../providers/cart/edit-item.service';
 
 @Component({
    selector: 'page-addtocard',
    templateUrl: 'addtocard.html'
 })
-export class addtocardPage {
+export class AddToCartPage {
    baseurl = 'http://dc8l3mwto1qll.cloudfront.net/assets/munch_images/' + "rnymn06237/thumb/";
 
+   title: string = 'Add To Cart';
    resname: any;
+   isEditMode: boolean = false;
    selectedDish: any;
    dishQuantity: number = 1;
-   quant: any;
    sel: any = 0;
    addons: any = [];
    itemId: any;
@@ -26,15 +26,34 @@ export class addtocardPage {
    updateDetailsForm: FormGroup;
    extraInfo: any;
 
+   // edit mode
+   editTotalAmount = 0;
+   editTotalAddOnsAmount = 0;
+   editQuantity = 0;
+
    // public categories  :  [{name: 'one'}, {name: 'two'}, {name: 'threeve'}];
    public categories: any[] = [{ name: 'one' }, { name: 'two' }, { name: 'threeve' }];
 
-   constructor(public formBuilder: FormBuilder, public service: ServiceClass, public storage: Storage, public navCtrl: NavController, public navparam: NavParams, public viewCtrl: ViewController) {
+   constructor(public formBuilder: FormBuilder,
+      public service: ServiceClass,
+      public storage: Storage,
+      public navCtrl: NavController,
+      public navparam: NavParams,
+      public viewCtrl: ViewController,
+      private editItemService: EditItemService) {
 
       // this.resname = this.navparam.get("resname");
-      this.selectedDish = JSON.parse(JSON.stringify(this.navparam.get("dish")))
+      this.selectedDish = JSON.parse(JSON.stringify(this.navparam.get('dish')))
+      this.isEditMode = this.navparam.get('isEdit');
       this.itemId = this.selectedDish.item_id;
-      this.quant = 0;
+      this.dishQuantity = this.selectedDish.quantity || 1;
+      this.selectedAddons = this.selectedDish.selectedAddons || {};
+      if (this.isEditMode) {
+         this.title = 'Update Item';
+         this.editTotalAmount = this.selectedDish.totalAmount;
+         this.editTotalAddOnsAmount = this.selectedDish.totalAddOnsAmount;
+         this.editQuantity = this.selectedDish.quantity;
+      }
    }
 
    ngOnInit() {
@@ -45,6 +64,19 @@ export class addtocardPage {
                this.addons = <any[]>menuaddons[0].addons;
             } else {
                this.addons = [];
+            }
+            for (let i = 0; i < this.addons.length; i++) {
+               let obj = this.addons[i];
+               let options = obj.options;
+               let selectedAddOnOption = this.selectedAddons[obj.name];
+               for (let j = 0; j < options.length; j++) {
+                  let optionObj = options[j];
+                  if (selectedAddOnOption && selectedAddOnOption[optionObj.id]) {
+                     optionObj.checked = true;
+                  } else {
+                     optionObj.checked = false;
+                  }
+               }
             }
          },
          (err: any) => {
@@ -108,7 +140,16 @@ export class addtocardPage {
       this.dishQuantity--;
    }
 
-   public addToOrder() {
+   public updateOrder() {
+
+      this.updatestorage(-1, this.editTotalAmount);
+      this.updatestorage(-1, this.editTotalAddOnsAmount);
+      this.updateTotalCount((-1 * this.editQuantity));
+      this.addToOrder(true);
+      this.editItemService.updateCartDetails();
+   }
+
+   public addToOrder(isEdit) {
       let price: number = parseFloat(this.selectedDish.prices[0].value || 0.0);
 
       this.selectedDish.extraInfo = this.extraInfo;
@@ -117,9 +158,15 @@ export class addtocardPage {
 
       let addOns = this.getAddOns(this.selectedAddons);
       this.selectedDish.addOns = addOns.addOns;
+      this.selectedDish.selectedAddons = this.selectedAddons;
       this.selectedDish.totalAddOnsAmount = addOns.totalAddOnsBill * this.dishQuantity;
 
-      this.service.globalCartitems.push(this.selectedDish);
+      if (!isEdit) {
+         this.selectedDish.itemIndex = this.service.globalCartitems.length;
+         this.service.globalCartitems.push(this.selectedDish);
+      } else {
+         this.service.globalCartitems[this.selectedDish.itemIndex] = this.selectedDish;
+      }
 
       this.updateTotalCount(this.dishQuantity);
       this.updatestorage(this.dishQuantity, price); // price for selected manue and quantity
@@ -129,7 +176,8 @@ export class addtocardPage {
    }
 
    public updatestorage(quantity, price) {
-      this.service.globaltotalbill = this.service.globaltotalbill + (quantity * price);
+      let amount = quantity * price;
+      this.service.globaltotalbill = this.service.globaltotalbill + amount;
    }
 
    public updateTotalCount(quantity) {

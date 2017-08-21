@@ -30,7 +30,7 @@
 
   <p style="text-align:center">-- or register with your email address--</p>
   <hr>
-    <form [formGroup]="registrationGrp"  (ngSubmit)="registerForm()" novalidate >
+    <form  (ngSubmit)="registerForm(f)" novalidate #f="ngForm">
   <ion-list>
 
     <div class="Name-block">
@@ -39,59 +39,53 @@
         <ion-input
          required 
           type="text"
-         formControlName="firstName"
-        
+          ngModel
+          name="firstName"
           ></ion-input>
-         
+
       </ion-item>
-      <ion-label class="first-val" *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" >Please enter Firstname</ion-label>     
-    
-         <!-- <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
-     class="alert alert-danger"> </div> -->
-     
       <ion-item>
         <ion-label floating>Lastname</ion-label>
         <ion-input
         required 
-        formControlName="lastName"
-        
-       
+        ngModel
+        name="lastName"
         type="text"></ion-input>
-      
+
       </ion-item>
     </div>
 
-   <ion-item>
-        <ion-label floating>Email</ion-label>
-        <ion-input     
+   
+      <input class="text-input text-input-md" 
+       placeholder="Email"
+      name="rEmail"
       email
       required
-      formControlName="rEmail"
+      ngModel
+      #rEmail="ngModel"
       type="email"
-      ></ion-input>
-   </ion-item>
+      />
       <!-- <div>{{rEmail.errors | json}}</div> -->
-       <div class="validation-txt" *ngIf="rEmail.errors && (rEmail.dirty || rEmail.touched)" >Please enter your Email</div>   
+            <div class="alert alert-danger" *ngIf="rEmail.errors && (rEmail.dirty || rEmail.touched)" >Please enter your Email</div>  
 
    
   <ion-item>
      
       <ion-label floating>Password</ion-label>
       <ion-input
-      autocomplete="off"
-      
+      autocomplete ="false"
+      name="rPass"
       required
-      formControlName="rPass"
+      ngModel 
       type="password"></ion-input>
     </ion-item>
-     <div class="validation-txt" *ngIf="rPass.errors && (rPass.dirty || rPass.touched)" >Please enter proper password with mininum 8 char</div>   
-
+   
      <ion-item>
       <ion-label floating>Dine & More (optional)</ion-label>
       <ion-input 
-      
+      name="dine"
       required
-      formControlName="dine"
+      ngModel 
       type="text"></ion-input>
     </ion-item>
    <p>Get access to irresistable rewards and start earning points towards exclusive specials 
@@ -103,7 +97,7 @@
    
 
    <div class="checkbox-block">
-      <ion-checkbox checked="true" formControlName="newsletter"  >
+      <ion-checkbox checked="true" ngModel name="newsletter" >
       </ion-checkbox>   
         <p class="check-block-items">Would you like to subscribe to MunchAdo Newletter to stay up-to-date 
           on launches, offer and promotions

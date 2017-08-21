@@ -50,18 +50,19 @@ import { ReviewDescComponent } from '../components/review-desc/review-desc';
 
 // common components
 import { LoaderService } from '../common/loader.service';
-
 import { EditItemService } from '../providers/cart/edit-item.service';
 
 export const firebaseConfig = {
-   apiKey: "AIzaSyBW4cwHEI7BHknNvF5ih7mFlCN716Itkjs",
-   authDomain: "studentsro-21b7f.firebaseapp.com",
-   databaseURL: "https://studentsro-21b7f.firebaseio.com",
-   projectId: "studentsro-21b7f",
-   storageBucket: "studentsro-21b7f.appspot.com",
-   messagingSenderId: "252568098743"
+   apiKey: "AIzaSyAak8g9P2AN71pNOw4aY8LYSQoyIIfwmAM",
+   authDomain: "munch-ada67.firebaseapp.com",
+   databaseURL: "https://munch-ada67.firebaseio.com",
+   projectId: "munch-ada67",
+   storageBucket: "munch-ada67.appspot.com",
+   messagingSenderId: "90720404304"
+};
+//   firebase.initializeApp(config);
 
-}
+
 firebase.initializeApp(firebaseConfig);
 //  const storage = firebase.storage();
 //  var storef =  storage.ref();

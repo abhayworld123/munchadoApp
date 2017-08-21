@@ -1,7 +1,7 @@
 import { checkouttabPage } from './../checkouttab/checkouttab';
 import { SupertabssPage } from './../supertabss/supertabss';
 import { Observer } from 'rxjs/Observer';
-import { addtocardPage } from './../addtocard/addtocard';
+import { AddToCartPage } from './../addtocard/addtocard';
 import { CartPage } from './../cartpage/cartpage';
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { ViewController, Slides, Content } from 'ionic-angular';
@@ -59,7 +59,7 @@ export class MenuPage {
    presentModal(item, ind) {
       console.log(item);
       console.log(ind);
-      let modal = this.modalCtrl.create(addtocardPage, { dish: item });
+      let modal = this.modalCtrl.create(AddToCartPage, { dish: item });
 
       modal.present();
       // this.already= true;

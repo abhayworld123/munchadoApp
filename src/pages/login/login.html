@@ -10,6 +10,8 @@
 
 <ion-content padding>
 
+
+
   <button class="btn-paddingall" ion-button block color="fb_bg" (click)="facebookLogin()">
      <ion-icon name="logo-facebook"></ion-icon>
            Sign In with Facebook
@@ -28,33 +30,48 @@
  
   <p style="text-align:center"> or Sign In using your MunchAdo account</p>
   <hr>
+
+  <form  form [formGroup]="loginGrp" (ngSubmit)="logForm()" novalidate >
   <ion-list>
 
     <ion-item>
       <ion-label floating>Username</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
+      <ion-input 
+      formControlName="uName"
+      
+      type="text"
+      required></ion-input>
+    
+  
+   </ion-item>
+   <div class="validation-txt" *ngIf="wrongcred">This does'n look like email we have seen</div>
+  <div class="validation-txt" *ngIf="uName.errors && (uName.dirty || uName.touched)" >Looks like you forgot something</div>   
 
-    <ion-item>
+   <ion-item>
       <ion-label floating>Password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input 
+        formControlName="pass"
+        type="password"
+       required></ion-input>
     </ion-item>
-
+    
   </ion-list>
+  <div class="validation-txt" *ngIf="pass.errors && (pass.dirty || pass.touched)" >Woah We can't let u go without password</div>
+
 
   <p (click)="openForgot()"> Forgot your Password ? </p> 
 
 
-  <button class="btn-paddingall" ion-button block color="login_bg" (click)="anonymous()">
+  <button [disabled]="!loginGrp.valid" type="submit" class="btn-paddingall" ion-button block color="login_bg" >
      <!--<ion-icon name="logo-facebook"></ion-icon>-->
     SignIn
   </button>
 
-  <button (click)="Login()" ion-button >login</button>
+  <!-- <button [disabled]="!loginGrp.valid" type="submit"  ion-button >login</button> -->
   <!--   
   <div class="logoimg">
   <img  src="assets/logo.png"><p>Logo</p></div> -->
 
   <!-- <div class="xyz"></div> -->
-
+  </form>
 </ion-content>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 import { NavController, ModalController, AlertController } from 'ionic-angular';
 
@@ -7,6 +7,7 @@ import { LoaderService } from '../../common/loader.service';
 import { ServiceClass } from '../../providers/servicee';
 import { SupertabssPage } from '../supertabss/supertabss';
 import { ToolServices } from '../../common/tool.service';
+import { EditItemService } from '../../providers/cart/edit-item.service';
 // import * as moment from 'moment';
 
 /**
@@ -21,6 +22,7 @@ let DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 @Component({
    selector: 'page-takeout',
    templateUrl: 'takeout.html',
+   outputs: ['editItemDetails']
 })
 export class TakeoutPage {
 
@@ -30,20 +32,17 @@ export class TakeoutPage {
    timeSlotes = [];
    selectedDate;
    selectedTime;
-
+   editItemDetails = new EventEmitter();
+   initiate$Subscribe;
    constructor(public navCtrl: NavController,
       public modalCtrl: ModalController,
       public viewCtrl: ViewController,
       public servicee: ServiceClass,
       private cartService: CartService,
       private loaderService: LoaderService,
-      private alertController: AlertController) {
+      private alertController: AlertController,
+      private editItemService: EditItemService) {
 
-      let date = new Date();
-      for (let i = 0; i < 7; i++) {
-         this.datesList.push({ date: date.getDate(), dayName: DAYS[date.getDay()], dateString: ToolServices.getDateInString(date).dateString });
-         date.setDate(date.getDate() + 1);
-      }
    }
 
    public isDateActive(dateString) {
@@ -64,13 +63,30 @@ export class TakeoutPage {
       return this.totalBillAmount;
    }
 
-   ngOnInit() {
-      this.allOrders = this.servicee.globalCartitems;
-      this.totalBillAmount = this.servicee.globaltotalbill;
-
+   public ngOnInit() {
+      this.initiate$Subscribe = this.editItemService.updateCart.subscribe(
+         () => {
+            this.initiate();
+         }
+      )
+      this.initiate();
    }
 
+   public ngOnDestroy() {
+      if (this.initiate$Subscribe)
+         this.initiate$Subscribe.unsubscribe();
+   }
 
+   public initiate() {
+      let date = new Date();
+      this.datesList = [];
+      for (let i = 0; i < 7; i++) {
+         this.datesList.push({ date: date.getDate(), dayName: DAYS[date.getDay()], dateString: ToolServices.getDateInString(date).dateString });
+         date.setDate(date.getDate() + 1);
+      }
+      this.allOrders = this.servicee.globalCartitems;
+      this.totalBillAmount = this.servicee.globaltotalbill;
+   }
 
    public getTimeSlots(date) {
       this.loaderService.showLoader('Getting Time Slots...')
@@ -93,7 +109,14 @@ export class TakeoutPage {
       this.navCtrl.setRoot(SupertabssPage);
    }
 
-   public removeAddOnItem(item, itemIndex, addOnIndex) {
+   public editItem($event, item) {
+      this.editItemService.editItemsDetails(item);
+      // this.editItemDetails.next(item);
+      // this.navCtrl.push(AddToCartPage, { dish: item });
+   }
+
+   public removeAddOnItem($event, item, itemIndex, addOnIndex) {
+      $event.stopPorpagation();
       let alert = this.alertController.create({
          title: 'Confirm',
          message: 'Do you want to remove this addon?',
@@ -121,7 +144,8 @@ export class TakeoutPage {
       alert.present();
    }
 
-   public removeMainItem(item, itemIndex) {
+   public removeMainItem($event, item, itemIndex) {
+      $event.stopPorpagation();
       let alert = this.alertController.create({
          title: 'Confirm',
          message: 'Do you want to remove this item?',
