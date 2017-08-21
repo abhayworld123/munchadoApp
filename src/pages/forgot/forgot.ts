@@ -17,21 +17,11 @@ export class ForgotPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
   public authProvider: AuthProvider) {}
+// this.rEmail = new FormControl ('', [Validators.required , Validators.email]  );
 
-  ionViewDidLoad() {
+ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  googleLogin(): void {
-    this.authProvider.googleLogin();
-  }
-
-  facebookLogin(): void {
-    this.authProvider.facebookLogin();
-  }
-
-  anonymous(){
-    this.navCtrl.setRoot(SupertabssPage);
-  }
-
+  
 }
