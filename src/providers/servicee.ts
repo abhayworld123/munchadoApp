@@ -13,7 +13,7 @@ import 'rxjs/add/operator/catch';
 
 export class ServiceClass {
 
-   globalVar: any = 0;
+   globalTotalItemSelected: any = 0;
    globalCartitems: Array<any> = [];
    options: any;
    globaltotalbill: any = 0;
@@ -36,7 +36,7 @@ export class ServiceClass {
       this.token2 = 'e553cd7d793b2b4f38e49762b9700fec';
 
       this.globalVarUpdate = Observable.create((observer: Observer<number>) => {
-         this.globalVarObserver.next(this.globalVar);
+         this.globalVarObserver.next(this.globalTotalItemSelected);
 
       });
 
@@ -173,8 +173,8 @@ export class ServiceClass {
 
 
    updateGlobalVar(newValue: any) {
-      this.globalVar = newValue;
-      this.globalVarObserver.next(this.globalVar);
+      this.globalTotalItemSelected = newValue;
+      this.globalVarObserver.next(this.globalTotalItemSelected);
    }
 
 

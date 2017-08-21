@@ -29,6 +29,7 @@ import { SuperTabsModule } from 'ionic2-super-tabs';
 import { LoginPage } from '../pages/login/login'
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { CartService } from '../providers/cart/cart.service';
 // import {TabsPage} from '../pages/tabs/tabs';
 // import {DetailmarksPage} from '../pages/detailmarks/detailmarks';
 
@@ -47,6 +48,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { StoryComponent } from '../components/story/story';
 import { ReviewDescComponent } from '../components/review-desc/review-desc';
 
+// common components
+import { LoaderService } from '../common/loader.service';
 
   export const firebaseConfig  = {
     apiKey: "AIzaSyAak8g9P2AN71pNOw4aY8LYSQoyIIfwmAM",
@@ -70,7 +73,7 @@ firebase.initializeApp(firebaseConfig);
       MyApp, CartPage, addtocardPage, foodPage, StoryComponent, TakeoutPage, DeliveryPage,
       HomePage, CreatePage, LoginPage, IntroPage, SupertabssPage, checkouttabPage,
       StoryComponent, ReviewsPage, MenuPage, OverviewPage, DinenmorePage, TruncatePipe, SpaceConvertPipe,
-      ReviewDescComponent, GallaryPage, GallarydetailsPage, CheckNull,RegisterPage,ForgotPage
+      ReviewDescComponent, GallaryPage, GallarydetailsPage, CheckNull, RegisterPage, ForgotPage
    ],
    imports: [
       BrowserModule, SuperTabsModule.forRoot(),
@@ -84,7 +87,7 @@ firebase.initializeApp(firebaseConfig);
       SupertabssPage, StoryComponent, DeliveryPage, TakeoutPage,
       MyApp, CartPage, addtocardPage, foodPage, GallaryPage,
       HomePage, CreatePage, LoginPage, IntroPage, StoryComponent, ReviewsPage
-      , MenuPage, OverviewPage, DinenmorePage, checkouttabPage, GallarydetailsPage,RegisterPage,
+      , MenuPage, OverviewPage, DinenmorePage, checkouttabPage, GallarydetailsPage, RegisterPage,
       ForgotPage
    ],
    providers: [
@@ -93,7 +96,9 @@ firebase.initializeApp(firebaseConfig);
       GooglePlus,
       Facebook, DatePicker,
       { provide: ErrorHandler, useClass: IonicErrorHandler },
-      AuthProvider
+      AuthProvider,
+      CartService,
+      LoaderService
    ]
 
 

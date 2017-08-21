@@ -31,17 +31,13 @@ export class addtocardPage {
 
    constructor(public formBuilder: FormBuilder, public service: ServiceClass, public storage: Storage, public navCtrl: NavController, public navparam: NavParams, public viewCtrl: ViewController) {
 
-      console.log(this.navparam.get("dish"));
-
       // this.resname = this.navparam.get("resname");
       this.selectedDish = JSON.parse(JSON.stringify(this.navparam.get("dish")))
       this.itemId = this.selectedDish.item_id;
-      console.log(this.itemId);
       this.quant = 0;
    }
 
    ngOnInit() {
-      console.log('onin' + this.itemId);
       this.service.getaddons(this.itemId)
          .subscribe(
          (menuaddons) => {
@@ -50,7 +46,6 @@ export class addtocardPage {
             } else {
                this.addons = [];
             }
-            console.log('this.addons: ', this.addons);
          },
          (err: any) => {
             console.log('err: ', err);
@@ -77,7 +72,7 @@ export class addtocardPage {
          delete addon[option.id];
       }
       this.selectedAddons[item.name] = addon;
-      console.log('this.selectedAddons: ', this.selectedAddons);
+      // console.log('this.selectedAddons: ', this.selectedAddons);
    }
 
    public selectedAddOnLength(itemName) {
@@ -122,10 +117,11 @@ export class addtocardPage {
 
       let addOns = this.getAddOns(this.selectedAddons);
       this.selectedDish.addOns = addOns.addOns;
-      this.selectedDish.totalAddOnsAmount = addOns.totalAddOnsBill;
+      this.selectedDish.totalAddOnsAmount = addOns.totalAddOnsBill * this.dishQuantity;
 
       this.service.globalCartitems.push(this.selectedDish);
 
+      this.updateTotalCount(this.dishQuantity);
       this.updatestorage(this.dishQuantity, price); // price for selected manue and quantity
       this.updatestorage(this.dishQuantity, addOns.totalAddOnsBill); // Add adons bill amount
       this.navCtrl.pop();
@@ -133,8 +129,11 @@ export class addtocardPage {
    }
 
    public updatestorage(quantity, price) {
-      this.service.globalVar = this.service.globalVar + quantity;
       this.service.globaltotalbill = this.service.globaltotalbill + (quantity * price);
+   }
+
+   public updateTotalCount(quantity) {
+      this.service.globalTotalItemSelected = this.service.globalTotalItemSelected + quantity;
    }
 
    public getAddOns(selectedAddons) {

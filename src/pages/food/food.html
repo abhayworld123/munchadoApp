@@ -7,8 +7,8 @@
       </div> -->
 
       <span *ngIf="menuoverviewdata"> {{menuoverviewdata.name}} </span>
-      <img class="cart-icon" src="assets/img/temp/cart_icon.png">
-      <span class="badge-span-top" (click)="openCheckout()">{{ this.service.globalVar}}</span>
+      <img class="cart-icon" src="assets/images/temp/cart_icon.png">
+      <span class="badge-span-top" (click)="openCheckout()">{{ this.service.globalTotalItemSelected}}</span>
       <span class="price-badge-top ">{{this.service.globaltotalbill}} $</span>
     </ion-title>
   </ion-navbar>
@@ -29,7 +29,7 @@
             <div #slide1>
 
               <div class="dinenmore">
-                <img src="../assets/img/i_dinemore.png">
+                <img src="../assets/images/i_dinemore.png">
                 <p>Get Rewarded your loyalty</p>
               </div>
 
@@ -60,7 +60,7 @@
               <ion-slides freeMode="true" slidesPerView="1">
                 <ion-slide class="mysli typeimgsli" *ngFor="let typeofpl of typeofplace">
 
-                  <img onError="this.src='../assets/img/temp/imgpsh_share.png'" src="../assets/img/temp/{{typeofpl.name}}.png">
+                  <img onError="this.src='../assets/images/temp/imgpsh_share.png'" src="../assets/images/temp/{{typeofpl.name}}.png">
                   <p>{{typeofpl.name}}</p>
                 </ion-slide>
 
@@ -71,7 +71,7 @@
               <h2>MOST POPULAR</h2>
               <ion-slides freeMode="true" slidesPerView="4">
                 <ion-slide class="mysli typeimgsli" *ngFor="let mostpopular of populardishes">
-                  <img onError="this.src='../assets/img/temp/imgpsh_share.png'" src="../assets/img/temp/{{mostpopular.name}}.png">
+                  <img onError="this.src='../assets/images/temp/imgpsh_share.png'" src="../assets/images/temp/{{mostpopular.name}}.png">
 
                   <p> {{mostpopular.item_name}} </p>
                 </ion-slide>
@@ -84,7 +84,7 @@
 
               <h2> Reviews </h2>
               <div class="review-block" *ngFor="let rev of restaurantreviews ">
-                <img src="{{rev.display_pic_url}}" onError="this.src='../assets/img/temp/place_holder_home.png'"> {{rev.first_name}}{{rev.tip_id}}
+                <img src="{{rev.display_pic_url}}" onError="this.src='../assets/images/temp/place_holder_home.png'"> {{rev.first_name}}{{rev.tip_id}}
                 {{rev.joined_on}}
               </div>
 
@@ -103,7 +103,7 @@
 
               <ion-slides freeMode="true" slidesPerView="4">
                 <ion-slide class="mysli typeimgsli" *ngFor="let datamenu of menudata; let i= index">
-                  <!-- <img onError="this.src='../assets/img/temp/imgpsh_share.png'" src="../assets/img/temp/{{mostpopular.name}}.png"> -->
+                  <!-- <img onError="this.src='../assets/images/temp/imgpsh_share.png'" src="../assets/images/temp/{{mostpopular.name}}.png"> -->
 
                   <p (click)="scrolllto($event,i)"> {{datamenu.category_name}} </p>
 
@@ -166,7 +166,7 @@
 
 
               <div *ngFor="let rev of  reviews.reviews ">
-                <!-- <img src="{{rev.display_pic_url}}" onError="this.src='../assets/img/temp/place_holder_home.png'"> {{rev.first_name}}{{rev.tip_id}}
+                <!-- <img src="{{rev.display_pic_url}}" onError="this.src='../assets/images/temp/place_holder_home.png'"> {{rev.first_name}}{{rev.tip_id}}
               {{rev.joined_on}} -->
 
                 {{rev.review_id}}

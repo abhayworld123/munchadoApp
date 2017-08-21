@@ -18,7 +18,7 @@
   <div #slide2>
     <ion-slides class="menu-slider-block" freeMode="true" slidesPerView="4">
       <ion-slide class="mysli typeimgsli" *ngFor="let datamenu of menudata; let mainIndex= index">
-        <!-- <img onError="this.src='../assets/img/temp/imgpsh_share.png'" src="../assets/img/temp/{{mostpopular.name}}.png"> -->
+        <!-- <img onError="this.src='../assets/images/temp/imgpsh_share.png'" src="../assets/images/temp/{{mostpopular.name}}.png"> -->
 
         <p (click)="scrolllto(datamenu.category_name,mainIndex)"> {{datamenu.category_name}} </p>
 
@@ -26,9 +26,9 @@
       </ion-slide>
 
     </ion-slides>
-    <div class=spacer-menu></div>
+     <div class=spacer-menu></div> 
     <div class="dinenmore">
-      <img src="assets/img/i_dinemore.png">
+      <img src="assets/images/i_dinemore.png">
       <p>Get Rewarded your loyalty</p>
     </div>
 
