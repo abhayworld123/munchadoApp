@@ -17,7 +17,7 @@ import { SupertabssPage } from './../pages/supertabss/supertabss';
 // import { SupertabPage } from './../pages/supertab/supertab';
 import { ServiceClass } from './../providers/servicee';
 import { CartPage } from './../pages/cartpage/cartpage';
-import { addtocardPage } from './../pages/addtocard/addtocard';
+import { AddToCartPage } from './../pages/addtocard/addtocard';
 import { foodPage } from './../pages/food/food';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -51,6 +51,8 @@ import { ReviewDescComponent } from '../components/review-desc/review-desc';
 // common components
 import { LoaderService } from '../common/loader.service';
 
+import { EditItemService } from '../providers/cart/edit-item.service';
+
 export const firebaseConfig = {
    apiKey: "AIzaSyBW4cwHEI7BHknNvF5ih7mFlCN716Itkjs",
    authDomain: "studentsro-21b7f.firebaseapp.com",
@@ -68,7 +70,7 @@ firebase.initializeApp(firebaseConfig);
 @NgModule({
    declarations: [
 
-      MyApp, CartPage, addtocardPage, foodPage, StoryComponent, TakeoutPage, DeliveryPage,
+      MyApp, CartPage, AddToCartPage, foodPage, StoryComponent, TakeoutPage, DeliveryPage,
       HomePage, CreatePage, LoginPage, IntroPage, SupertabssPage, checkouttabPage,
       StoryComponent, ReviewsPage, MenuPage, OverviewPage, DinenmorePage, TruncatePipe, SpaceConvertPipe,
       ReviewDescComponent, GallaryPage, GallarydetailsPage, CheckNull, RegisterPage, ForgotPage
@@ -83,7 +85,7 @@ firebase.initializeApp(firebaseConfig);
    bootstrap: [IonicApp],
    entryComponents: [
       SupertabssPage, StoryComponent, DeliveryPage, TakeoutPage,
-      MyApp, CartPage, addtocardPage, foodPage, GallaryPage,
+      MyApp, CartPage, AddToCartPage, foodPage, GallaryPage,
       HomePage, CreatePage, LoginPage, IntroPage, StoryComponent, ReviewsPage
       , MenuPage, OverviewPage, DinenmorePage, checkouttabPage, GallarydetailsPage, RegisterPage,
       ForgotPage
@@ -96,7 +98,8 @@ firebase.initializeApp(firebaseConfig);
       { provide: ErrorHandler, useClass: IonicErrorHandler },
       AuthProvider,
       CartService,
-      LoaderService
+      LoaderService,
+      EditItemService
    ]
 
 
