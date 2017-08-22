@@ -92,7 +92,7 @@ export class MyApp {
 
    
    private getToken() {
-      this.body='username=myusername&password=mypassword';
+      
       return new Promise((resolve, reject) => {
          this.dataservice
             .gettoken('http://api.munchado.in/api/auth/token', this.body)

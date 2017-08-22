@@ -9,6 +9,8 @@ import { HomePage } from '../../pages/home/home';
 import { Storage } from '@ionic/storage';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ServiceClass } from '../../providers/servicee';
+import { EditItemService } from '../../providers/cart/edit-item.service';
+import { LoaderService } from '../../common/loader.service';
 
 /**
  * Generated class for the MenuPage page.
@@ -47,7 +49,14 @@ export class MenuPage {
    offsety: any;
    reviews: any;
    @ViewChild(Content) content: Content;
-   constructor(public modalCtrl: ModalController, public service: ServiceClass, public storage: Storage, public navCtrl: NavController, public navparam: NavParams, public viewCtrl: ViewController) {
+   constructor(public modalCtrl: ModalController,
+      public service: ServiceClass,
+      public storage: Storage,
+      public navCtrl: NavController,
+      public navparam: NavParams,
+      public viewCtrl: ViewController,
+      private editItemService: EditItemService,
+      private loaderService: LoaderService) {
 
    }
 
@@ -75,44 +84,61 @@ export class MenuPage {
    scrolllto(elementid, ind) {
       console.log(elementid);
 
-
-
       if (typeof elementid != 'undefined') {
-         // let elementid: string = <any>event.target.textContent;
 
          elementid = '#menu' + ind;
-
-         let elementidm = elementid; // elementid.split(' ').join('')
-         console.log(elementidm);
-
-         // console.log(this.abc.nativeElement);
-
-         // let yOffset:any = document.getElementById('{elmentid}').offsetTop;
-         setTimeout(() => {
-            if (<HTMLElement>document.querySelector(elementidm)) {
-
-               this.offsety = <any>(<HTMLElement>document.querySelector(elementidm)).offsetTop;
-               console.log(this.offsety);
-
-            }
-            else
-               throw new Error("sorry not ind ");
-
-
-            this.content.scrollTo(0, this.offsety, 1000);
-
-            this.content.scrollTo(0, this.offsety, 1000);
-         }, 100)
+         this.scrollToId(elementid);
 
 
       }
 
    }
 
+   public scrollToId(elementId) {
+      let elementidm = elementId; // elementid.split(' ').join('')
+      console.log(elementidm);
+
+
+      setTimeout(() => {
+         if (<HTMLElement>document.querySelector(elementidm)) {
+
+            this.offsety = <any>(<HTMLElement>document.querySelector(elementidm)).offsetTop;
+            console.log(this.offsety);
+
+         }
+         else
+            throw new Error("sorry not ind ");
+
+
+         this.content.scrollTo(0, this.offsety, 1000);
+
+         this.content.scrollTo(0, this.offsety, 1000);
+      }, 100)
+
+   }
+
+
    public ngOnInit() {
       console.log(this.service.baseurl);
       //  this.baseurl  =  menuoverview.base_url +'munch_images/'+ menuoverview.data.rest_code+'/thumb/' ;
 
+      this.editItemService.selectMenuItem.subscribe(
+         (itemId) => {
+            console.log('item id: ', itemId);
+            this.loaderService.showLoader()
+               .then(
+               () => {
+                  setTimeout(
+                     () => {
+                        this.scrollToId('#item_' + itemId);
+                        this.loaderService.hideLoader();
+                     }, 100
+                  );
+               }
+               );
+
+         }
+      );
       this.service.getmenuitems(this.service.token)
          .subscribe(menuitems => {
             this.menudata = menuitems.data;

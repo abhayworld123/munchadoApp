@@ -53,7 +53,7 @@
                <ion-card (click)="presentModal(a,j)">
                   <img onerror="this.style.display='none'" [src]="service.baseurl  + a.item_image_url">
                   <ion-card-content class="food-card">
-                     <div style="text-align:left" [id]="a.menu_id"> {{a.item_name}} </div>
+                     <div style="text-align:left" [id]="'item_' + a.item_id"> {{a.item_name}} </div>
                      <span style="text-align:right"> $ {{a.prices[0].value}}      </span>
                      <p class="item-descript">{{a.item_desc}}</p>
                      <!-- Add card content here! -->

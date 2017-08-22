@@ -9,20 +9,16 @@ import { Observer } from 'rxjs/Observer';
 import { AddToCartPage } from './../addtocard/addtocard';
 import { CartPage } from './../cartpage/cartpage';
 import { foodPage } from './../food/food';
-import { SuperTabsModule ,SuperTabs} from 'ionic2-super-tabs';
+import { SuperTabsModule, SuperTabs } from 'ionic2-super-tabs';
 
 
-import { Component, ViewChild, AfterViewInit ,ContentChild } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, ContentChild } from '@angular/core';
 import { ViewController, Slides, Content } from 'ionic-angular';
 import { HomePage } from '../../pages/home/home';
 import { Storage } from '@ionic/storage';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ServiceClass } from '../../providers/servicee';
-
-
-
-
-
+import { EditItemService } from '../../providers/cart/edit-item.service';
 
 /**
  * Generated class for the SupertabssPage page.
@@ -36,13 +32,14 @@ import { ServiceClass } from '../../providers/servicee';
    templateUrl: 'supertabss.html',
 })
 export class SupertabssPage {
-@ViewChild(Content) content: Content;
-  @ViewChild(SuperTabs) superTabs: SuperTabs;
+   @ViewChild(Content) content: Content;
+   @ViewChild(SuperTabs) superTabs: SuperTabs;
+
 
    menuoverviewdata: any;
    menudata: any;
    baseurl: any;
-   BaseUrl:any;
+   BaseUrl: any;
    restaurantreviews = [];
    populardishes = [];
    gallary = [];
@@ -70,25 +67,31 @@ export class SupertabssPage {
    page6: any = foodPage;
    activateTabIndex;
 
-   constructor(public modalCtrl: ModalController, public service: ServiceClass, public storage: Storage, public navCtrl: NavController, public navparam: NavParams, public viewCtrl: ViewController) {
-      
+   constructor(public modalCtrl: ModalController,
+      public service: ServiceClass,
+      public storage: Storage,
+      public navCtrl: NavController,
+      public navparam: NavParams,
+      public viewCtrl: ViewController,
+      private editItemService: EditItemService) {
+
    }
 
    onTabSelect($event) {
       // console.log($event)
       this.activateTabIndex = $event.index;
-        
-      
+
+
    }
 
-   openGallery(gallary){
-   let mymodal  = this.modalCtrl.create(GallaryPage,{galaryitems:gallary, baseurl:this.BaseUrl})
-    mymodal.present();
+   openGallery(gallary) {
+      let mymodal = this.modalCtrl.create(GallaryPage, { galaryitems: gallary, baseurl: this.BaseUrl })
+      mymodal.present();
    }
 
    ionViewDidLoad() {
       console.log('ionViewDidLoad SupertabssPage');
-  
+
    }
 
    openCheckout = () => {
@@ -97,12 +100,18 @@ export class SupertabssPage {
 
    }
 
-   slidetoMenuTab =() => {
-         this.superTabs.slideTo(1);
+   slidetoMenuTab = () => {
+      this.superTabs.slideTo(1);
    }
 
 
    ngOnInit() {
+
+      this.editItemService.slideToMenuPage.subscribe(
+         () => {
+            this.slidetoMenuTab();
+         }
+      );
 
       this.Myslideoptions1 = {
          pager: true,
@@ -118,7 +127,7 @@ export class SupertabssPage {
          .subscribe(menuoverview => {
             this.service.menuoverviewdataglobal = menuoverview;
             this.BaseUrl = menuoverview.base_url + 'munch_images/' + menuoverview.data.rest_code + '/';
-         this.service.baseurl = menuoverview.base_url +'munch_images/'+ menuoverview.data.rest_code+'/thumb/' ; 
+            this.service.baseurl = menuoverview.base_url + 'munch_images/' + menuoverview.data.rest_code + '/thumb/';
             console.log(this.service.baseurl);
             this.menuoverviewdata = menuoverview.data,
                console.log(menuoverview.data), console.log(this.baseurl + menuoverview.data.cover_image)

@@ -4,12 +4,13 @@ import { SupertabssPage } from './../supertabss/supertabss';
 import { Observer } from 'rxjs/Observer';
 import { AddToCartPage } from './../addtocard/addtocard';
 import { CartPage } from './../cartpage/cartpage';
-import { Component, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, ViewChild, ContentChildren, ViewChildren, AfterViewInit, ElementRef } from '@angular/core';
 import { ViewController, Slides, Content } from 'ionic-angular';
 import { HomePage } from '../../pages/home/home';
 import { Storage } from '@ionic/storage';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ServiceClass } from '../../providers/servicee';
+import { EditItemService } from '../../providers/cart/edit-item.service';
 
 declare const google: any;
 /**
@@ -27,6 +28,8 @@ declare const google: any;
 export class OverviewPage implements AfterViewInit {
 
    @ViewChild('map') mapElement: any;
+   // @ViewChild(SupertabssPage) 
+   private childCompSupertabs: SupertabssPage;
    map: any;
    menuoverviewdata: any;
    menudata: any;
@@ -51,7 +54,14 @@ export class OverviewPage implements AfterViewInit {
    mapApi = "AIzaSyDtp2_V1VghnpwAOlnUi6xyVmoSWTVv2YI";
 
 
-   constructor(public modalCtrl: ModalController, public service: ServiceClass, public storage: Storage, public navCtrl: NavController, public navparam: NavParams, public viewCtrl: ViewController) {
+   constructor(public modalCtrl: ModalController,
+      public service: ServiceClass,
+      public storage: Storage,
+      public navCtrl: NavController,
+      public navparam: NavParams,
+      public viewCtrl: ViewController,
+      private editItemService: EditItemService) {
+
    }
 
    public ngAfterViewInit() {
@@ -73,6 +83,9 @@ export class OverviewPage implements AfterViewInit {
    OnClickPopulardishes(val, ev) {
       console.log('ev:', val);
 
+      this.editItemService.slideToMenu();
+      this.editItemService.selectMenuFromOverview(val.menu_id);
+      // this.childCompSupertabs.slidetoMenuTab();
    }
 
    GetDay() {
