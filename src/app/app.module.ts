@@ -48,6 +48,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { IonicStorageModule } from '@ionic/storage';
 import { StoryComponent } from '../components/story/story';
 import { ReviewDescComponent } from '../components/review-desc/review-desc';
+import { AgmCoreModule } from '@agm/core';
 
 // common components
 import { LoaderService } from '../common/loader.service';
@@ -82,7 +83,11 @@ firebase.initializeApp(firebaseConfig);
       IonicModule.forRoot(MyApp), HttpModule,
       AngularFireModule.initializeApp(firebaseConfig),
       AngularFireDatabaseModule, ReactiveFormsModule, FormsModule,
-      AngularFireAuthModule, IonicStorageModule.forRoot(),
+      AngularFireAuthModule, IonicStorageModule.forRoot(),AgmCoreModule.forRoot(
+         {
+      apiKey: 'AIzaSyDtp2_V1VghnpwAOlnUi6xyVmoSWTVv2YI'
+       }
+      )
    ],
    bootstrap: [IonicApp],
    entryComponents: [

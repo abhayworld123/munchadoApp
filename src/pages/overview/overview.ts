@@ -52,8 +52,9 @@ export class OverviewPage implements AfterViewInit {
    n = this.d.getDay();
    showMorevar: any = 0;
    mapApi = "AIzaSyDtp2_V1VghnpwAOlnUi6xyVmoSWTVv2YI";
-
-
+   lat :any = parseFloat("40.7127");
+   lng:any = parseFloat("-74.0059");
+   zoom :number = 17;
    constructor(public modalCtrl: ModalController,
       public service: ServiceClass,
       public storage: Storage,
@@ -65,11 +66,11 @@ export class OverviewPage implements AfterViewInit {
    }
 
    public ngAfterViewInit() {
-      console.log('this.mapElement: ', this.mapElement);
-      this.map = new google.maps.Map(this.mapElement.nativeElement, {
-         zoom: 9,
-         center: { lat: 41.85, lng: -87.65 }
-      });
+      // console.log('this.mapElement: ', this.mapElement);
+      // this.map = new google.maps.Map(this.mapElement.nativeElement, {
+      //    zoom: 14,
+      //    center: { lat: 40.7127, lng: -74.0059 }
+      // });
    }
 
    showMore() {
@@ -118,6 +119,11 @@ export class OverviewPage implements AfterViewInit {
          .subscribe(menuoverview => {
             // console.log('menuoverview: ' + JSON.stringify(menuoverview));
             this.menuoverviewdata = menuoverview.data,
+               
+            //   this.lat = this.menuoverviewdata.map_data.latitude;
+            //   console.log(this.lat);
+            //   this.long= this.menuoverviewdata.map_data.longitude; 
+
                // console.log(menuoverview.data);
                // console.log(this.baseurl + menuoverview.data.cover_image);
 
