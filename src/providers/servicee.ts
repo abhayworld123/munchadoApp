@@ -82,6 +82,12 @@ export class ServiceClass {
         
 
     }
+    
+    forgotPass(url:string , param:any):Observable<any>{
+       console.log(param);
+      return this._http
+       .put(url, param , this.options)
+    }
 
 
 

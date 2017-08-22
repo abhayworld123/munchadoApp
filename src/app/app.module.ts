@@ -1,3 +1,4 @@
+import { searchPipe } from './../pipes/search-menu-item.pipe';
 import { ForgotPage } from './../pages/forgot/forgot';
 import { RegisterPage } from './../pages/register/register';
 import { CheckNull } from './../pipes/CheckNull.pipe';
@@ -71,7 +72,7 @@ firebase.initializeApp(firebaseConfig);
 @NgModule({
    declarations: [
 
-      MyApp, CartPage, AddToCartPage, foodPage, StoryComponent, TakeoutPage, DeliveryPage,
+      MyApp, CartPage, AddToCartPage, foodPage, StoryComponent, TakeoutPage, DeliveryPage,searchPipe,
       HomePage, CreatePage, LoginPage, IntroPage, SupertabssPage, checkouttabPage,
       StoryComponent, ReviewsPage, MenuPage, OverviewPage, DinenmorePage, TruncatePipe, SpaceConvertPipe,
       ReviewDescComponent, GallaryPage, GallarydetailsPage, CheckNull, RegisterPage, ForgotPage

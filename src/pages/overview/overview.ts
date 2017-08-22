@@ -70,6 +70,12 @@ export class OverviewPage implements AfterViewInit {
       this.showMorevar = 0;
    }
 
+
+   OnClickPopulardishes(val , ev){
+    console.log('ev:',val );
+    
+   }
+
    GetDay() {
       if (this.n == 1)
          return "monday";

@@ -19,28 +19,35 @@
      to register and we'll send it , or a temporary one away so you can reset your Password
      and get back into MunchAdo
   </p>
+
+   <form  form [formGroup]="forgotGrp" (ngSubmit)="forgotForm()" novalidate >
   <ion-list>
 
     <ion-item>
       <ion-label floating>Email</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-
+      <ion-input 
+      formControlName="forgotEmail"
+      
+      type="text"
+      required></ion-input>
+    
   
-  </ion-list>
+   </ion-item>
+   <!-- <div class="validation-txt" *ngIf="wrongcred">This does'n look like email we have seen</div> -->
+   <div class="validation-txt" *ngIf="forgotEmail.errors.required && (forgotEmail.touched) ">
+      You forgot something</div>  
+     <div class="validation-txt" *ngIf="forgotEmail.errors.email && (forgotEmail.touched) && !forgotEmail.errors.required  ">
+      Please Enter a Valid email</div>      
+  <div class="validation-txt" *ngIf="validForgot">Please enter a valid email</div>
+  
+  
 
- 
-
-
-  <button class="btn-paddingall" ion-button block color="login_bg" (click)="anonymous()">
+  <button type="submit" class="btn-paddingall" ion-button block color="login_bg" >
     <!--<ion-icon name="logo-facebook"></ion-icon>-->
     Submit
   </button>
 
-  <!--   
-  <div class="logoimg">
-  <img  src="assets/logo.png"><p>Logo</p></div> -->
-
-  <!-- <div class="xyz"></div> -->
+  </ion-list>
+   </form>
 
 </ion-content>

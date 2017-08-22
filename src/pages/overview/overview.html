@@ -37,7 +37,7 @@
       </div>
       <div class="over-landmark">{{menuoverviewdata.landmark}} </div>
     </div>
-    <div class="border-block">
+    <!-- <div  class="border-block">
       <div class="over-in-block">
         <div class="over-in-items">Add to wish</div>
         <div class="over-in-items">Check In Here</div>
@@ -45,7 +45,7 @@
         <div class="over-in-items">Upload a Photo</div>
         <div class="over-in-items"> Call Restaurant</div>
       </div>
-    </div>
+    </div> -->
     <div class="border-block">
       
       <div>{{menuoverviewdata.short_address}}</div>
@@ -92,7 +92,7 @@
       <h2>MOST POPULAR</h2>
       <ion-slides freeMode="true" slidesPerView="4">
         <ion-slide class="mysli typeimgsli" *ngFor="let mostpopular of populardishes">
-          <div *ngIf="populardishes">
+          <div (click)="OnClickPopulardishes(mostpopular, $event)"  *ngIf="populardishes">
             <img onError="this.src='assets/images/temp/imgpsh_share.png'" [src]="service.baseurl  + mostpopular.image_name">
 
             <p class="item-name-popular"> {{mostpopular.item_name}} </p>

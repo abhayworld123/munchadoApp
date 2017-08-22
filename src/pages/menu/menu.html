@@ -38,10 +38,16 @@
             </div> -->
 
 
-
+  <ion-searchbar
+  [(ngModel)]="myInput"
+  [showCancelButton]="shouldShowCancel"
+  (ionInput)="onInput($event)"
+  (ionCancel)="onCancel($event)">
+</ion-searchbar>
 
     <!-- <div *ngFor="let m of menusubcategories"> -->
-    <div #abc *ngFor="let datamenu of menudata ;let mainIndex= index ">
+    <input #input type="text">   
+    <div #abc *ngFor="let datamenu of (menudata | searchMenuItemsPipe: input.value) ;let mainIndex= index ">
       <h1 class="menu-category-name" [id]="'menu' + mainIndex">{{datamenu.category_name}}</h1>
       <div>
 
@@ -49,13 +55,13 @@
 
       <!-- <h1>  {{m.category_name}} </h1> -->
       <div class="menu-subcategories" *ngFor="let n of datamenu.sub_categories">
-        <h3 class="menu-subcategory-name"> {{n.category_name}} </h3>
+        <h3 class="menu-subcategory-name"> {{n.category_name}}  </h3>
         <div *ngFor="let a of n.category_items ; let j = index   ">
 
           <ion-card (click)="presentModal(a,j)">
              <img onerror="this.style.display='none'"  [src]="service.baseurl  + a.item_image_url">
             <ion-card-content class="food-card">
-              <div style="text-align:left"> {{a.item_name}} </div>
+              <div style="text-align:left" [id]="a.menu_id"> {{a.item_name}}  </div>
               <span style="text-align:right"> $ {{a.prices[0].value}}      </span>
               <p class="item-descript">{{a.item_desc}}</p>
               <!-- Add card content here! -->
