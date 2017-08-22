@@ -13,94 +13,86 @@
 </ion-header> -->
 
 
-<ion-content #content>
+<ion-content class="menu-scroll" #content style="padding-bottom: 50px;">
 
-  <div #slide2>
-    <ion-slides class="menu-slider-block" freeMode="true" slidesPerView="4">
-      <ion-slide class="mysli typeimgsli" *ngFor="let datamenu of menudata; let mainIndex= index">
-        <!-- <img onError="this.src='../assets/images/temp/imgpsh_share.png'" src="../assets/images/temp/{{mostpopular.name}}.png"> -->
+   <div #slide2>
+      <ion-slides class="menu-slider-block" freeMode="true" slidesPerView="4">
+         <ion-slide class="mysli typeimgsli" *ngFor="let datamenu of menudata; let mainIndex= index">
+            <!-- <img onError="this.src='../assets/images/temp/imgpsh_share.png'" src="../assets/images/temp/{{mostpopular.name}}.png"> -->
 
-        <p (click)="scrolllto(datamenu.category_name,mainIndex)"> {{datamenu.category_name}} </p>
-
-
-      </ion-slide>
-
-    </ion-slides>
-     <div class=spacer-menu></div> 
-    <div class="dinenmore">
-      <img src="assets/images/i_dinemore.png">
-      <p>Get Rewarded your loyalty</p>
-    </div>
-
-    <!-- <div *ngFor="let gallary of gallary">
-              {{gallary.image}}
-
-            </div> -->
+            <p (click)="scrolllto(datamenu.category_name,mainIndex)"> {{datamenu.category_name}} </p>
 
 
-  <ion-searchbar
-  [(ngModel)]="myInput"
-  [showCancelButton]="shouldShowCancel"
-  (ionInput)="onInput($event)"
-  (ionCancel)="onCancel($event)">
-</ion-searchbar>
+         </ion-slide>
 
-    <!-- <div *ngFor="let m of menusubcategories"> -->
-    <input #input type="text">   
-    <div #abc *ngFor="let datamenu of (menudata | searchMenuItemsPipe: input.value) ;let mainIndex= index ">
-      <h1 class="menu-category-name" [id]="'menu' + mainIndex">{{datamenu.category_name}}</h1>
-      <div>
+      </ion-slides>
+      <div class=spacer-menu></div>
+      <div class="dinenmore">
+         <img src="assets/images/i_dinemore.png">
+         <p>Get Rewarded your loyalty</p>
+      </div>
+      <!-- (ionInput)="onInput($event)" (ionCancel)="onCancel($event)" -->
+      <ion-searchbar [(ngModel)]="searchValue" [showCancelButton]="shouldShowCancel">
+      </ion-searchbar>
+
+      <!-- <div *ngFor="let m of menusubcategories"> -->
+      <!-- <input [(ngModel)]="searchValue" type="text"> -->
+      <div #abc *ngFor="let datamenu of menudata ;let mainIndex= index ">
+         <h1 class="menu-category-name" [id]="'menu' + mainIndex" [hidden]="searchValue">
+            {{ datamenu.category_name }}
+         </h1>
+         <!-- <div>
+
+         </div> -->
+
+         <!-- <h1>  {{m.category_name}} </h1> -->
+         <div class="menu-subcategories" *ngFor="let n of datamenu.sub_categories">
+            <h3 class="menu-subcategory-name" [hidden]="searchValue"> {{n.category_name}} </h3>
+            <div *ngFor="let a of (n.category_items | searchMenuItemsPipe: searchValue); let j = index   ">
+
+               <ion-card (click)="presentModal(a,j)">
+                  <img onerror="this.style.display='none'" [src]="service.baseurl  + a.item_image_url">
+                  <ion-card-content class="food-card">
+                     <div style="text-align:left" [id]="a.menu_id"> {{a.item_name}} </div>
+                     <span style="text-align:right"> $ {{a.prices[0].value}}      </span>
+                     <p class="item-descript">{{a.item_desc}}</p>
+                     <!-- Add card content here! -->
+                  </ion-card-content>
+
+               </ion-card>
+            </div>
+
+         </div>
+
+
+
+         <div class="" *ngFor="let a of (datamenu.category_items | searchMenuItemsPipe: searchValue); let j = index   ">
+            <ion-card (click)="presentModal(a,j)">
+               <img onerror="this.style.display='none'" [src]="service.baseurl  + a.item_image_url">
+               <ion-card-content class="food-card">
+                  <div style="text-align:left"> {{a.item_name}} </div>
+                  <span style="text-align:right"> $ {{a.prices[0].value}}      </span>
+                  <p class="item-descript">{{a.item_desc}}</p>
+                  <!-- Add card content here! -->
+               </ion-card-content>
+            </ion-card>
+         </div>
+
+         <!-- </div> -->
+
+
+
 
       </div>
 
-      <!-- <h1>  {{m.category_name}} </h1> -->
-      <div class="menu-subcategories" *ngFor="let n of datamenu.sub_categories">
-        <h3 class="menu-subcategory-name"> {{n.category_name}}  </h3>
-        <div *ngFor="let a of n.category_items ; let j = index   ">
-
-          <ion-card (click)="presentModal(a,j)">
-             <img onerror="this.style.display='none'"  [src]="service.baseurl  + a.item_image_url">
-            <ion-card-content class="food-card">
-              <div style="text-align:left" [id]="a.menu_id"> {{a.item_name}}  </div>
-              <span style="text-align:right"> $ {{a.prices[0].value}}      </span>
-              <p class="item-descript">{{a.item_desc}}</p>
-              <!-- Add card content here! -->
-            </ion-card-content>
-
-          </ion-card>
-        </div>
-
-      </div>
 
 
 
-      <div class="" *ngFor="let a of datamenu.category_items ; let j = index   ">
-        <ion-card (click)="presentModal(a,j)">
-            <img  onerror="this.style.display='none'"   [src]="service.baseurl  + a.item_image_url">
-          <ion-card-content class="food-card">
-            <div style="text-align:left"> {{a.item_name}} </div>
-            <span style="text-align:right"> $ {{a.prices[0].value}}      </span>
-            <p class="item-descript">{{a.item_desc}}</p>
-            <!-- Add card content here! -->
-          </ion-card-content>
-        </ion-card>
-      </div>
+   </div>
 
-      <!-- </div> -->
-
-
-
-
-    </div>
-
-
-
-
-  </div>
-
-  <div class="tabs-footer-m">
-    <button (click)="openCartpage()" class="fix-but-check" ion-button block> CheckOut <span>$13</span> </button>
-  </div>
+   <div class="tabs-footer-m">
+      <button (click)="openCartpage()" class="fix-but-check" ion-button block> CheckOut <span>$13</span> </button>
+   </div>
 
 </ion-content>
 

@@ -67,7 +67,7 @@ export class MenuPage {
 
    }
 
-   openCartpage(){
+   openCartpage() {
       this.navCtrl.push(checkouttabPage);
    }
 
@@ -109,33 +109,24 @@ export class MenuPage {
 
    }
 
-
-
-
-   ngOnInit() {
+   public ngOnInit() {
       console.log(this.service.baseurl);
       //  this.baseurl  =  menuoverview.base_url +'munch_images/'+ menuoverview.data.rest_code+'/thumb/' ;
 
       this.service.getmenuitems(this.service.token)
          .subscribe(menuitems => {
-           console.log(menuitems);
-            this.menudata = menuitems.data,
-               this.menudata.forEach(element => {
+            this.menudata = menuitems.data;
+            // console.log('this.menudata: ', JSON.stringify(this.menudata));
 
-                  this.menusubcategories.push(...element.sub_categories);
-                  this.menusubcategories.forEach(element1 => {
-
-
-                     this.categoryitems.forEach(element2 => {
-                        this.itemprices.push(element2);
-                     })
-
+            this.menudata.forEach(element => {
+               this.menusubcategories.push(...element.sub_categories);
+               this.menusubcategories.forEach(element1 => {
+                  this.categoryitems.forEach(element2 => {
+                     this.itemprices.push(element2);
                   })
                })
-            console.log(this.menusubcategories);
-         }
-         );
-
+            });
+            // console.log('this.menusubcategories: ', JSON.stringify(this.menusubcategories));
+         });
    }
-
 }
