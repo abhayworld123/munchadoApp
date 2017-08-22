@@ -70,10 +70,9 @@ export class OverviewPage implements AfterViewInit {
       this.showMorevar = 0;
    }
 
+   OnClickPopulardishes(val, ev) {
+      console.log('ev:', val);
 
-   OnClickPopulardishes(val , ev){
-    console.log('ev:',val );
-    
    }
 
    GetDay() {
@@ -89,7 +88,6 @@ export class OverviewPage implements AfterViewInit {
          return "friday";
       else if (this.n == 6)
          return "saturday";
-
    }
    OperateTime: any;
    GetOperatinghours() {
@@ -103,55 +101,28 @@ export class OverviewPage implements AfterViewInit {
    }
 
    ngOnInit() {
-
-
-
       this.service.getmenuoverview(this.service.token)
          .subscribe(menuoverview => {
             // console.log('menuoverview: ' + JSON.stringify(menuoverview));
-
-
             this.menuoverviewdata = menuoverview.data,
                // console.log(menuoverview.data);
                // console.log(this.baseurl + menuoverview.data.cover_image);
 
                this.menuoverviewdata.restaurant_reviews.forEach(element => {
-
                   this.restaurantreviews.push(element);
-
-
-               }),
-
-               this.menuoverviewdata.most_popular.forEach(element => {
-
-                  this.populardishes.push(element);
-
-
-
-               }),
-               this.menuoverviewdata.galleries.forEach(element => {
-
-                  this.gallary.push(element);
-
-               }),
-               this.menuoverviewdata.type_of_place.forEach(element => {
-
-                  this.typeofplace.push(element);
-
-
                });
 
+            this.menuoverviewdata.most_popular.forEach(element => {
+               this.populardishes.push(element);
+            });
 
+            this.menuoverviewdata.galleries.forEach(element => {
+               this.gallary.push(element);
+            });
 
-
-
-
-
-
-
-         }
-         );
-
+            this.menuoverviewdata.type_of_place.forEach(element => {
+               this.typeofplace.push(element);
+            });
+         });
    }
-
 }
