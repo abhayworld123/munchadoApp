@@ -23,7 +23,7 @@
    </div>
    <ion-item>
       <ion-label>Time</ion-label>
-      <ion-select [(ngModel)]="selectedTime" [interface]="popover" [disabled]="!selectedDate">
+      <ion-select [(ngModel)]="selectedTime" [interface]="popover" [disabled]="!selectedDate" (ngModelChange)="selectTime($event)">
          <ion-option *ngFor="let timeSlote of timeSlotes" [value]="timeSlote.slot">{{ timeSlote.timeString }}</ion-option>
       </ion-select>
    </ion-item>

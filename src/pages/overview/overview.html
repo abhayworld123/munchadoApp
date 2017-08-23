@@ -15,29 +15,29 @@
 
 <ion-content class="overview-content">
 
-   <div  style="height: 100px; width: 100%" #map id="map"></div>
-   <div *ngIf="menuoverviewdata" #slide1 style="height: calc(100% - 100px); width: 100%;">
+  <div *ngIf="menuoverviewdata" #slide1 style=" width: 100%;">
 
-      <div class="dinenmore">
-         <img src="assets/images/i_dinemore.png">
-         <p>Get Rewarded your loyalty</p>
+    <div class="dinenmore">
+      <img src="assets/images/i_dinemore.png">
+      <p>Get Rewarded your loyalty</p>
+    </div>
+    <div class="border-block">
+      <h3 class="rest-name">{{menuoverviewdata.name}}</h3>
+
+      <p class="rest-type-offered">{{menuoverviewdata.cuisine_offerd}}</p>
+      <div class="over-rest-block">
+        <div class="over-resttype" *ngIf="menuoverviewdata.is_delevery"> DELIVERY</div>
+        <div class="over-resttype" *ngIf="menuoverviewdata.is_dining"> DINE IN</div>
+        <div class="over-resttype" *ngIf="menuoverviewdata.is_takeout"> TAKEOUT</div>
       </div>
-      <div class="border-block">
-         <h3 class="rest-name">{{menuoverviewdata.name}}</h3>
+      <div class="over-rest-block">
+        <div class="over-resttype"> ${{menuoverviewdata.minimum_delivery_amount}}</div>
 
-         <p class="rest-type-offered">{{menuoverviewdata.cuisine_offerd}}</p>
-         <div class="over-rest-block">
-            <div class="over-resttype" *ngIf="menuoverviewdata.is_delevery"> DELIVERY</div>
-            <div class="over-resttype" *ngIf="menuoverviewdata.is_dining"> DINE IN</div>
-            <div class="over-resttype" *ngIf="menuoverviewdata.is_takeout"> TAKEOUT</div>
-         </div>
-         <div class="over-rest-block">
-            <div class="over-resttype"> ${{menuoverviewdata.minimum_delivery_amount}}</div>
-
-         </div>
-         <div class="over-landmark">{{menuoverviewdata.landmark}} </div>
       </div>
-      <!-- <div  class="border-block">
+      <div class="over-landmark">{{menuoverviewdata.landmark}} </div>
+      <div class="over-distance1" >{{mapdistance | number : '1.2-3'}} mi</div>
+    </div>
+    <!-- <div  class="border-block">
       <div class="over-in-block">
         <div class="over-in-items">Add to wish</div>
         <div class="over-in-items">Check In Here</div>
@@ -46,92 +46,101 @@
         <div class="over-in-items"> Call Restaurant</div>
       </div>
     </div> -->
-      <div class="border-block">
+  </div>
+  <div *ngIf="menuoverviewdata" class=" border-block">
+     
+    <div *ngIf="menuoverviewdata">{{menuoverviewdata.short_address}}</div>
+     <div class="over-distance2" >{{mapdistance | number : '1.2-3'}} mi</div>
+    <agm-map [latitude]="lat" [longitude]="lng" [zoomControl]="false" [zoom]="zoom">
+                 <agm-marker [latitude]="lat" [longitude]="lng" [label]="'TT'"></agm-marker>
 
-         <div>{{menuoverviewdata.short_address}}</div>
+    </agm-map>
 
-      </div>
-      <div class="border-block">
-         <p class="over-border-block-head">OPEN NOW</p>
-
-         <div class="over-hours">{{ GetOperatinghours()}} <span> {{ '('+ GetDay() +')'}} </span> </div>
-
-
-
-
-
-      </div>
-
-      <div class="border-block">
-         <h2>TYPE OF PLACE</h2>
-         <ion-slides freeMode="true" slidesPerView="1">
-            <ion-slide class="mysli typeimgsli" *ngFor="let typeofpl of typeofplace">
-               <div *ngIf="typeofplace">
-                  <img onError="this.src='assets/images/temp/imgpsh_share.png'" src="assets/images/temp/{{typeofpl.name | lowercase }}.png">
-                  <p>{{typeofpl.name}}</p>
-               </div>
-            </ion-slide>
+  </div>
 
 
-         </ion-slides>
-      </div>
+  <div *ngIf="menuoverviewdata">
+    <div class="border-block">
+      <p class="over-border-block-head">OPEN NOW</p>
 
-      <div class="border-block">
-         <p class="over-border-block-head">OVERVIEW</p>
-         <p *ngIf="!showMorevar" class="over-description"> {{menuoverviewdata.description | slice:0:176}}..</p>
-         <p *ngIf="showMorevar" class="over-description"> {{menuoverviewdata.description }}..</p>
-         <span class="span-more" *ngIf="!showMorevar" (click)="showMore()">View More</span>
-         <span class="span-more" *ngIf="showMorevar" (click)="showLess()">View Less</span>
+      <div class="over-hours">{{ GetOperatinghours()}} <span> {{ '('+ GetDay() +')'}} </span> </div>
 
 
-      </div>
-
-      <div class="border-block">
-         <h2>MOST POPULAR</h2>
-         <ion-slides freeMode="true" slidesPerView="4">
-            <ion-slide class="mysli typeimgsli" *ngFor="let mostpopular of populardishes">
-               <div (click)="OnClickPopulardishes(mostpopular, $event)" *ngIf="populardishes">
-                  <img onError="this.src='assets/images/temp/imgpsh_share.png'" [src]="service.baseurl  + mostpopular.image_name">
-
-                  <p class="item-name-popular"> {{mostpopular.item_name}} </p>
-                  <p> {{mostpopular.item_price}}$</p>
-               </div>
-            </ion-slide>
-         </ion-slides>
-      </div>
-
-      <div class="border-block">
-
-         <p style="clear:both" class="over-border-block-head"> REVIEWS </p>
-         <div class="over-rev-block">
-            <div class="over-ratings-review">{{menuoverviewdata.ratings | nullCheck}}.0 </div>
-            <div class="over-short-desc">{{menuoverviewdata.description | slice:0:40}}</div>
-            <span class="over-total-rev">{{menuoverviewdata.total_reviews}} Reviews</span>
-         </div>
 
 
-         <div class="review-block" *ngFor="let rev of restaurantreviews ">
 
-            <div class="over-rev-tips">{{rev.tip}}</div>
+    </div>
 
-            <div class="over-rev-nameblock">
-               <img src="{{rev.display_pic_url}}" onError="this.src='assets/images/temp/place_holder_home.png'">
-               <p>{{rev.reviews}}</p>
-               <div class="over-rev-name">{{rev.reviewer}}</div> <span class="">{{rev.joined_on}}</span>
-            </div>
+    <div class="border-block">
+      <h2>TYPE OF PLACE</h2>
+      <ion-slides freeMode="true" slidesPerView="1">
+        <ion-slide class="mysli typeimgsli" *ngFor="let typeofpl of typeofplace">
+          <div *ngIf="typeofplace">
+            <img onError="this.src='assets/images/temp/imgpsh_share.png'" src="assets/images/temp/{{typeofpl.name | lowercase }}.png">
+            <p>{{typeofpl.name}}</p>
+          </div>
+        </ion-slide>
 
-            <div class="over-rev-stats">
-               <span>{{rev.total_beenthere}}</span>
-               <span>{{rev.total_reservations}}</span>
-               <span>{{rev.total_tryit}}</span>
-               <span>{{rev.total_reviews}}</span>
-            </div>
-         </div>
 
+      </ion-slides>
+    </div>
+
+    <div class="border-block">
+      <p class="over-border-block-head">OVERVIEW</p>
+      <p *ngIf="!showMorevar" class="over-description"> {{menuoverviewdata.description | slice:0:176}}..</p>
+      <p *ngIf="showMorevar" class="over-description"> {{menuoverviewdata.description }}..</p>
+      <span class="span-more" *ngIf="!showMorevar" (click)="showMore()">View More</span>
+      <span class="span-more" *ngIf="showMorevar" (click)="showLess()">View Less</span>
+
+
+    </div>
+
+    <div class="border-block">
+      <h2>MOST POPULAR</h2>
+      <ion-slides freeMode="true" slidesPerView="4">
+        <ion-slide class="mysli typeimgsli" *ngFor="let mostpopular of populardishes">
+          <div (click)="OnClickPopulardishes(mostpopular, $event)" *ngIf="populardishes">
+            <img onError="this.src='assets/images/temp/imgpsh_share.png'" [src]="service.baseurl  + mostpopular.image_name">
+
+            <p class="item-name-popular"> {{mostpopular.item_name}} </p>
+            <p> {{mostpopular.item_price}}$</p>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </div>
+
+    <div class="border-block">
+
+      <p style="clear:both" class="over-border-block-head"> REVIEWS </p>
+      <div class="over-rev-block">
+        <div class="over-ratings-review">{{menuoverviewdata.ratings | nullCheck}}.0 </div>
+        <div class="over-short-desc">{{menuoverviewdata.description | slice:0:40}}</div>
+        <span class="over-total-rev">{{menuoverviewdata.total_reviews}} Reviews</span>
       </div>
 
 
-   </div>
+      <div class="review-block" *ngFor="let rev of restaurantreviews ">
+
+        <div class="over-rev-tips">{{rev.tip}}</div>
+
+        <div class="over-rev-nameblock">
+          <img src="{{rev.display_pic_url}}" onError="this.src='assets/images/temp/place_holder_home.png'">
+          <p>{{rev.reviews}}</p>
+          <div class="over-rev-name">{{rev.reviewer}}</div> <span class="">{{rev.joined_on}}</span>
+        </div>
+
+        <div class="over-rev-stats">
+          <span>{{rev.total_beenthere}}</span>
+          <span>{{rev.total_reservations}}</span>
+          <span>{{rev.total_tryit}}</span>
+          <span>{{rev.total_reviews}}</span>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
 
 
 </ion-content>

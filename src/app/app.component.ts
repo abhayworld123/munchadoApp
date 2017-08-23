@@ -1,13 +1,11 @@
-import { TruncatePipe } from './../pipes/limitchar.pipe';
+import { LocalStorageService } from './../providers/localstorage.service';
 import { SupertabssPage } from './../pages/supertabss/supertabss';
 import { ServiceClass } from './../providers/servicee';
-import { foodPage } from './../pages/food/food';
 import { Component } from '@angular/core';
 import { Platform, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
-import { HomePage } from '../pages/home/home';
 
 import { IntroPage } from '../pages/intro/intro';
 // import {TabsPage} from '../pages/tabs/tabs';
@@ -16,7 +14,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Storage } from '@ionic/storage';
 
 //TODO: Temp for testing
-import { checkouttabPage } from './../pages/checkouttab/checkouttab';
 
 @Component({
 
@@ -30,15 +27,22 @@ export class MyApp {
    body: any;
 
 
-   constructor(platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, public dataservice: ServiceClass,
-      private afAuth: AngularFireAuth, public storage: Storage, public loadingCtrl: LoadingController) {
+   constructor(platform: Platform,
+      private statusBar: StatusBar,
+      private splashScreen: SplashScreen,
+      public dataservice: ServiceClass,
 
-
+      private afAuth: AngularFireAuth,
+      public storage: Storage,
+      public loadingCtrl: LoadingController,
+      private localStorageService: LocalStorageService) {
 
       platform.ready().then(() => {
          // this.presentLoading();
-         this.initializeApp();
+         this.statusBar.overlaysWebView(true);
+         this.statusBar.backgroundColorByHexString('#e09100');
 
+         this.initializeApp();
       });
    }
 
@@ -49,30 +53,28 @@ export class MyApp {
       this.loader = this.loadingCtrl.create({ content: 'Loading...' })
       this.loader.present().then(
          () => {
-            this.storage.get('introShown').then((result) => {
-               if (result) {
-                  // this.rootPage = LoginPage;
-                  return this.authenticateUser();
-               } else {
-                  this.rootPage = IntroPage;
-                  this.storage.set('introShown', true);
-               }
+            this.localStorageService.getItems('introShown')
+               .then((result) => {
+                  if (result) {
+                     return this.authenticateUser();
+                  } else {
+                     this.rootPage = IntroPage;
+                     this.localStorageService.setItems('introShown', true);
+                  }
 
-            }).then((user) => {
-               if (user) {
-                  this.rootPage = SupertabssPage;
-               } else if (!this.rootPage) {
-                  this.rootPage = LoginPage;
-               }
-               //TODO: after testing should remove
-               // this.rootPage = checkouttabPage;
-            }).then(() => {
-               return this.getToken();
-            }).then(() => {
-               this.loader.dismiss();
-            }).catch((error) => {
-               this.errorMessage = <any>error;
-            });
+               }).then((user) => {
+                  if (user) {
+                     this.rootPage = SupertabssPage;
+                  } else if (!this.rootPage) {
+                     this.rootPage = LoginPage;
+                  }
+               }).then(() => {
+                  return this.getToken();
+               }).then(() => {
+                  this.loader.dismiss();
+               }).catch((error) => {
+                  this.errorMessage = <any>error;
+               });
          }
       );
       // Okay, so the platform is ready and our plugins are available.
@@ -94,7 +96,6 @@ export class MyApp {
 
 
    private getToken() {
-      this.body = 'username=myusername&password=mypassword';
       return new Promise((resolve, reject) => {
          this.dataservice
             .gettoken('http://api.munchado.in/api/auth/token', this.body)

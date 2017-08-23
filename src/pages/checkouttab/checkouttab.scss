@@ -1,3 +1,12 @@
 page-checkouttab {
  
 }
+
+.place-order-button {
+    position: absolute;
+    bottom: 0;
+    padding: 24px 0;
+    z-index: 99;
+    background: orange;
+    text-transform: none;
+}

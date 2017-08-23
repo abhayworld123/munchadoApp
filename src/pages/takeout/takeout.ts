@@ -88,6 +88,10 @@ export class TakeoutPage {
       this.totalBillAmount = this.servicee.globaltotalbill;
    }
 
+   public selectTime(e) {
+      console.log('selectTime called: ', e);
+   }
+
    public getTimeSlots(date) {
       this.loaderService.showLoader('Getting Time Slots...')
          .then(
@@ -111,12 +115,10 @@ export class TakeoutPage {
 
    public editItem($event, item) {
       this.editItemService.editItemsDetails(item);
-      // this.editItemDetails.next(item);
-      // this.navCtrl.push(AddToCartPage, { dish: item });
    }
 
    public removeAddOnItem($event, item, itemIndex, addOnIndex) {
-      $event.stopPorpagation();
+      $event.stopPropagation();
       let alert = this.alertController.create({
          title: 'Confirm',
          message: 'Do you want to remove this addon?',
@@ -137,6 +139,7 @@ export class TakeoutPage {
                   item.totalAddOnsAmount -= addOnDetail.totalPrice ? parseFloat(addOnDetail.totalPrice) : 0;
                   this.servicee.globaltotalbill = this.totalBillAmount;
                   allAddOn.splice(addOnIndex, 1);
+                  this.editItemService.updateCartDetails();
                }
             }
          ]
@@ -145,7 +148,7 @@ export class TakeoutPage {
    }
 
    public removeMainItem($event, item, itemIndex) {
-      $event.stopPorpagation();
+      $event.stopPropagation();
       let alert = this.alertController.create({
          title: 'Confirm',
          message: 'Do you want to remove this item?',
@@ -165,6 +168,7 @@ export class TakeoutPage {
                   this.totalBillAmount -= (item.totalAddOnsAmount || 0);
                   this.servicee.globaltotalbill = this.totalBillAmount;
                   this.servicee.globalTotalItemSelected -= (item.quantity || 0);
+                  this.editItemService.updateCartDetails();
                }
             }
          ]

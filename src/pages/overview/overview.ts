@@ -1,15 +1,17 @@
+import { MapServiceClass } from './../../providers/map.service';
 import { TruncatePipe } from './../../pipes/limitchar.pipe';
 import { CheckNull } from './../../pipes/CheckNull.pipe';
 import { SupertabssPage } from './../supertabss/supertabss';
 import { Observer } from 'rxjs/Observer';
 import { AddToCartPage } from './../addtocard/addtocard';
 import { CartPage } from './../cartpage/cartpage';
-import { Component, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, ViewChild, ContentChildren, ViewChildren, AfterViewInit, ElementRef } from '@angular/core';
 import { ViewController, Slides, Content } from 'ionic-angular';
 import { HomePage } from '../../pages/home/home';
 import { Storage } from '@ionic/storage';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ServiceClass } from '../../providers/servicee';
+import { EditItemService } from '../../providers/cart/edit-item.service';
 
 declare const google: any;
 /**
@@ -27,6 +29,8 @@ declare const google: any;
 export class OverviewPage implements AfterViewInit {
 
    @ViewChild('map') mapElement: any;
+   // @ViewChild(SupertabssPage) 
+   private childCompSupertabs: SupertabssPage;
    map: any;
    menuoverviewdata: any;
    menudata: any;
@@ -49,17 +53,47 @@ export class OverviewPage implements AfterViewInit {
    n = this.d.getDay();
    showMorevar: any = 0;
    mapApi = "AIzaSyDtp2_V1VghnpwAOlnUi6xyVmoSWTVv2YI";
-
-
-   constructor(public modalCtrl: ModalController, public service: ServiceClass, public storage: Storage, public navCtrl: NavController, public navparam: NavParams, public viewCtrl: ViewController) {
+   lat :any = parseFloat("40.7127");
+   lng:any = parseFloat("-74.0059");
+   currentlat:number ;
+   currentlng:number;
+   zoom :number = 17;
+   mapdistance:any = 0;
+   constructor(public modalCtrl: ModalController,
+      public service: ServiceClass,
+      public storage: Storage,
+      public navCtrl: NavController,
+      public navparam: NavParams,
+      public viewCtrl: ViewController,
+      private editItemService: EditItemService,
+      private MapServiceClass :MapServiceClass) {
+      
    }
 
    public ngAfterViewInit() {
-      console.log('this.mapElement: ', this.mapElement);
-      this.map = new google.maps.Map(this.mapElement.nativeElement, {
-         zoom: 9,
-         center: { lat: 41.85, lng: -87.65 }
-      });
+      // console.log('this.mapElement: ', this.mapElement);
+      // this.map = new google.maps.Map(this.mapElement.nativeElement, {
+      //    zoom: 14,
+      //    center: { lat: 40.7127, lng: -74.0059 }
+      // });
+     this.getLocation();
+
+     
+   }
+
+   getLocation(){
+    this.MapServiceClass.getCurrentLocation().subscribe(currentCord => {
+       console.log(currentCord);
+       this.currentlat= currentCord.latitude;
+       this.currentlng= currentCord.longitude;
+
+      let mapdis =  this.MapServiceClass.calculateMilesDistance(this.currentlat , this.currentlng , this.lat ,this.lng );
+     console.log(mapdis);
+     this.mapdistance = mapdis;
+    });
+
+    
+    
    }
 
    showMore() {
@@ -73,6 +107,9 @@ export class OverviewPage implements AfterViewInit {
    OnClickPopulardishes(val, ev) {
       console.log('ev:', val);
 
+      this.editItemService.slideToMenu();
+      this.editItemService.selectMenuFromOverview(val.menu_id);
+      // this.childCompSupertabs.slidetoMenuTab();
    }
 
    GetDay() {
@@ -105,6 +142,11 @@ export class OverviewPage implements AfterViewInit {
          .subscribe(menuoverview => {
             // console.log('menuoverview: ' + JSON.stringify(menuoverview));
             this.menuoverviewdata = menuoverview.data,
+               
+            //   this.lat = this.menuoverviewdata.map_data.latitude;
+            //   console.log(this.lat);
+            //   this.long= this.menuoverviewdata.map_data.longitude; 
+
                // console.log(menuoverview.data);
                // console.log(this.baseurl + menuoverview.data.cover_image);
 

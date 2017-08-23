@@ -1,3 +1,5 @@
+import { LocalStorageService } from './../providers/localstorage.service';
+import { MapServiceClass } from './../providers/map.service';
 import { searchPipe } from './../pipes/search-menu-item.pipe';
 import { ForgotPage } from './../pages/forgot/forgot';
 import { RegisterPage } from './../pages/register/register';
@@ -31,6 +33,7 @@ import { LoginPage } from '../pages/login/login'
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CartService } from '../providers/cart/cart.service';
+import { Geolocation } from '@ionic-native/geolocation';
 // import {TabsPage} from '../pages/tabs/tabs';
 // import {DetailmarksPage} from '../pages/detailmarks/detailmarks';
 
@@ -48,6 +51,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { IonicStorageModule } from '@ionic/storage';
 import { StoryComponent } from '../components/story/story';
 import { ReviewDescComponent } from '../components/review-desc/review-desc';
+import { AgmCoreModule } from '@agm/core';
 
 // common components
 import { LoaderService } from '../common/loader.service';
@@ -69,38 +73,50 @@ firebase.initializeApp(firebaseConfig);
 //  var storef =  storage.ref();
 //  console.info(storef);
 
+let COMPONENTS = [
+   MyApp, CartPage, AddToCartPage, foodPage, StoryComponent, TakeoutPage, DeliveryPage,
+   HomePage, CreatePage, LoginPage, IntroPage, SupertabssPage, checkouttabPage,
+   StoryComponent, ReviewsPage, MenuPage, OverviewPage, DinenmorePage,
+   ReviewDescComponent, GallaryPage, GallarydetailsPage, RegisterPage, ForgotPage
+];
+
+let PIPES = [
+   searchPipe,
+   TruncatePipe,
+   SpaceConvertPipe,
+   CheckNull,
+];
+
 @NgModule({
    declarations: [
-
-      MyApp, CartPage, AddToCartPage, foodPage, StoryComponent, TakeoutPage, DeliveryPage,searchPipe,
-      HomePage, CreatePage, LoginPage, IntroPage, SupertabssPage, checkouttabPage,
-      StoryComponent, ReviewsPage, MenuPage, OverviewPage, DinenmorePage, TruncatePipe, SpaceConvertPipe,
-      ReviewDescComponent, GallaryPage, GallarydetailsPage, CheckNull, RegisterPage, ForgotPage
+      ...COMPONENTS,
+      PIPES,
    ],
    imports: [
       BrowserModule, SuperTabsModule.forRoot(),
       IonicModule.forRoot(MyApp), HttpModule,
       AngularFireModule.initializeApp(firebaseConfig),
       AngularFireDatabaseModule, ReactiveFormsModule, FormsModule,
-      AngularFireAuthModule, IonicStorageModule.forRoot(),
+      AngularFireAuthModule, IonicStorageModule.forRoot(), AgmCoreModule.forRoot(
+         {
+            apiKey: 'AIzaSyDtp2_V1VghnpwAOlnUi6xyVmoSWTVv2YI'
+         }
+      )
    ],
    bootstrap: [IonicApp],
    entryComponents: [
-      SupertabssPage, StoryComponent, DeliveryPage, TakeoutPage,
-      MyApp, CartPage, AddToCartPage, foodPage, GallaryPage,
-      HomePage, CreatePage, LoginPage, IntroPage, StoryComponent, ReviewsPage
-      , MenuPage, OverviewPage, DinenmorePage, checkouttabPage, GallarydetailsPage, RegisterPage,
-      ForgotPage
+      ...COMPONENTS,
    ],
    providers: [
       StatusBar,
       SplashScreen, ServiceClass,
-      GooglePlus,
-      Facebook, DatePicker,
+      GooglePlus, MapServiceClass,
+      Facebook, DatePicker, Geolocation,
       { provide: ErrorHandler, useClass: IonicErrorHandler },
       AuthProvider,
       CartService,
       LoaderService,
+      LocalStorageService,
       EditItemService
    ]
 

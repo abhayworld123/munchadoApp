@@ -208,6 +208,7 @@ ion-segment.segment.segment-md {
        float: right;
     }
 
+}
  .over-rev-stats {
     clear: both;
     width: 100%;
@@ -222,6 +223,18 @@ ion-segment.segment.segment-md {
     display: block;
     width: 100%;
 }
+ .over-distance1{
+    position: absolute;
+    right: 4%;
+    font-size: 10px;
+    top: 30%;
 }
+   .over-distance2 {
+    font-size: 10px;
+    padding: 3px 0 7px;
+}
+
+
+
 
 }

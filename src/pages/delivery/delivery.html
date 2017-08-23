@@ -11,83 +11,95 @@
 
 
 
-   <form novalidate [formGroup]="user">
+   <form novalidate [formGroup]="userAddressForm">
       <ion-item>
          <ion-label stacked>
-            Full name
+            First name:
+            <div style="display: inline-block; color: red;" *ngIf="fname.errors && fname.errors.required">*</div>
          </ion-label>
-         <ion-input type="text" placeholder="Your firstname" formControlName="firstname"></ion-input>
+         <ion-input class="delivery-ion-input" type="text" placeholder="Your first name" formControlName="fname"></ion-input>
 
       </ion-item>
       <ion-item>
          <ion-label stacked>
-            <span>Last name</span></ion-label>
-         <ion-input type="text" placeholder="Your lastname" formControlName="lastname"></ion-input>
+            Last name:
+            <div style="display: inline-block; color: red;" *ngIf="lname.errors && lname.errors.required">*</div>
+         </ion-label>
+         <ion-input class="delivery-ion-input" type="text" placeholder="Your last name" formControlName="lname"></ion-input>
       </ion-item>
       <ion-item>
          <ion-label stacked>
-            <span>Address nickname</span></ion-label>
-         <ion-input type="text" placeholder="Address nick name" formControlName="Addressnickname"></ion-input>
-      </ion-item>
-
-      <ion-item>
-         <ion-label stacked>
-            <span>Address </span></ion-label>
-         <ion-input type="text" placeholder="Address " formControlName="Address"></ion-input>
-
+            Address Nickname:
+            <div style="display: inline-block; color: red;" *ngIf="addressNickname.errors && addressNickname.errors.required">*</div>
+         </ion-label>
+         <ion-input class="delivery-ion-input" type="text" placeholder="Address nickname" formControlName="addressNickname"></ion-input>
       </ion-item>
 
       <ion-item>
          <ion-label stacked>
-            <span>Appartent/office</span></ion-label>
-         <ion-input type="text" placeholder="Appartent/office" formControlName="Appartment"></ion-input>
-
-      </ion-item>
-
-      <ion-item>
-         <ion-label stacked>
-            <span> zipcode</span></ion-label>
-         <ion-input type="text" placeholder="zipcode" formControlName="zipcode"></ion-input>
+            Address
+            <div style="display: inline-block; color: red;" *ngIf="address.errors && address.errors.required">*</div>
+         </ion-label>
+         <ion-input class="delivery-ion-input" type="text" placeholder="Address" formControlName="address"></ion-input>
 
       </ion-item>
 
       <ion-item>
          <ion-label stacked>
-            <span> Special Instruction</span> </ion-label>
-         <ion-input type="text" placeholder="Special instructions" formControlName="special"></ion-input>
+            Appartent/Office:
+            <div style="display: inline-block; color: red;" *ngIf="appartment.errors && appartment.errors.required">*</div>
+         </ion-label>
+         <ion-input class="delivery-ion-input" type="text" placeholder="Appartent/Office" formControlName="appartment"></ion-input>
 
       </ion-item>
 
+      <ion-item>
+         <ion-label stacked>
+            Zipcode:
+            <div style="display: inline-block; color: red;" *ngIf="zipcode.errors && zipcode.errors.required">*</div>
+         </ion-label>
+         <ion-input class="delivery-ion-input" type="text" placeholder="Zipcode" formControlName="zipcode"></ion-input>
 
+      </ion-item>
 
+      <ion-item>
+         <ion-label stacked>
+            Special Instruction:
+            <div style="display: inline-block; color: red;" *ngIf="special.errors && special.errors.required">*</div>
+         </ion-label>
 
+         <ion-input class="delivery-ion-input" type="text" placeholder="Special instructions" formControlName="special"></ion-input>
 
+      </ion-item>
 
-      <div formGroupName="account">
-         <ion-item>
-            <ion-label stacked>
-               <span>Phone</span></ion-label>
-            <ion-input type="number" placeholder="Your phone no" formControlName="phone"></ion-input>
+      <ion-item>
+         <ion-label stacked>
+            Phone:
+            <div style="display: inline-block; color: red;" *ngIf="phone.errors && phone.errors.required">*</div>
+         </ion-label>
+         <ion-input class="delivery-ion-input" type="number" placeholder="Your phone no" formControlName="phone"></ion-input>
 
-         </ion-item>
-         <ion-item>
-            <ion-label stacked>
-               <span>Email address</span> </ion-label>
-            <ion-input type="email" placeholder="Your email address" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item>
+         <ion-label stacked>
+            Email address:
+            <div style="display: inline-block; color: red;" *ngIf="email.errors && email.errors.required">*</div>
+         </ion-label>
+         <ion-input class="delivery-ion-input" type="email" placeholder="Your email address" formControlName="email"></ion-input>
 
-         </ion-item>
+      </ion-item>
+      <!-- <div formGroupName="account">
          <ion-item>
             <ion-label stacked>
                <span>Confirm address</span></ion-label>
-            <ion-input type="email" placeholder="Confirm your email address" formControlName="confirm"></ion-input>
-
+            <ion-input class="delivery-ion-input" type="email" placeholder="Confirm your email address" formControlName="confirm"></ion-input>
          </ion-item>
-      </div>
+      </div> -->
       <!-- <button type="submit">Sign up</button> -->
    </form>
 
 
-   <!-- {{ user.value | json }} -->
+   <!-- {{ userAddressForm.value | json }} -->
 
    <page-takeout></page-takeout>
 
