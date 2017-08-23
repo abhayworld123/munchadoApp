@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../providers/localstorage.service';
 import { MapServiceClass } from './../providers/map.service';
 import { searchPipe } from './../pipes/search-menu-item.pipe';
 import { ForgotPage } from './../pages/forgot/forgot';
@@ -115,6 +116,7 @@ let PIPES = [
       AuthProvider,
       CartService,
       LoaderService,
+      LocalStorageService,
       EditItemService
    ]
 

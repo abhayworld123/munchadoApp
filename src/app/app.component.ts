@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../providers/localstorage.service';
 import { TruncatePipe } from './../pipes/limitchar.pipe';
 import { SupertabssPage } from './../pages/supertabss/supertabss';
 import { ServiceClass } from './../providers/servicee';
@@ -24,18 +25,25 @@ export class MyApp {
    errorMessage: any;
    rootPage: any;
    loader: any;
-   body:any;
+   body: any;
 
 
-   constructor(platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, public dataservice: ServiceClass,
-      private afAuth: AngularFireAuth, public storage: Storage, public loadingCtrl: LoadingController) {
+   constructor(platform: Platform,
+      private statusBar: StatusBar,
+      private splashScreen: SplashScreen,
+      public dataservice: ServiceClass,
+
+      private afAuth: AngularFireAuth,
+      public storage: Storage,
+      public loadingCtrl: LoadingController,
+      private localStorageService: LocalStorageService) {
 
 
 
       platform.ready().then(() => {
          // this.presentLoading();
          this.statusBar.overlaysWebView(true);
-               this.statusBar.backgroundColorByHexString('#e09100');
+         this.statusBar.backgroundColorByHexString('#e09100');
 
          this.initializeApp();
       });
@@ -47,32 +55,34 @@ export class MyApp {
 
       this.loader = this.loadingCtrl.create({ content: 'Loading...' })
       this.loader.present().then(
-         () => {
-            this.storage.get('introShown').then((result) => {
-               console.log('introShown result: ', result);
-               if (result) {
-                  console.log('introShown result: ', (typeof result));
-                  // this.rootPage = LoginPage;
-                  return this.authenticateUser();
-               } else {
-                  console.log('introShown else part ');
-                  this.rootPage = IntroPage;
-                  this.storage.set('introShown', true);
-               }
+         () => {  
+            this.localStorageService.getItems('introShown')
+               .then((result) => {
+                  console.log('introShown result: ', result);
+                  if (result) {
+                     console.log('introShown result: ', (typeof result));
+                     // this.rootPage = LoginPage;
+                     return this.authenticateUser();
+                  } else {
+                     console.log('introShown else part ');
+                     this.rootPage = IntroPage;
+                     // this.storage.set('introShown', true);
+                     this.localStorageService.setItems('introShown', true);
+                  }
 
-            }).then((user) => {
-               if (user) {
-                  this.rootPage = SupertabssPage;
-               } else if (!this.rootPage) {
-                  this.rootPage = LoginPage;
-               }
-            }).then(() => {
-               return this.getToken();
-            }).then(() => {
-               this.loader.dismiss();
-            }).catch((error) => {
-               this.errorMessage = <any>error;
-            });
+               }).then((user) => {
+                  if (user) {
+                     this.rootPage = SupertabssPage;
+                  } else if (!this.rootPage) {
+                     this.rootPage = LoginPage;
+                  }
+               }).then(() => {
+                  return this.getToken();
+               }).then(() => {
+                  this.loader.dismiss();
+               }).catch((error) => {
+                  this.errorMessage = <any>error;
+               });
          }
       );
       // Okay, so the platform is ready and our plugins are available.
@@ -92,9 +102,9 @@ export class MyApp {
       });
    }
 
-   
+
    private getToken() {
-      
+
       return new Promise((resolve, reject) => {
          this.dataservice
             .gettoken('http://api.munchado.in/api/auth/token', this.body)
