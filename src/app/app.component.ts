@@ -15,6 +15,9 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import { Storage } from '@ionic/storage';
 
+//TODO: Temp for testing
+import { checkouttabPage } from './../pages/checkouttab/checkouttab';
+
 @Component({
 
    templateUrl: 'app.html'
@@ -24,7 +27,7 @@ export class MyApp {
    errorMessage: any;
    rootPage: any;
    loader: any;
-   body:any;
+   body: any;
 
 
    constructor(platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, public dataservice: ServiceClass,
@@ -47,13 +50,10 @@ export class MyApp {
       this.loader.present().then(
          () => {
             this.storage.get('introShown').then((result) => {
-               console.log('introShown result: ', result);
                if (result) {
-                  console.log('introShown result: ', (typeof result));
                   // this.rootPage = LoginPage;
                   return this.authenticateUser();
                } else {
-                  console.log('introShown else part ');
                   this.rootPage = IntroPage;
                   this.storage.set('introShown', true);
                }
@@ -64,6 +64,8 @@ export class MyApp {
                } else if (!this.rootPage) {
                   this.rootPage = LoginPage;
                }
+               //TODO: after testing should remove
+               // this.rootPage = checkouttabPage;
             }).then(() => {
                return this.getToken();
             }).then(() => {
@@ -90,16 +92,17 @@ export class MyApp {
       });
    }
 
-   
+
    private getToken() {
-      this.body='username=myusername&password=mypassword';
+      this.body = 'username=myusername&password=mypassword';
       return new Promise((resolve, reject) => {
          this.dataservice
             .gettoken('http://api.munchado.in/api/auth/token', this.body)
             .subscribe(
             result => {
                result = JSON.parse(result._body);
-               this.dataservice.token = result.token; console.log(result);
+               this.dataservice.token = result.token;
+               // console.log(result);
                resolve();
                // this.token =  this.dataservice.token;
             },

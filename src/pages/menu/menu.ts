@@ -48,23 +48,16 @@ export class MenuPage {
    reviews: any;
    @ViewChild(Content) content: Content;
    constructor(public modalCtrl: ModalController, public service: ServiceClass, public storage: Storage, public navCtrl: NavController, public navparam: NavParams, public viewCtrl: ViewController) {
-
+      console.log('this.service.loginInfo: ' + JSON.stringify(this.service.loginInfo));
    }
 
    ionViewDidLoad() {
-      console.log('ionViewDidLoad MenuPage');
-
+      // console.log('ionViewDidLoad MenuPage');
    }
 
    presentModal(item, ind) {
-      console.log(item);
-      console.log(ind);
       let modal = this.modalCtrl.create(AddToCartPage, { dish: item });
-
       modal.present();
-      // this.already= true;
-
-
    }
 
    openCartpage() {
@@ -72,52 +65,26 @@ export class MenuPage {
    }
 
 
-   scrolllto(elementid, ind) {
-      console.log(elementid);
-
-
-
-      if (typeof elementid != 'undefined') {
-         // let elementid: string = <any>event.target.textContent;
-
-         elementid = '#menu' + ind;
-
-         let elementidm = elementid; // elementid.split(' ').join('')
-         console.log(elementidm);
-
-         // console.log(this.abc.nativeElement);
-
-         // let yOffset:any = document.getElementById('{elmentid}').offsetTop;
+   scrolllto(elementidm, ind) {
+      if (typeof elementidm != 'undefined') {
+         elementidm = '#menu' + ind;
          setTimeout(() => {
             if (<HTMLElement>document.querySelector(elementidm)) {
-
                this.offsety = <any>(<HTMLElement>document.querySelector(elementidm)).offsetTop;
-               console.log(this.offsety);
-
+               // console.log(this.offsety);
             }
             else
                throw new Error("sorry not ind ");
-
-
             this.content.scrollTo(0, this.offsety, 1000);
-
             this.content.scrollTo(0, this.offsety, 1000);
          }, 100)
-
-
       }
-
    }
 
    public ngOnInit() {
-      console.log(this.service.baseurl);
-      //  this.baseurl  =  menuoverview.base_url +'munch_images/'+ menuoverview.data.rest_code+'/thumb/' ;
-
       this.service.getmenuitems(this.service.token)
          .subscribe(menuitems => {
             this.menudata = menuitems.data;
-            // console.log('this.menudata: ', JSON.stringify(this.menudata));
-
             this.menudata.forEach(element => {
                this.menusubcategories.push(...element.sub_categories);
                this.menusubcategories.forEach(element1 => {
@@ -126,7 +93,6 @@ export class MenuPage {
                   })
                })
             });
-            // console.log('this.menusubcategories: ', JSON.stringify(this.menusubcategories));
          });
    }
 }
