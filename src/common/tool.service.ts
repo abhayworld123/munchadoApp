@@ -41,4 +41,12 @@ export class ToolServices {
       }
       return newSlots;
    }
+
+   public static deg2rad(lat) {
+      return Math.PI * lat / 180;
+   }
+
+   public static rad2deg(dig) {
+      return dig * 180 / Math.PI;
+   }
 }

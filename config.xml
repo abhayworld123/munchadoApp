@@ -95,6 +95,7 @@
         <variable name="APP_ID" value="1868408743485394" />
         <variable name="APP_NAME" value="ionsong" />
     </plugin>
+    <plugin name="cordova-plugin-geolocation" spec="^2.4.3" />
     <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="^2.2.2" />

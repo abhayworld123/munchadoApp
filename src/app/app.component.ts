@@ -34,8 +34,10 @@ export class MyApp {
 
       platform.ready().then(() => {
          // this.presentLoading();
-         this.initializeApp();
+         this.statusBar.overlaysWebView(true);
+               this.statusBar.backgroundColorByHexString('#e09100');
 
+         this.initializeApp();
       });
    }
 

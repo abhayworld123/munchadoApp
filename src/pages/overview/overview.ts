@@ -1,3 +1,4 @@
+import { MapServiceClass } from './../../providers/map.service';
 import { TruncatePipe } from './../../pipes/limitchar.pipe';
 import { CheckNull } from './../../pipes/CheckNull.pipe';
 import { SupertabssPage } from './../supertabss/supertabss';
@@ -54,15 +55,19 @@ export class OverviewPage implements AfterViewInit {
    mapApi = "AIzaSyDtp2_V1VghnpwAOlnUi6xyVmoSWTVv2YI";
    lat :any = parseFloat("40.7127");
    lng:any = parseFloat("-74.0059");
+   currentlat:number ;
+   currentlng:number;
    zoom :number = 17;
+   mapdistance:any = 0;
    constructor(public modalCtrl: ModalController,
       public service: ServiceClass,
       public storage: Storage,
       public navCtrl: NavController,
       public navparam: NavParams,
       public viewCtrl: ViewController,
-      private editItemService: EditItemService) {
-
+      private editItemService: EditItemService,
+      private MapServiceClass :MapServiceClass) {
+      
    }
 
    public ngAfterViewInit() {
@@ -71,6 +76,24 @@ export class OverviewPage implements AfterViewInit {
       //    zoom: 14,
       //    center: { lat: 40.7127, lng: -74.0059 }
       // });
+     this.getLocation();
+
+     
+   }
+
+   getLocation(){
+    this.MapServiceClass.getCurrentLocation().subscribe(currentCord => {
+       console.log(currentCord);
+       this.currentlat= currentCord.latitude;
+       this.currentlng= currentCord.longitude;
+
+      let mapdis =  this.MapServiceClass.calculateMilesDistance(this.currentlat , this.currentlng , this.lat ,this.lng );
+     console.log(mapdis);
+     this.mapdistance = mapdis;
+    });
+
+    
+    
    }
 
    showMore() {

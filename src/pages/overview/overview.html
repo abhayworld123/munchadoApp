@@ -35,6 +35,7 @@
 
       </div>
       <div class="over-landmark">{{menuoverviewdata.landmark}} </div>
+      <div class="over-distance1" >{{mapdistance | number : '1.2-3'}} mi</div>
     </div>
     <!-- <div  class="border-block">
       <div class="over-in-block">
@@ -46,13 +47,14 @@
       </div>
     </div> -->
   </div>
-  <div *ngIf="menuoverviewdata" class="">
+  <div *ngIf="menuoverviewdata" class=" border-block">
+     
+    <div *ngIf="menuoverviewdata">{{menuoverviewdata.short_address}}</div>
+     <div class="over-distance2" >{{mapdistance | number : '1.2-3'}} mi</div>
     <agm-map [latitude]="lat" [longitude]="lng" [zoomControl]="false" [zoom]="zoom">
                  <agm-marker [latitude]="lat" [longitude]="lng" [label]="'TT'"></agm-marker>
 
     </agm-map>
-
-    <div *ngIf="menuoverviewdata">{{menuoverviewdata.short_address}}</div>
 
   </div>
 
