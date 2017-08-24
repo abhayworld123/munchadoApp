@@ -1,3 +1,4 @@
+import { LoaderService } from './../../common/loader.service';
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
@@ -40,7 +41,8 @@ export class AddToCartPage {
       public navCtrl: NavController,
       public navparam: NavParams,
       public viewCtrl: ViewController,
-      private editItemService: EditItemService) {
+      private editItemService: EditItemService,
+       private LoaderService : LoaderService) {
 
       // this.resname = this.navparam.get("resname");
       this.selectedDish = JSON.parse(JSON.stringify(this.navparam.get('dish')))
@@ -57,9 +59,11 @@ export class AddToCartPage {
    }
 
    ngOnInit() {
+      this.LoaderService.showLoader('Please Wait');
       this.service.getaddons(this.itemId)
          .subscribe(
          (menuaddons) => {
+            this.LoaderService.hideLoader();
             if (menuaddons && menuaddons[0] && menuaddons[0].addons) {
                this.addons = <any[]>menuaddons[0].addons;
             } else {

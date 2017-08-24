@@ -1,3 +1,4 @@
+import { LoaderService } from './../../common/loader.service';
 import { LocalStorageService } from './../../providers/localstorage.service';
 import { ServiceClass } from './../../providers/servicee';
 import { ForgotPage } from './../forgot/forgot';
@@ -36,7 +37,8 @@ export class LoginPage {
 
 
    constructor(private formBuilder: FormBuilder, private loaderCtrl: LoadingController, public service: ServiceClass, public navCtrl: NavController, public navParams: NavParams,
-      public authProvider: AuthProvider ,private localStorageService :LocalStorageService) {
+      public authProvider: AuthProvider ,private localStorageService :LocalStorageService
+     ,private LoaderService:LoaderService ) {
 
 
           firebase.auth().onAuthStateChanged( user => {
@@ -118,7 +120,7 @@ export class LoginPage {
 
 
    googleLogin(): void {
-
+      this.LoaderService.showLoader('Logging In');
       //  this.authProvider.googleLogin();
       const provider = new firebase.auth.GoogleAuthProvider();
       alert(1);
@@ -133,7 +135,9 @@ export class LoginPage {
             var user = result.user;
 
             console.log(token, user);
+
               this.navCtrl.setRoot(SupertabssPage);
+              this.LoaderService.hideLoader();
          }).catch(function (error) {
             // Handle Errors here.
             console.log(error.message);

@@ -1,3 +1,4 @@
+import { LoaderService } from './../../common/loader.service';
 import { LocalStorageService } from './../../providers/localstorage.service';
 import { LoginPage } from './../login/login';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -79,8 +80,10 @@ export class SupertabssPage {
       public viewCtrl: ViewController,
       private editItemService: EditItemService,
       public afAuth: AngularFireAuth,
-      private localStorageService: LocalStorageService) {
+      private localStorageService: LocalStorageService,
+     private LoaderService :LoaderService) {
       this.activateTabIndex = 0;
+     
 
    }
 
@@ -89,8 +92,10 @@ export class SupertabssPage {
       this.activateTabIndex = $event.index;
    }
    LogoutApp() {
+      this.LoaderService.showLoader('Logging Out');
       if (this.afAuth.auth.currentUser) {
          this.afAuth.auth.signOut();
+         this.LoaderService.hideLoader();
          this.navCtrl.setRoot(LoginPage);
       }
       else {
@@ -99,7 +104,8 @@ export class SupertabssPage {
          this.afAuth.auth.signOut();
          this.localStorageService.removeItems('userInfo');
          this.navCtrl.setRoot(LoginPage);
-         alert(3);
+          this.LoaderService.hideLoader();
+         
       }
    }
 
@@ -125,7 +131,7 @@ export class SupertabssPage {
 
 
    ngOnInit() {
-
+    
       this.editItemService.slideToMenuPage.subscribe(
          () => {
             this.slidetoMenuTab();

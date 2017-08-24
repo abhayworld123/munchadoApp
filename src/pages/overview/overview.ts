@@ -1,3 +1,4 @@
+import { LoaderService } from './../../common/loader.service';
 import { MapServiceClass } from './../../providers/map.service';
 import { TruncatePipe } from './../../pipes/limitchar.pipe';
 import { CheckNull } from './../../pipes/CheckNull.pipe';
@@ -53,12 +54,12 @@ export class OverviewPage implements AfterViewInit {
    n = this.d.getDay();
    showMorevar: any = 0;
    mapApi = "AIzaSyDtp2_V1VghnpwAOlnUi6xyVmoSWTVv2YI";
-   lat :any = parseFloat("40.7127");
-   lng:any = parseFloat("-74.0059");
-   currentlat:number ;
-   currentlng:number;
-   zoom :number = 17;
-   mapdistance:any = 0;
+   lat: any = parseFloat("40.7127");
+   lng: any = parseFloat("-74.0059");
+   currentlat: number;
+   currentlng: number;
+   zoom: number = 17;
+   mapdistance: any = 0;
    constructor(public modalCtrl: ModalController,
       public service: ServiceClass,
       public storage: Storage,
@@ -66,8 +67,9 @@ export class OverviewPage implements AfterViewInit {
       public navparam: NavParams,
       public viewCtrl: ViewController,
       private editItemService: EditItemService,
-      private MapServiceClass :MapServiceClass) {
-      
+      private MapServiceClass: MapServiceClass,
+      private LoaderService: LoaderService) {
+
    }
 
    public ngAfterViewInit() {
@@ -76,24 +78,24 @@ export class OverviewPage implements AfterViewInit {
       //    zoom: 14,
       //    center: { lat: 40.7127, lng: -74.0059 }
       // });
-     this.getLocation();
+      this.getLocation();
 
-     
+
    }
 
-   getLocation(){
-    this.MapServiceClass.getCurrentLocation().subscribe(currentCord => {
-       console.log(currentCord);
-       this.currentlat= currentCord.latitude;
-       this.currentlng= currentCord.longitude;
+   getLocation() {
+      this.MapServiceClass.getCurrentLocation().subscribe(currentCord => {
+         console.log(currentCord);
+         this.currentlat = currentCord.latitude;
+         this.currentlng = currentCord.longitude;
 
-      let mapdis =  this.MapServiceClass.calculateMilesDistance(this.currentlat , this.currentlng , this.lat ,this.lng );
-     console.log(mapdis);
-     this.mapdistance = mapdis;
-    });
+         let mapdis = this.MapServiceClass.calculateMilesDistance(this.currentlat, this.currentlng, this.lat, this.lng);
+         console.log(mapdis);
+         this.mapdistance = mapdis;
+      });
 
-    
-    
+
+
    }
 
    showMore() {
@@ -138,14 +140,15 @@ export class OverviewPage implements AfterViewInit {
    }
 
    ngOnInit() {
+      this.LoaderService.showLoader('Please Wait');
       this.service.getmenuoverview(this.service.token)
          .subscribe(menuoverview => {
+            this.LoaderService.hideLoader();
             // console.log('menuoverview: ' + JSON.stringify(menuoverview));
             this.menuoverviewdata = menuoverview.data,
-               
-            //   this.lat = this.menuoverviewdata.map_data.latitude;
-            //   console.log(this.lat);
-            //   this.long= this.menuoverviewdata.map_data.longitude; 
+               //   this.lat = this.menuoverviewdata.map_data.latitude;
+               //   console.log(this.lat);
+               //   this.long= this.menuoverviewdata.map_data.longitude; 
 
                // console.log(menuoverview.data);
                // console.log(this.baseurl + menuoverview.data.cover_image);
