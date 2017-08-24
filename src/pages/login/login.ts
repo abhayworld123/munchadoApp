@@ -75,7 +75,7 @@ export class LoginPage {
          this.loader = this.loaderCtrl.create({ content: 'Loading...' });
          this.loader.present();
          this.service
-            .doLogin(ConfigService.backendServer + 'api/user/login?mob=true', this.params)
+            .doLogin(ConfigService.backendServer + 'user/login?mob=true', this.params)
             .subscribe(
 
             result => {
