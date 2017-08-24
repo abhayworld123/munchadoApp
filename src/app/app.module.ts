@@ -1,3 +1,4 @@
+import { SelectRestaurantPage } from './../pages/SelectRestaurant/SelectRestaurant';
 import { PopoverrComponent } from './../components/popover/popover';
 import { LocalStorageService } from './../providers/localstorage.service';
 import { MapServiceClass } from './../providers/map.service';
@@ -78,7 +79,8 @@ let COMPONENTS = [
    MyApp, CartPage, AddToCartPage, foodPage, StoryComponent, TakeoutPage, DeliveryPage,
    HomePage, CreatePage, LoginPage, IntroPage, SupertabssPage, checkouttabPage,
    StoryComponent, ReviewsPage, MenuPage, OverviewPage, DinenmorePage,PopoverrComponent,
-   ReviewDescComponent, GallaryPage, GallarydetailsPage, RegisterPage, ForgotPage
+   ReviewDescComponent, GallaryPage, GallarydetailsPage, RegisterPage, ForgotPage, 
+   SelectRestaurantPage,
 ];
 
 let PIPES = [
