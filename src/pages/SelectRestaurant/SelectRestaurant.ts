@@ -33,7 +33,7 @@ export class SelectRestaurantPage {
       this.service.getRestaurants()
          .subscribe(data => {
             this.restraurantList = data;
-            console.log(this.restraurantList);
+            // console.log(this.restraurantList);
          })
 
 

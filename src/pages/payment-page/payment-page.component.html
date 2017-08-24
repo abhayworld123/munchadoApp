@@ -1,0 +1,69 @@
+<!--
+  Generated template for the DinenmorePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Payment</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form novalidate [formGroup]="paymentForm">
+    <ion-item>
+      <ion-label stacked>
+        NAME ON YOUR CARD:
+        <div style="display:inline-block; color: red;" *ngIf="name.errors && name.errors.required">*</div>
+      </ion-label>
+      <ion-input class="delivery-ion-input" type="text" formControlName="name"></ion-input>
+
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>
+        CARD NUMBER
+        <div style="display:inline-block; color: red;" *ngIf="card.errors && card.errors.required">*</div>
+      </ion-label>
+      <ion-input class="delivery-ion-input" type="text" formControlName="card"></ion-input>
+    </ion-item>
+    <ion-item>
+
+      <ion-label stacked>
+        EXPIRY DATE(MM/YY)
+        <div style="display:inline-block; color: red;" *ngIf="exp.errors && exp.errors.required">*</div>
+      </ion-label>
+      <ion-input class="delivery-ion-input" type="text" placeholder="EXPIRY DATE(MM/YY)" formControlName="exp"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>
+        CVV CODE
+        <div style="display:inline-block; color: red;" *ngIf="cvv.errors && cvv.errors.required">*</div>
+      </ion-label>
+      <ion-input class="delivery-ion-input" type="text" placeholder="CVV CODE" formControlName="cvv"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>
+        Bzip
+        <div style=" display:inline-block; color: red;" *ngIf="zip.errors && zip.errors.required">*</div>
+      </ion-label>
+      <ion-input class="delivery-ion-input" type="text" placeholder="Your last name" formControlName="zip"></ion-input>
+    </ion-item>
+    <div class="cred-block">
+      <ion-checkbox formControlName="save"></ion-checkbox>
+      <span>Save credit card</span>
+      <div>know more</div>
+
+    </div>
+  </form>
+  <div class="cod-block">
+    <ion-checkbox (ionChange)="addCod($event.checked)"></ion-checkbox> <span>CASH ON DELIVERY</span>
+  </div>
+
+  <button (click)="makePayment()" ion-button block>PAY </button>
+
+</ion-content>

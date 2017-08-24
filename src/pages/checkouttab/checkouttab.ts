@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 
+import { PaymentPageComponent } from './../payment-page/payment-page.component';
 import { TakeoutPage } from './../takeout/takeout';
 import { DeliveryPage } from './../delivery/delivery';
 import { AddToCartPage } from './../addtocard/addtocard';
@@ -25,6 +26,7 @@ export class checkouttabPage implements OnInit, OnDestroy {
    page2: any = TakeoutPage;
 
    editItems$Subscriber;
+   paymentPage$Subscriber;
    initiate$Subscribe;
    formChanges$Subscription: Subscription;
 
@@ -45,11 +47,20 @@ export class checkouttabPage implements OnInit, OnDestroy {
             this.navCtrl.push(AddToCartPage, { dish: item, isEdit: true });
          }
       );
+
+      this.paymentPage$Subscriber = this.editItemService.paymentPage.subscribe(
+         (orderDetails) => {
+            this.navCtrl.push(PaymentPageComponent, { 'orderDetails': orderDetails })
+         }
+      );
    }
 
    ngOnDestroy() {
       if (this.editItems$Subscriber) {
          this.editItems$Subscriber.unsubscribe();
+      }
+      if (this.paymentPage$Subscriber) {
+         this.paymentPage$Subscriber.unsubscribe();
       }
    }
 

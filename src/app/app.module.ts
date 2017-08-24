@@ -1,3 +1,4 @@
+import { PaymentPageComponent } from './../pages/payment-page/payment-page.component';
 import { SelectRestaurantPage } from './../pages/SelectRestaurant/SelectRestaurant';
 import { PopoverrComponent } from './../components/popover/popover';
 import { LocalStorageService } from './../providers/localstorage.service';
@@ -34,6 +35,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CartService } from '../providers/cart/cart.service';
 import { Geolocation } from '@ionic-native/geolocation';
+import  {Network} from '@ionic-native/network';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DatePicker } from '@ionic-native/date-picker';
@@ -77,7 +79,7 @@ let COMPONENTS = [
    HomePage, CreatePage, LoginPage, IntroPage, SupertabssPage, checkouttabPage,
    StoryComponent, ReviewsPage, MenuPage, OverviewPage, DinenmorePage, PopoverrComponent,
    ReviewDescComponent, GallaryPage, GallarydetailsPage, RegisterPage, ForgotPage,
-   SelectRestaurantPage,
+   SelectRestaurantPage,PaymentPageComponent
 ];
 
 let PIPES = [
@@ -117,7 +119,8 @@ let PIPES = [
       CartService,
       LoaderService,
       LocalStorageService,
-      EditItemService
+      EditItemService,
+      Network
    ]
 
 

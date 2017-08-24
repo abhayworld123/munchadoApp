@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ViewController } from 'ionic-angular';
 import { NavController, ModalController, AlertController } from 'ionic-angular';
 
+import { PaymentPageComponent } from './../payment-page/payment-page.component';
 import { CartService } from '../../providers/cart/cart.service';
 import { LoaderService } from '../../common/loader.service';
 import { ServiceClass } from '../../providers/servicee';
@@ -36,8 +37,9 @@ export class TakeoutPage {
    allOrders: any;
    datesList: any[] = [];
    timeSlotes = [];
+
    selectedDate;
-   selectedTime;
+   selectedTime: any;
    editItemDetails = new EventEmitter();
    initiate$Subscribe;
 
@@ -89,12 +91,12 @@ export class TakeoutPage {
    }
 
    public ngOnInit() {
-      
+
       this.initiate$Subscribe = this.editItemService.updateCart.subscribe(
          () => {
 
             this.initiate();
-           
+
          }
       )
       this.initiate();
@@ -146,6 +148,7 @@ export class TakeoutPage {
                      this.timeSlotes = ToolServices.getDateAndTimeSlots(response.data.timeslots);
                   }
                   this.selectedDate = date;
+                  this.selectedTime = '' + this.selectedTime;
                   this.cartService.setDeliveryDate(this.selectedDate, this.orderType);
                   this.loaderService.hideLoader();
                });
@@ -223,7 +226,7 @@ export class TakeoutPage {
       this.service.userAddressData = this.orderType == 'order' ? this.deliveryUserForm.value : this.userAddressForm.value;
       let orderDetails = this.cartService.getOrderDetails(this.orderType, this.selectedDate, this.selectedTime);
       orderDetails.token = ConfigService.token;
-      console.log('placeOrder orderDetails: ' + JSON.stringify(orderDetails));
+      this.editItemService.gotoPaymentPage(orderDetails);
    }
 
    public isFormValid() {
