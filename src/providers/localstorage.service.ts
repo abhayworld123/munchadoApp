@@ -25,6 +25,10 @@ export class LocalStorageService {
    setItems(key, item) {
       this.storage.set(key, item);
    }
+
+   removeItems(key) {
+      this.storage.remove(key);
+   }
 }
 
 
