@@ -1,3 +1,7 @@
+import { LocalStorageService } from './../../providers/localstorage.service';
+import { LoginPage } from './../login/login';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AuthProvider } from './../../providers/auth/auth';
 import { GallaryPage } from './../gallary/gallary';
 import { checkouttabPage } from './../checkouttab/checkouttab';
 import { StoryComponent } from './../../components/story/story';
@@ -73,15 +77,30 @@ export class SupertabssPage {
       public navCtrl: NavController,
       public navparam: NavParams,
       public viewCtrl: ViewController,
-      private editItemService: EditItemService) {
+      private editItemService: EditItemService,
+      public afAuth: AngularFireAuth,
+      private localStorageService: LocalStorageService) {
+      this.activateTabIndex = 0;
 
    }
 
    onTabSelect($event) {
       // console.log($event)
       this.activateTabIndex = $event.index;
+   }
+   LogoutApp() {
+      if (this.afAuth.auth.currentUser) {
+         this.afAuth.auth.signOut();
+         this.navCtrl.setRoot(LoginPage);
+      }
+      else {
 
-
+         //  this.navCtrl.rootNav.setRoot(LoginPage);
+         this.afAuth.auth.signOut();
+         this.localStorageService.removeItems('userInfo');
+         this.navCtrl.setRoot(LoginPage);
+         alert(3);
+      }
    }
 
    openGallery(gallary) {

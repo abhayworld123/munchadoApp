@@ -28,7 +28,7 @@ export class ProfilePage {
     
      if(this.afAuth.auth.currentUser){
          this.afAuth.auth.signOut();
-         
+         this.navCtrl.setRoot(LoginPage);
      }
      else{
        

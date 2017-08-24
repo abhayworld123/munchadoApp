@@ -4,9 +4,9 @@
     <description>Munchado.App</description>
     <author email="" href="" />
     <universal-links>
-        <host name="https://jacy8.app.goo.gl/" scheme="https" />
-        <host name="" scheme="https">
-            <path url="https://munch-ada67.firebaseapp.com/auth/callback" />
+        <host name="usxf9.app.goo.gl/" scheme="https" />
+        <host name="munch-ada67.firebaseapp.com" scheme="https">
+            <path url="/__/auth/callback" />
         </host>
     </universal-links>
     <content src="index.html" />
@@ -19,6 +19,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <preference name="webviewbounce" value="false" />
+    <preference name="AndroidLaunchMode" value="singleTask" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />

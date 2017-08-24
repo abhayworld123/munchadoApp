@@ -16,14 +16,20 @@
 <ion-content class="menu-scroll" #content style="padding-bottom: 50px;">
 
    <div #slide2>
+
+      <div class="jumpToImg" (click)="showJumptoCategory()">22</div>  
+
       <ion-slides class="menu-slider-block" freeMode="true" slidesPerView="4">
-         <ion-slide class="mysli typeimgsli" *ngFor="let datamenu of menudata; let mainIndex= index">
+         <div *ngFor="let datamenu of menudata; let mainIndex= index">
+         <ion-slide class="mysli typeimgsli" >
             <!-- <img onError="this.src='../assets/images/temp/imgpsh_share.png'" src="../assets/images/temp/{{mostpopular.name}}.png"> -->
 
             <p (click)="scrolllto(datamenu.category_name,mainIndex)"> {{datamenu.category_name}} </p>
 
 
          </ion-slide>
+
+          </div>
 
       </ion-slides>
       <div class=spacer-menu></div>

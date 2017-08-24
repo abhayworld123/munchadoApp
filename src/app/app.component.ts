@@ -14,7 +14,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Storage } from '@ionic/storage';
 
 //TODO: Temp for testing
-
+const INTRO_SHOWN = 'introShown';
 @Component({
 
    templateUrl: 'app.html'
@@ -24,6 +24,7 @@ export class MyApp {
    errorMessage: any;
    rootPage: any;
    loader: any;
+   userInfo: any;
    body: any;
 
 
@@ -50,26 +51,36 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
+      let user;
+
       this.loader = this.loadingCtrl.create({ content: 'Loading...' })
       this.loader.present().then(
          () => {
-            this.localStorageService.getItems('introShown')
+            this.getToken()
+               .then(
+               () => {
+                  return this.localStorageService.getItems(INTRO_SHOWN);
+               })
                .then((result) => {
                   if (result) {
                      return this.authenticateUser();
                   } else {
                      this.rootPage = IntroPage;
-                     this.localStorageService.setItems('introShown', true);
+                     this.localStorageService.setItems(INTRO_SHOWN, true);
                   }
+               }).then((userData) => {
+                  user = userData;
+                  return this.localStorageService.getItems('userInfo')
+               }).then((userInfo) => {
+                  // this.userInfo = data;
+                  console.log('userInfo, user: ', userInfo, user);
 
-               }).then((user) => {
-                  if (user) {
+                  if (user || userInfo) {
                      this.rootPage = SupertabssPage;
+                     this.dataservice.loginInfo = userInfo; 
                   } else if (!this.rootPage) {
                      this.rootPage = LoginPage;
                   }
-               }).then(() => {
-                  return this.getToken();
                }).then(() => {
                   this.loader.dismiss();
                }).catch((error) => {
@@ -103,9 +114,7 @@ export class MyApp {
             result => {
                result = JSON.parse(result._body);
                this.dataservice.token = result.token;
-               // console.log(result);
                resolve();
-               // this.token =  this.dataservice.token;
             },
             error => {
                reject(error);

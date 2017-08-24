@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../../providers/localstorage.service';
 import { ServiceClass } from './../../providers/servicee';
 import { ForgotPage } from './../forgot/forgot';
 import { RegisterPage } from './../register/register';
@@ -33,19 +34,20 @@ export class LoginPage {
    pass: FormControl;
 
 
- 
+
    constructor(private formBuilder: FormBuilder, private loaderCtrl: LoadingController, public service: ServiceClass, public navCtrl: NavController, public navParams: NavParams,
-      public authProvider: AuthProvider) {
+      public authProvider: AuthProvider ,private localStorageService :LocalStorageService) {
 
 
-      //          firebase.auth().onAuthStateChanged( user => {
-      //         if (user) {
-      //       console.log(user);
-      //       this.userProfile = user;
-      //     } else {
-      //       console.log("There's no user here");
-      //     }
-      //   });
+          firebase.auth().onAuthStateChanged( user => {
+              if (user) {
+                
+            console.log(user);
+            this.userProfile = user;
+          } else {
+            console.log("There's no user here");
+          }
+        });
 
       this.uName = new FormControl('', Validators.required);
       this.pass = new FormControl('', [Validators.required]);
@@ -53,6 +55,10 @@ export class LoginPage {
          uName: this.uName,
          pass: this.pass,
       });
+
+   }
+
+   getLoginInfo(){
 
    }
 
@@ -82,6 +88,8 @@ export class LoginPage {
                this.wrongcred = 0;
                this.anonymous();
                this.service.loginInfo = result;
+
+               this.localStorageService.setItems('userInfo',this.service.loginInfo);
                // this.token =  this.dataservice.token;
             },
             error => {
@@ -94,7 +102,7 @@ export class LoginPage {
 
    }
 
-   
+
 
    openRegister() {
       this.navCtrl.push(RegisterPage);
@@ -113,9 +121,9 @@ export class LoginPage {
 
       //  this.authProvider.googleLogin();
       const provider = new firebase.auth.GoogleAuthProvider();
-
+      alert(1);
       firebase.auth().signInWithRedirect(provider).then(() => {
-         alert(1);
+
          firebase.auth().getRedirectResult().then(result => {
             alert(12);
             // This gives you a Google Access Token.
@@ -125,11 +133,14 @@ export class LoginPage {
             var user = result.user;
 
             console.log(token, user);
+              this.navCtrl.setRoot(SupertabssPage);
          }).catch(function (error) {
             // Handle Errors here.
             console.log(error.message);
          });
-      });
+      }).catch(function (error) {
+         console.log('error outer :', error);
+      })
    }
 
    facebookLogin(): void {
