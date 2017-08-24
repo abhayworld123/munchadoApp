@@ -140,6 +140,7 @@ export class OverviewPage implements AfterViewInit {
    }
 
    ngOnInit() {
+      
       this.LoaderService.showLoader('Please Wait');
       this.service.getmenuoverview(this.service.token)
          .subscribe(menuoverview => {

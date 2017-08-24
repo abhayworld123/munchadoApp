@@ -103,6 +103,17 @@ export class ServiceClass {
       }
    }
 
+     getRestaurants()
+   {
+         return this._http.get("../assets/restaurant.json")
+                        .map(res => res.json())
+                        .do(data => console.log(data));
+                        //This is optional, you can remove the last line 
+                        // if you don't want to log loaded json in 
+                        // console.
+    
+   }
+
    getaddons(itemId): Observable<any> {
       return this._http.get(ConfigService.backendServer + 'restaurant/menu/addons/' + itemId + '&mob=true&?token=' + this.token)
          .map((response: Response) => {

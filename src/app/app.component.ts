@@ -1,3 +1,4 @@
+import { SelectRestaurantPage } from './../pages/SelectRestaurant/SelectRestaurant';
 import { LocalStorageService } from './../providers/localstorage.service';
 import { SupertabssPage } from './../pages/supertabss/supertabss';
 import { ServiceClass } from './../providers/servicee';
@@ -78,7 +79,7 @@ export class MyApp {
                   console.log('userInfo, user: ', userInfo, user);
 
                   if (user || userInfo) {
-                     this.rootPage = SupertabssPage;
+                     this.rootPage = SelectRestaurantPage;
                      this.dataservice.loginInfo = userInfo; 
                   } else if (!this.rootPage) {
                      this.rootPage = LoginPage;

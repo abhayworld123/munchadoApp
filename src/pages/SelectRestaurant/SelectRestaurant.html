@@ -1,34 +1,23 @@
  <ion-header>
-  <ion-navbar ion-navbar color="orangee">
-    <ion-title>
-       Gallary
-       <div style="float:right"  (click)="closeModal()"> 
-      <ion-icon ios="ios-backspace" md="md-backspace"></ion-icon>
-      </div>
-    </ion-title>
-       
+
+  <ion-navbar>
+    <ion-title>Select Restaurant</ion-title>
   </ion-navbar>
-</ion-header>
 
-<ion-content>
- 
+</ion-header> 
 
- 
-    <ion-grid>
-  <ion-row >
-     
-    <ion-col col-4 *ngFor ="let gal of gallary;let ind = index" >
-       
-       
-       <img  *ngIf="ind<50" [src]=" baseuri +gal.image" (click)="openslidegal(ind)">        
-        
-         <!-- <img  [src]=" baseuri +gal.image">   -->
-    </ion-col>
-    
+<ion-content class="sel-rest-content" *ngIf="restraurantList">
 
-     </ion-row>
- 
-</ion-grid>
- 
 
-</ion-content> 
+  <ion-list>
+
+    <div *ngFor="let rest of restraurantList" class="rest-button-out">
+      <button class="restButtons" [innerHTML]="rest.name" ion-button block>
+
+  </button>
+    </div>
+
+  </ion-list>
+
+
+</ion-content>
