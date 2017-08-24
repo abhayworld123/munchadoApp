@@ -1,4 +1,5 @@
 import { Component, EventEmitter } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ViewController } from 'ionic-angular';
 import { NavController, ModalController, AlertController } from 'ionic-angular';
 
@@ -10,22 +11,26 @@ import { ToolServices } from '../../common/tool.service';
 import { EditItemService } from '../../providers/cart/edit-item.service';
 // import * as moment from 'moment';
 
-/**
- * Generated class for the TakeoutPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-
 let DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 @Component({
    selector: 'page-takeout',
    templateUrl: 'takeout.html',
-   outputs: ['editItemDetails']
+   providers: [LoaderService],
+   inputs: ['orderTypeDelivery', 'userForm']
 })
 export class TakeoutPage {
 
+   fname: FormControl = new FormControl('', Validators.required);
+   lname: FormControl = new FormControl('');
+   phone: FormControl = new FormControl('');
+   email: FormControl = new FormControl('');
+
+   deliveryUserForm: FormGroup;
+   userAddressForm: FormGroup;
+   formGroupMap: any = {};
+
+   orderType;
    totalBillAmount: number = 0;
    allOrders: any;
    datesList: any[] = [];
@@ -34,15 +39,41 @@ export class TakeoutPage {
    selectedTime;
    editItemDetails = new EventEmitter();
    initiate$Subscribe;
+
    constructor(public navCtrl: NavController,
       public modalCtrl: ModalController,
       public viewCtrl: ViewController,
-      public servicee: ServiceClass,
+      public service: ServiceClass,
       private cartService: CartService,
       private loaderService: LoaderService,
       private alertController: AlertController,
       private editItemService: EditItemService) {
 
+      this.orderType = 'takeout';
+      console.log('takeout constructor');
+      this.initiateFormGroupMap();
+      this.userAddressForm = new FormGroup(this.formGroupMap);
+   }
+
+   private initiateFormGroupMap() {
+      this.formGroupMap = {
+         fname: this.fname,
+         lname: this.lname,
+         phone: this.phone,
+         email: this.email
+      };
+   }
+
+   public set userForm(form) {
+      console.log('form: ', form);
+      this.deliveryUserForm = form;
+   }
+
+   public set orderTypeDelivery(value) {
+      if (value) {
+         this.orderType = value;
+         this.initiate();
+      }
    }
 
    public isDateActive(dateString) {
@@ -50,13 +81,6 @@ export class TakeoutPage {
          return true;
       }
       return false;
-   }
-   public getPrice(amount) {
-      if (!amount || isNaN(amount)) {
-         amount = 0;
-      }
-      this.totalBillAmount += amount;
-      return amount;
    }
 
    public get totalBil() {
@@ -70,6 +94,18 @@ export class TakeoutPage {
          }
       )
       this.initiate();
+      this.cartService.getSelectedDate(this.orderType)
+         .then((date) => {
+            this.selectedDate = date;
+            if (this.selectedDate) {
+               this.getTimeSlots(this.selectedDate);
+            }
+         });
+      this.cartService.getSelectedTime(this.orderType)
+         .then((time) => {
+            console.log('time: ', time, this.orderType);
+            this.selectedTime = time;
+         });
    }
 
    public ngOnDestroy() {
@@ -84,12 +120,14 @@ export class TakeoutPage {
          this.datesList.push({ date: date.getDate(), dayName: DAYS[date.getDay()], dateString: ToolServices.getDateInString(date).dateString });
          date.setDate(date.getDate() + 1);
       }
-      this.allOrders = this.servicee.globalCartitems;
-      this.totalBillAmount = this.servicee.globaltotalbill;
+      this.allOrders = this.service.globalCartitems;
+      this.totalBillAmount = this.service.globaltotalbill;
    }
 
-   public selectTime(e) {
-      console.log('selectTime called: ', e);
+   public selectTime(selectedTime) {
+      console.log('selectedTime: ', selectedTime);
+      this.selectedTime = selectedTime;
+      this.cartService.setDeliveryTime(this.selectedTime, this.orderType);
    }
 
    public getTimeSlots(date) {
@@ -98,12 +136,13 @@ export class TakeoutPage {
          () => {
             this.selectedTime = undefined;
             this.timeSlotes = [];
-            this.cartService.getTimeSlotes(date)
+            this.cartService.getTimeSlotes(date, this.orderType)
                .then((response) => {
                   if (response && response.data && response.data.timeslots) {
                      this.timeSlotes = ToolServices.getDateAndTimeSlots(response.data.timeslots);
                   }
                   this.selectedDate = date;
+                  this.cartService.setDeliveryDate(this.selectedDate, this.orderType);
                   this.loaderService.hideLoader();
                });
          });
@@ -137,7 +176,7 @@ export class TakeoutPage {
                   let addOnDetail = allAddOn[addOnIndex];
                   this.totalBillAmount -= addOnDetail.totalPrice ? parseFloat(addOnDetail.totalPrice) : 0;
                   item.totalAddOnsAmount -= addOnDetail.totalPrice ? parseFloat(addOnDetail.totalPrice) : 0;
-                  this.servicee.globaltotalbill = this.totalBillAmount;
+                  this.service.globaltotalbill = this.totalBillAmount;
                   allAddOn.splice(addOnIndex, 1);
                   this.editItemService.updateCartDetails();
                }
@@ -166,13 +205,29 @@ export class TakeoutPage {
                   this.allOrders.splice(itemIndex, 1);
                   this.totalBillAmount -= (item.totalAmount || 0);
                   this.totalBillAmount -= (item.totalAddOnsAmount || 0);
-                  this.servicee.globaltotalbill = this.totalBillAmount;
-                  this.servicee.globalTotalItemSelected -= (item.quantity || 0);
+                  this.service.globaltotalbill = this.totalBillAmount;
+                  this.service.globalTotalItemSelected -= (item.quantity || 0);
                   this.editItemService.updateCartDetails();
                }
             }
          ]
       });
       alert.present();
+   }
+
+   public placeOrder() {
+      this.service.userAddressData = this.orderType == 'order' ? this.deliveryUserForm.value : this.userAddressForm.value;
+      let orderDetails = this.cartService.getOrderDetails(this.orderType, this.selectedDate, this.selectedTime);
+      orderDetails.token = this.service.token;
+      console.log('placeOrder orderDetails: ' + JSON.stringify(orderDetails));
+   }
+
+   public isFormValid() {
+      if (this.orderType == 'takeout' && this.userAddressForm && this.userAddressForm.valid) {
+         return true;
+      } else if (this.orderType == 'order' && this.deliveryUserForm && this.deliveryUserForm.valid) {
+         return true;
+      }
+      return false;
    }
 }

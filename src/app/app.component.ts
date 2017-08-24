@@ -12,7 +12,7 @@ import { IntroPage } from '../pages/intro/intro';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { Storage } from '@ionic/storage';
-
+import { CartService } from '../providers/cart/cart.service';
 //TODO: Temp for testing
 
 @Component({
@@ -35,7 +35,8 @@ export class MyApp {
       private afAuth: AngularFireAuth,
       public storage: Storage,
       public loadingCtrl: LoadingController,
-      private localStorageService: LocalStorageService) {
+      private localStorageService: LocalStorageService,
+      private cartService: CartService) {
 
       platform.ready().then(() => {
          // this.presentLoading();
@@ -43,6 +44,7 @@ export class MyApp {
          this.statusBar.backgroundColorByHexString('#e09100');
 
          this.initializeApp();
+         this.cartService.getCartItemsFromLocalStorage();
       });
    }
 

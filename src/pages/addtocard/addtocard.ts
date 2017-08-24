@@ -5,6 +5,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ServiceClass } from '../../providers/servicee';
 import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { EditItemService } from '../../providers/cart/edit-item.service';
+import { CartService } from '../../providers/cart/cart.service';
 
 @Component({
    selector: 'page-addtocard',
@@ -40,7 +41,8 @@ export class AddToCartPage {
       public navCtrl: NavController,
       public navparam: NavParams,
       public viewCtrl: ViewController,
-      private editItemService: EditItemService) {
+      private editItemService: EditItemService,
+      private cartService: CartService) {
 
       // this.resname = this.navparam.get("resname");
       this.selectedDish = JSON.parse(JSON.stringify(this.navparam.get('dish')))
@@ -171,6 +173,7 @@ export class AddToCartPage {
       this.updateTotalCount(this.dishQuantity);
       this.updatestorage(this.dishQuantity, price); // price for selected manue and quantity
       this.updatestorage(this.dishQuantity, addOns.totalAddOnsBill); // Add adons bill amount
+      this.cartService.setCartItemsToLocalStorage();
       this.navCtrl.pop();
 
    }
