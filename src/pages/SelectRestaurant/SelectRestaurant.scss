@@ -2,13 +2,19 @@ page-SelectRestaurant{
 
    ion-content.sel-rest-content.content.content-md .scroll-content {
     padding: 0 6%;
+    top: 13%;
 }
-   ion-content.sel-rest-content.content.content-md {
-    top: 22px;
+   ion-content.sel-rest-content.content {
+    
     padding: 0 7%;
     margin: 0 auto;
 }
    .rest-button-out {
     margin-bottom: 6%;
+}
+   button.restButtons.disable-hover.button.button-md.button-default.button-default-md.button-block.button-block-md {
+    /* padding: 10px 0 12px; */
+    height: 2.8em;
+    background: #de9000;
 }
 }

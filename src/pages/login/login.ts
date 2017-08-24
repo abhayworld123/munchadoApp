@@ -1,3 +1,4 @@
+import { SelectRestaurantPage } from './../SelectRestaurant/SelectRestaurant';
 import { LoaderService } from './../../common/loader.service';
 import { LocalStorageService } from './../../providers/localstorage.service';
 import { ServiceClass } from './../../providers/servicee';
@@ -136,7 +137,7 @@ export class LoginPage {
 
             console.log(token, user);
 
-              this.navCtrl.setRoot(SupertabssPage);
+              this.navCtrl.setRoot(SelectRestaurantPage);
               this.LoaderService.hideLoader();
          }).catch(function (error) {
             // Handle Errors here.
@@ -152,7 +153,7 @@ export class LoginPage {
    }
 
    anonymous() {
-      this.navCtrl.setRoot(SupertabssPage);
+      this.navCtrl.setRoot(SelectRestaurantPage);
    }
 
 }

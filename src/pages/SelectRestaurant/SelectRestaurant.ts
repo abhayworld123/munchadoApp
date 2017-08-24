@@ -1,3 +1,5 @@
+import { SupertabssPage } from './../supertabss/supertabss';
+import { ConfigService } from './../../common/config.service';
 import { LoaderService } from './../../common/loader.service';
 import { ServiceClass } from './../../providers/servicee';
 import { Component } from '@angular/core';
@@ -36,6 +38,10 @@ export class SelectRestaurantPage {
 
 
    }
+     SelectRestaurant(rest){
+       ConfigService.selectedRestaurentId = rest.id; 
+       this.navCtrl.setRoot(SupertabssPage);
+     } 
 
 
 

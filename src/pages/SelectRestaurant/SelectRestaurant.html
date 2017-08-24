@@ -12,7 +12,7 @@
   <ion-list>
 
     <div *ngFor="let rest of restraurantList" class="rest-button-out">
-      <button class="restButtons" [innerHTML]="rest.name" ion-button block>
+      <button (click)="SelectRestaurant(rest)" class="restButtons" [innerHTML]="rest.name" ion-button block>
 
   </button>
     </div>
