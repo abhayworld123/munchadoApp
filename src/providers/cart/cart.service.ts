@@ -5,6 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { LocalStorageService } from '../localstorage.service';
 import { ServiceClass } from '../../providers/servicee';
 import { EditItemService } from './edit-item.service';
+import { ConfigService } from '../../common/config.service';
 
 const CART_ITEMS = 'CART_ITEMS'
 const TOTAL_CART_ITEMS = 'TOTAL_CART_ITEMS'
@@ -31,7 +32,7 @@ export class CartService {
    }
 
    public getTimeSlotes(date, type) {
-      return this.http.get('http://api.munchado.in/api/restaurant/timeslots/' + this.service.restcode + '?type=' + type + '&mob=true&date=' + date + '&token=0c60923ec098f31d592f9f02896d85ed')
+      return this.http.get(ConfigService.backendServer + 'restaurant/timeslots/' + ConfigService.selectedRestaurentId + '?type=' + type + '&mob=true&date=' + date + '&token=0c60923ec098f31d592f9f02896d85ed')
          .toPromise()
          .then((response) => {
             try {
@@ -142,7 +143,7 @@ export class CartService {
    }
 
    public placeOrder(params) {
-      let url = 'http://api.munchado.in/api/user/orderplace?mob=true';
+      let url = ConfigService.backendServer + 'user/orderplace?mob=true';
       let body = params;
       this.http.post(url, body)
          .toPromise()
