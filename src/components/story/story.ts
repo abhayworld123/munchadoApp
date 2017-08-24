@@ -43,7 +43,7 @@ export class StoryComponent {
    ngOnInit() {
       this.LoaderService.showLoader('Please Wait');
 
-      this.service.getstory(this.service.token)
+      this.service.getstory()
          .subscribe(story => {
             this.LoaderService.hideLoader();
             this.stories = story.data;

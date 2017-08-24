@@ -1,14 +1,10 @@
-import { ServiceClass } from './../../providers/servicee';
-import { foodPage } from './../food/food';
-
-import { SupertabssPage } from './../supertabss/supertabss';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-
-import { AuthProvider } from './../../providers/auth/auth';
-import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
-// import {TabsPage} from '../../pages/tabs/tabs';
-import { } from '../pages/'
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Component } from '@angular/core';
+
+import { ServiceClass } from './../../providers/servicee';
+import { AuthProvider } from './../../providers/auth/auth';
+import { ConfigService } from '../../common/config.service';
 
 @IonicPage()
 @Component({
@@ -20,7 +16,7 @@ export class ForgotPage {
    private forgotGrp: FormGroup;
    params: any;
    loader: any;
-   validForgot:any = 0;
+   validForgot: any = 0;
    alert: any;
 
    constructor(private alertCtrl: AlertController, private service: ServiceClass, private loadCtrl: LoadingController, private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams,
@@ -46,14 +42,14 @@ export class ForgotPage {
       //  this.loginPassword = formm.value.password;
       console.log(this.forgotGrp);
       if (this.forgotGrp.value.forgotEmail) {
-         this.params = { "token": this.service.token, "email": this.forgotGrp.value.forgotEmail };
-           
-        
+         this.params = { "token": ConfigService.token, "email": this.forgotGrp.value.forgotEmail };
+
+
          return new Promise((resolve, reject) => {
             this.loader = this.loadCtrl.create({ content: 'Please Wait' });
             this.loader.present();
             this.service
-               .forgotPass('http://api.munchado.in/api/user/forgot-password/0?mob=true', this.params)
+               .forgotPass(ConfigService.backendServer + 'user/forgot-password/0?mob=true', this.params)
                .subscribe(
                result => {
                   result = JSON.parse(result._body);
@@ -68,7 +64,7 @@ export class ForgotPage {
                      buttons: ['Dismiss']
                   });
                   this.alert.present();
-                  this.validForgot  =0;
+                  this.validForgot = 0;
                   // this.navCtrl.pop();
                },
                error => {
@@ -93,9 +89,9 @@ export class ForgotPage {
 
       }
 
-      else{
+      else {
          console.log("erro");
-         this.validForgot =  1;
+         this.validForgot = 1;
       }
 
    }

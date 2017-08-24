@@ -1,20 +1,18 @@
-import { SelectRestaurantPage } from './../pages/SelectRestaurant/SelectRestaurant';
-import { LocalStorageService } from './../providers/localstorage.service';
-import { SupertabssPage } from './../pages/supertabss/supertabss';
-import { ServiceClass } from './../providers/servicee';
 import { Component } from '@angular/core';
 import { Platform, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { LoginPage } from '../pages/login/login';
-
-import { IntroPage } from '../pages/intro/intro';
-// import {TabsPage} from '../pages/tabs/tabs';
 import { AngularFireAuth } from 'angularfire2/auth';
-
 import { Storage } from '@ionic/storage';
+
+import { SelectRestaurantPage } from './../pages/SelectRestaurant/SelectRestaurant';
+import { LocalStorageService } from './../providers/localstorage.service';
+import { ServiceClass } from './../providers/servicee';
+import { LoginPage } from '../pages/login/login';
+import { IntroPage } from '../pages/intro/intro';
 import { CartService } from '../providers/cart/cart.service';
-//TODO: Temp for testing
+import { ConfigService } from '../common/config.service';
+
 const INTRO_SHOWN = 'introShown';
 @Component({
 
@@ -80,7 +78,7 @@ export class MyApp {
 
                   if (user || userInfo) {
                      this.rootPage = SelectRestaurantPage;
-                     this.dataservice.loginInfo = userInfo; 
+                     this.dataservice.loginInfo = userInfo;
                   } else if (!this.rootPage) {
                      this.rootPage = LoginPage;
                   }
@@ -112,11 +110,11 @@ export class MyApp {
    private getToken() {
       return new Promise((resolve, reject) => {
          this.dataservice
-            .gettoken('http://api.munchado.in/api/auth/token', this.body)
+            .gettoken(ConfigService.backendServer + 'auth/token', this.body)
             .subscribe(
             result => {
                result = JSON.parse(result._body);
-               this.dataservice.token = result.token;
+               ConfigService.token = result.token;
                resolve();
             },
             error => {

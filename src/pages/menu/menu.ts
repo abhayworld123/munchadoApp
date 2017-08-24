@@ -114,7 +114,7 @@ export class MenuPage {
 
          }
       );
-      this.service.getmenuitems(this.service.token)
+      this.service.getmenuitems()
          .subscribe(menuitems => {
             this.menudata = menuitems.data;
             this.menudata.forEach(element => {

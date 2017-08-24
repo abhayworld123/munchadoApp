@@ -1,26 +1,14 @@
 import { LoaderService } from './../../common/loader.service';
 import { MapServiceClass } from './../../providers/map.service';
-import { TruncatePipe } from './../../pipes/limitchar.pipe';
-import { CheckNull } from './../../pipes/CheckNull.pipe';
-import { SupertabssPage } from './../supertabss/supertabss';
-import { Observer } from 'rxjs/Observer';
-import { AddToCartPage } from './../addtocard/addtocard';
-import { CartPage } from './../cartpage/cartpage';
-import { Component, ViewChild, ContentChildren, ViewChildren, AfterViewInit, ElementRef } from '@angular/core';
-import { ViewController, Slides, Content } from 'ionic-angular';
-import { HomePage } from '../../pages/home/home';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ServiceClass } from '../../providers/servicee';
 import { EditItemService } from '../../providers/cart/edit-item.service';
 
 declare const google: any;
-/**
- * Generated class for the OverviewPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @Component({
    selector: 'page-overview',
 
@@ -30,8 +18,6 @@ declare const google: any;
 export class OverviewPage implements AfterViewInit {
 
    @ViewChild('map') mapElement: any;
-   // @ViewChild(SupertabssPage) 
-   private childCompSupertabs: SupertabssPage;
    map: any;
    menuoverviewdata: any;
    menudata: any;
@@ -140,9 +126,9 @@ export class OverviewPage implements AfterViewInit {
    }
 
    ngOnInit() {
-      
+
       this.LoaderService.showLoader('Please Wait');
-      this.service.getmenuoverview(this.service.token)
+      this.service.getmenuoverview()
          .subscribe(menuoverview => {
             this.LoaderService.hideLoader();
             // console.log('menuoverview: ' + JSON.stringify(menuoverview));

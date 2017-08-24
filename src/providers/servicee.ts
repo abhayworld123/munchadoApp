@@ -24,14 +24,11 @@ export class ServiceClass {
    globalVarUpdate: Observable<number>;
    globalVarObserver: Observer<number>;
 
-   public token: any;
-   // public token2: any;
    public extractdata: any;
    public loginInfo: any;
    public cartcount: number = 0;
- 
+
    constructor(private _http: Http) {
-      // this.token2 = 'e553cd7d793b2b4f38e49762b9700fec';
       this.globalVarUpdate = Observable.create((observer: Observer<number>) => {
          this.globalVarObserver.next(this.globalTotalItemSelected);
       });
@@ -67,32 +64,32 @@ export class ServiceClass {
          .put(url, param, this.options)
    }
 
-   getmenuitems(token): Observable<any> {
-      return this._http.get(ConfigService.backendServer + 'restaurant/menu/' + ConfigService.selectedRestaurentId + '?&mob=true&token=' + token)
+   getmenuitems(): Observable<any> {
+      return this._http.get(ConfigService.backendServer + 'restaurant/menu/' + ConfigService.selectedRestaurentId + '?&mob=true&token=' + ConfigService.token)
          .map((response: Response) => <any>response.json())
          .do(data => {
             // console.log(data.menu)
          }).do(ab => 45);
    }
 
-   getstory(token): Observable<any> {
-      return this._http.get(ConfigService.backendServer + 'restaurant/story/' + ConfigService.selectedRestaurentId + '?&mob=true&token=' + this.token)
+   getstory(): Observable<any> {
+      return this._http.get(ConfigService.backendServer + 'restaurant/story/' + ConfigService.selectedRestaurentId + '?&mob=true&token=' + ConfigService.token)
          .map((response: Response) => <any>response.json())
          .do(data => {
             // console.log(data)
          }).do(ab => 45);
    }
-   getreviews(token): Observable<any> {
-      return this._http.get(ConfigService.backendServer + 'restaurant/review/' + ConfigService.selectedRestaurentId + '?&mob=true&page=1&token=' + this.token)
+   getreviews(): Observable<any> {
+      return this._http.get(ConfigService.backendServer + 'restaurant/review/' + ConfigService.selectedRestaurentId + '?&mob=true&page=1&token=' + ConfigService.token)
          .map((response: Response) => <any>response.json())
          .do(data => {
             // console.log(data)
          }).do(ab => 45);
    }
 
-   getmenuoverview(token): Observable<any> {
+   getmenuoverview(): Observable<any> {
       if (this.menuoverviewdataglobal != 'undefined') {
-         return this._http.get(ConfigService.backendServer + 'restaurant/overview/' + ConfigService.selectedRestaurentId + '?mob=true&token=' + token)
+         return this._http.get(ConfigService.backendServer + 'restaurant/overview/' + ConfigService.selectedRestaurentId + '?mob=true&token=' + ConfigService.token)
             .map((response: Response) => <any>response.json())
             .do(data => {
                // console.log(data)
@@ -103,19 +100,14 @@ export class ServiceClass {
       }
    }
 
-     getRestaurants()
-   {
-         return this._http.get("../assets/restaurant.json")
-                        .map(res => res.json())
-                        .do(data => console.log(data));
-                        //This is optional, you can remove the last line 
-                        // if you don't want to log loaded json in 
-                        // console.
-    
+   getRestaurants() {
+      return this._http.get("../assets/restaurant.json")
+         .map(res => res.json())
+         .do(data => console.log(data));
    }
 
    getaddons(itemId): Observable<any> {
-      return this._http.get(ConfigService.backendServer + 'restaurant/menu/addons/' + itemId + '&mob=true&?token=' + this.token)
+      return this._http.get(ConfigService.backendServer + 'restaurant/menu/addons/' + itemId + '&mob=true&?token=' + ConfigService.token)
          .map((response: Response) => {
             try {
                return response.json();

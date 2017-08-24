@@ -14,8 +14,7 @@ const SELECTED_DATE = 'SELECTED_DATE'
 const SELECTED_TIME = 'SELECTED_TIME'
 @Injectable()
 export class CartService {
-   userAddressForm: FormGroup;
-       restCode:any  =  ConfigService.selectedRestaurentId; 
+   userAddressForm: FormGroup; 
    constructor(private http: Http,
       private localStorageService: LocalStorageService,
       private service: ServiceClass,
@@ -128,7 +127,7 @@ export class CartService {
          tax: '0.0',
          delivery_address: userDetails.address + ', ' + userDetails.appartment + ', ' + userDetails.zipcode,
          special_instruction: userDetails.special,
-         restaurant_id: this.restCode,
+         restaurant_id: ConfigService.selectedRestaurentId,
          delivery_date: date,
          delivery_time: time,
          tip_percent: null,

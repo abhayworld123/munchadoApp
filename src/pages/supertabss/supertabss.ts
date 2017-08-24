@@ -148,7 +148,7 @@ export class SupertabssPage {
 
       // this.baseurl = 'http://dc8l3mwto1qll.cloudfront.net/assets/munch_images/' + "rnymn06237/thumb/";
 
-      this.service.getmenuoverview(this.service.token)
+      this.service.getmenuoverview()
          .subscribe(menuoverview => {
             this.service.menuoverviewdataglobal = menuoverview;
             this.BaseUrl = menuoverview.base_url + 'munch_images/' + menuoverview.data.rest_code + '/';

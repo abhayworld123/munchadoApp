@@ -1,19 +1,15 @@
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Component } from '@angular/core';
+
 import { SelectRestaurantPage } from './../SelectRestaurant/SelectRestaurant';
 import { LoaderService } from './../../common/loader.service';
+import { ConfigService } from '../../common/config.service';
 import { LocalStorageService } from './../../providers/localstorage.service';
 import { ServiceClass } from './../../providers/servicee';
 import { ForgotPage } from './../forgot/forgot';
 import { RegisterPage } from './../register/register';
-import { foodPage } from './../food/food';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-
-import { SupertabssPage } from './../supertabss/supertabss';
-
 import { AuthProvider } from './../../providers/auth/auth';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
-// import {TabsPage} from '../../pages/tabs/tabs';
-import { } from '../pages/'
 import firebase from 'firebase';
 
 
@@ -38,19 +34,19 @@ export class LoginPage {
 
 
    constructor(private formBuilder: FormBuilder, private loaderCtrl: LoadingController, public service: ServiceClass, public navCtrl: NavController, public navParams: NavParams,
-      public authProvider: AuthProvider ,private localStorageService :LocalStorageService
-     ,private LoaderService:LoaderService ) {
+      public authProvider: AuthProvider, private localStorageService: LocalStorageService
+      , private LoaderService: LoaderService) {
 
 
-          firebase.auth().onAuthStateChanged( user => {
-              if (user) {
-                
+      firebase.auth().onAuthStateChanged(user => {
+         if (user) {
+
             console.log(user);
             this.userProfile = user;
-          } else {
+         } else {
             console.log("There's no user here");
-          }
-        });
+         }
+      });
 
       this.uName = new FormControl('', Validators.required);
       this.pass = new FormControl('', [Validators.required]);
@@ -61,7 +57,7 @@ export class LoginPage {
 
    }
 
-   getLoginInfo(){
+   getLoginInfo() {
 
    }
 
@@ -71,7 +67,7 @@ export class LoginPage {
       this.loginPassword = this.loginGrp.value.pass;
 
       this.params = {
-         "token": this.service.token, "email": this.loginUname,
+         "token": ConfigService.token, "email": this.loginUname,
          "password": this.loginPassword, "type": "normal"
       };
 
@@ -79,7 +75,7 @@ export class LoginPage {
          this.loader = this.loaderCtrl.create({ content: 'Loading...' });
          this.loader.present();
          this.service
-            .doLogin('http://api.munchado.in/api/user/login?mob=true', this.params)
+            .doLogin(ConfigService.backendServer + 'api/user/login?mob=true', this.params)
             .subscribe(
 
             result => {
@@ -92,7 +88,7 @@ export class LoginPage {
                this.anonymous();
                this.service.loginInfo = result;
 
-               this.localStorageService.setItems('userInfo',this.service.loginInfo);
+               this.localStorageService.setItems('userInfo', this.service.loginInfo);
                // this.token =  this.dataservice.token;
             },
             error => {
@@ -137,8 +133,8 @@ export class LoginPage {
 
             console.log(token, user);
 
-              this.navCtrl.setRoot(SelectRestaurantPage);
-              this.LoaderService.hideLoader();
+            this.navCtrl.setRoot(SelectRestaurantPage);
+            this.LoaderService.hideLoader();
          }).catch(function (error) {
             // Handle Errors here.
             console.log(error.message);

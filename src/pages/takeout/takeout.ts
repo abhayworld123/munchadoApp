@@ -8,6 +8,7 @@ import { LoaderService } from '../../common/loader.service';
 import { ServiceClass } from '../../providers/servicee';
 import { SupertabssPage } from '../supertabss/supertabss';
 import { ToolServices } from '../../common/tool.service';
+import { ConfigService } from '../../common/config.service';
 import { EditItemService } from '../../providers/cart/edit-item.service';
 // import * as moment from 'moment';
 
@@ -221,7 +222,7 @@ export class TakeoutPage {
    public placeOrder() {
       this.service.userAddressData = this.orderType == 'order' ? this.deliveryUserForm.value : this.userAddressForm.value;
       let orderDetails = this.cartService.getOrderDetails(this.orderType, this.selectedDate, this.selectedTime);
-      orderDetails.token = this.service.token;
+      orderDetails.token = ConfigService.token;
       console.log('placeOrder orderDetails: ' + JSON.stringify(orderDetails));
    }
 

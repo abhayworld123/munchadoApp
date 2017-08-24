@@ -10,7 +10,6 @@ import { GallarydetailsPage } from './../pages/gallarydetails/gallarydetails';
 import { GallaryPage } from './../pages/gallary/gallary';
 import { SpaceConvertPipe } from './../pipes/spaceconv.pipe';
 import { TruncatePipe } from './../pipes/limitchar.pipe';
-import { User } from './../components/form.interface';
 import { DeliveryPage } from './../pages/delivery/delivery';
 import { TakeoutPage } from './../pages/takeout/takeout';
 import { checkouttabPage } from './../pages/checkouttab/checkouttab';
@@ -19,7 +18,6 @@ import { OverviewPage } from './../pages/overview/overview';
 import { MenuPage } from './../pages/menu/menu';
 import { ReviewsPage } from './../pages/reviews/reviews';
 import { SupertabssPage } from './../pages/supertabss/supertabss';
-// import { SupertabPage } from './../pages/supertab/supertab';
 import { ServiceClass } from './../providers/servicee';
 import { CartPage } from './../pages/cartpage/cartpage';
 import { AddToCartPage } from './../pages/addtocard/addtocard';
@@ -36,17 +34,14 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CartService } from '../providers/cart/cart.service';
 import { Geolocation } from '@ionic-native/geolocation';
-// import {TabsPage} from '../pages/tabs/tabs';
-// import {DetailmarksPage} from '../pages/detailmarks/detailmarks';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DatePicker } from '@ionic-native/date-picker';
 import { IntroPage } from '../pages/intro/intro';
 import { CreatePage } from '../pages/create/create';
-import { AngularFireModule, FirebaseApp } from 'angularfire2';
+import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import * as firebase from 'firebase';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Facebook } from '@ionic-native/facebook';
 import { AuthProvider } from '../providers/auth/auth';
@@ -58,6 +53,8 @@ import { AgmCoreModule } from '@agm/core';
 // common components
 import { LoaderService } from '../common/loader.service';
 import { EditItemService } from '../providers/cart/edit-item.service';
+
+import * as firebase from 'firebase';
 
 export const firebaseConfig = {
    apiKey: "AIzaSyAak8g9P2AN71pNOw4aY8LYSQoyIIfwmAM",
@@ -78,8 +75,8 @@ firebase.initializeApp(firebaseConfig);
 let COMPONENTS = [
    MyApp, CartPage, AddToCartPage, foodPage, StoryComponent, TakeoutPage, DeliveryPage,
    HomePage, CreatePage, LoginPage, IntroPage, SupertabssPage, checkouttabPage,
-   StoryComponent, ReviewsPage, MenuPage, OverviewPage, DinenmorePage,PopoverrComponent,
-   ReviewDescComponent, GallaryPage, GallarydetailsPage, RegisterPage, ForgotPage, 
+   StoryComponent, ReviewsPage, MenuPage, OverviewPage, DinenmorePage, PopoverrComponent,
+   ReviewDescComponent, GallaryPage, GallarydetailsPage, RegisterPage, ForgotPage,
    SelectRestaurantPage,
 ];
 
