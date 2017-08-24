@@ -11,7 +11,7 @@
       <!-- <div style="float:right">
         <ion-icon ios="ios-backspace" md="md-backspace"></ion-icon>
       </div> -->
-
+      <span (click)="LogoutApp()" class="logout-span" *ngIf="activateTabIndex == 0">Logout</span>
       <span *ngIf="menuoverviewdata"> {{menuoverviewdata.name}} </span>
       <div *ngIf="activateTabIndex == 1"> 
       <img   class="cart-icon"  (click)="openCheckout()" src="assets/images/temp/cart_icon.png">

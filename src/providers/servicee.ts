@@ -12,21 +12,21 @@ import 'rxjs/add/operator/catch';
 
 
 export class ServiceClass {
-
+   userAddressData: { fname: string, lname?: string, addressNickname?: string, address: string, appartment?: string, zipcode: string, special?: string, "phone": string, "email": string };
    globalTotalItemSelected: any = 0;
    globalCartitems: Array<any> = [];
    options: any;
    globaltotalbill: any = 0;
    menuoverviewdataglobal: any;
    restcode: any;
-   baseurl :any;
+   baseurl: any;
    globalVarUpdate: Observable<number>;
    globalVarObserver: Observer<number>;
 
    public token: any;
    public token2: any;
    public extractdata: any;
-   public loginInfo :any; 
+   public loginInfo: any;
    public cartcount: number = 0;
    // private _producturl= constants.API_URL + 'userlist'; 
    constructor(private _http: Http) {
@@ -73,21 +73,21 @@ export class ServiceClass {
       return this._http
          .post(url, param, this.options)
          .catch(this.handleError);
-    }
+   }
 
-    doRegister(url:string , param:any): Observable<any>{
+   doRegister(url: string, param: any): Observable<any> {
       console.log(param);
       return this._http
          .post(url, param, this.options)
-        
 
-    }
-    
-    forgotPass(url:string , param:any):Observable<any>{
-       console.log(param);
+
+   }
+
+   forgotPass(url: string, param: any): Observable<any> {
+      console.log(param);
       return this._http
-       .put(url, param , this.options)
-    }
+         .put(url, param, this.options)
+   }
 
 
 
@@ -103,7 +103,7 @@ export class ServiceClass {
 
 
 
-   } 
+   }
 
 
 
@@ -157,7 +157,7 @@ export class ServiceClass {
    getaddons(itemId): Observable<any> {
 
       return this._http.get('http://api.munchado.in/api/restaurant/menu/addons/' + itemId + '&mob=true&?token=' + this.token)
-         
+
          .map((response: Response) => {
             // console.log('add on response: ', response);
             try {
@@ -167,9 +167,9 @@ export class ServiceClass {
                return [];
             }
          })
-         
 
-         // .do(data => console.log(data))
+
+      // .do(data => console.log(data))
       // .catch((err:any) => {
       //    return err;
       // })

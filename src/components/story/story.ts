@@ -1,3 +1,4 @@
+import { LoaderService } from './../../common/loader.service';
 
 import { SupertabssPage } from '../../pages/supertabss/supertabss';
 import { Observer } from 'rxjs/Observer';
@@ -18,28 +19,37 @@ import { ServiceClass } from '../../providers/servicee';
  * for more info on Angular Components.
  */
 @Component({
-  selector: 'story',
-  templateUrl: 'story.html'
+   selector: 'story',
+   templateUrl: 'story.html'
 })
 export class StoryComponent {
-  stories:any;
-  text: string;
+   stories: any;
+   text: string;
 
-  constructor(public modalCtrl: ModalController, public service: ServiceClass, public storage: Storage, public navCtrl: NavController, public navparam: NavParams, public viewCtrl: ViewController) {
+   constructor(public modalCtrl: ModalController,
+      public service: ServiceClass,
+      public storage: Storage,
+      public navCtrl: NavController,
+      public navparam: NavParams,
+      public viewCtrl: ViewController,
+      private LoaderService: LoaderService) {
 
 
-    console.log('Hello StoryComponent Component');
-    this.text = 'Hello World';
-  }
+      console.log('Hello StoryComponent Component');
+      this.text = 'Hello World';
+   }
 
 
-  ngOnInit(){
+   ngOnInit() {
+      this.LoaderService.showLoader('Please Wait');
+
       this.service.getstory(this.service.token)
-      .subscribe(story => {
-        this.stories = story.data;
+         .subscribe(story => {
+            this.LoaderService.hideLoader();
+            this.stories = story.data;
 
-      });
+         });
 
-  }
+   }
 
 }

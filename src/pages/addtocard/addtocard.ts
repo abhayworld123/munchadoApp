@@ -1,9 +1,10 @@
+import { LoaderService } from './../../common/loader.service';
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { NavController, NavParams } from 'ionic-angular';
 import { ServiceClass } from '../../providers/servicee';
-import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { EditItemService } from '../../providers/cart/edit-item.service';
 import { CartService } from '../../providers/cart/cart.service';
 
@@ -42,7 +43,8 @@ export class AddToCartPage {
       public navparam: NavParams,
       public viewCtrl: ViewController,
       private editItemService: EditItemService,
-      private cartService: CartService) {
+      private cartService: CartService,
+      private LoaderService: LoaderService) {
 
       // this.resname = this.navparam.get("resname");
       this.selectedDish = JSON.parse(JSON.stringify(this.navparam.get('dish')))
@@ -59,9 +61,11 @@ export class AddToCartPage {
    }
 
    ngOnInit() {
+      this.LoaderService.showLoader('Please Wait');
       this.service.getaddons(this.itemId)
          .subscribe(
          (menuaddons) => {
+            this.LoaderService.hideLoader();
             if (menuaddons && menuaddons[0] && menuaddons[0].addons) {
                this.addons = <any[]>menuaddons[0].addons;
             } else {

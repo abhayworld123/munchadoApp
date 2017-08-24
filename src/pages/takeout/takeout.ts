@@ -88,9 +88,12 @@ export class TakeoutPage {
    }
 
    public ngOnInit() {
+      
       this.initiate$Subscribe = this.editItemService.updateCart.subscribe(
          () => {
+
             this.initiate();
+           
          }
       )
       this.initiate();

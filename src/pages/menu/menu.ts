@@ -1,3 +1,4 @@
+import { PopoverrComponent } from './../../components/popover/popover';
 import { checkouttabPage } from './../checkouttab/checkouttab';
 import { AddToCartPage } from './../addtocard/addtocard';
 import { Component, ViewChild } from '@angular/core';
@@ -7,6 +8,7 @@ import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ServiceClass } from '../../providers/servicee';
 import { EditItemService } from '../../providers/cart/edit-item.service';
 import { LoaderService } from '../../common/loader.service';
+import { PopoverController } from 'ionic-angular';
 
 class Test {
    constructor(elem: HTMLElement) {
@@ -44,7 +46,8 @@ export class MenuPage {
       public navparam: NavParams,
       public viewCtrl: ViewController,
       private editItemService: EditItemService,
-      private loaderService: LoaderService) {
+      private loaderService: LoaderService,
+     private PopoverController : PopoverController) {
 
    }
 
@@ -82,7 +85,17 @@ export class MenuPage {
       }, 100)
 
    }
+  
 
+
+   showJumptoCategory(){
+      console.log('');
+         let popover = this.PopoverController.create(PopoverrComponent);
+    popover.present({
+    
+    });
+    
+   }
 
    public ngOnInit() {
       this.editItemService.selectMenuItem.subscribe(

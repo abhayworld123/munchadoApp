@@ -19,18 +19,11 @@
 
 <ion-content>
    <div style="height: 100%;">
-      <div style="height: calc(100% - 52px);">
-         <super-tabs>
+      <div style="height: 100%;">
+         <super-tabs (tabSelect)="onTabSelect($event)">
             <super-tab [root]="page1" title="Delivery"></super-tab>
             <super-tab [root]="page2" title="Takeout"></super-tab>
          </super-tabs>
       </div>
-      <div *ngIf="cartService.userAddressForm">
-         isValid: {{cartService.userAddressForm.valid}}<br>
-         isDirty: {{cartService.userAddressForm.dirty}}
-      </div>
-      <button ion-button full class="place-order-button" (click)="placeOrder()" [disabled]="!isFormValid() || totalBillAmount <= 0">
-            Place Order ${{ totalBillAmount }}
-         </button>
    </div>
 </ion-content>

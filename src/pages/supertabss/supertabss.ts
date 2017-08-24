@@ -1,3 +1,8 @@
+import { LoaderService } from './../../common/loader.service';
+import { LocalStorageService } from './../../providers/localstorage.service';
+import { LoginPage } from './../login/login';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AuthProvider } from './../../providers/auth/auth';
 import { GallaryPage } from './../gallary/gallary';
 import { checkouttabPage } from './../checkouttab/checkouttab';
 import { StoryComponent } from './../../components/story/story';
@@ -73,15 +78,35 @@ export class SupertabssPage {
       public navCtrl: NavController,
       public navparam: NavParams,
       public viewCtrl: ViewController,
-      private editItemService: EditItemService) {
+      private editItemService: EditItemService,
+      public afAuth: AngularFireAuth,
+      private localStorageService: LocalStorageService,
+     private LoaderService :LoaderService) {
+      this.activateTabIndex = 0;
+     
 
    }
 
    onTabSelect($event) {
       // console.log($event)
       this.activateTabIndex = $event.index;
+   }
+   LogoutApp() {
+      this.LoaderService.showLoader('Logging Out');
+      if (this.afAuth.auth.currentUser) {
+         this.afAuth.auth.signOut();
+         this.LoaderService.hideLoader();
+         this.navCtrl.setRoot(LoginPage);
+      }
+      else {
 
-
+         //  this.navCtrl.rootNav.setRoot(LoginPage);
+         this.afAuth.auth.signOut();
+         this.localStorageService.removeItems('userInfo');
+         this.navCtrl.setRoot(LoginPage);
+          this.LoaderService.hideLoader();
+         
+      }
    }
 
    openGallery(gallary) {
@@ -106,7 +131,7 @@ export class SupertabssPage {
 
 
    ngOnInit() {
-
+    
       this.editItemService.slideToMenuPage.subscribe(
          () => {
             this.slidetoMenuTab();
