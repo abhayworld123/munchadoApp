@@ -13,7 +13,7 @@ import { EditItemService } from '../../providers/cart/edit-item.service';
 import { UserService } from '../../providers/auth/user.service';
 // import * as moment from 'moment';
 
-let DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+let DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 @Component({
    selector: 'page-takeout',

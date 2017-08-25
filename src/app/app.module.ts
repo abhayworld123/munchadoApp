@@ -57,6 +57,7 @@ import { AgmCoreModule } from '@agm/core';
 import { LoaderService } from '../common/loader.service';
 import { EditItemService } from '../providers/cart/edit-item.service';
 import { UserService } from '../providers/auth/user.service';
+import { NetworkService } from '../providers/network/network.service';
 
 import * as firebase from 'firebase';
 
@@ -123,7 +124,8 @@ let PIPES = [
       LocalStorageService,
       EditItemService,
       Network,
-      UserService
+      UserService,
+      NetworkService
    ]
 
 

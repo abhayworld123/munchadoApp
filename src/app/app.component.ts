@@ -7,14 +7,14 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Storage } from '@ionic/storage';
 
 import { SelectRestaurantPage } from './../pages/SelectRestaurant/SelectRestaurant';
-import { LocalStorageService } from './../providers/localstorage.service';
-import { ServiceClass } from './../providers/servicee';
+import {
+   LocalStorageService, ServiceClass, CartService, UserService, NetworkService
+} from './../providers/providers';
 import { LoginPage, USER_INFO } from '../pages/login/login';
 import { IntroPage } from '../pages/intro/intro';
-import { CartService } from '../providers/cart/cart.service';
-import { UserService } from '../providers/auth/user.service';
 import { ConfigService } from '../common/config.service';
 import { LoaderService } from '../common/loader.service';
+
 
 const INTRO_SHOWN = 'introShown';
 @Component({
@@ -36,7 +36,8 @@ export class MyApp {
       public loader: LoaderService,
       private localStorageService: LocalStorageService,
       private cartService: CartService,
-      private userService: UserService) {
+      private userService: UserService,
+      private networkService: NetworkService) {
 
       platform.ready().then(() => {
          this.statusBar.overlaysWebView(true);
@@ -44,6 +45,7 @@ export class MyApp {
 
          this.initializeApp();
          this.cartService.getCartItemsFromLocalStorage();
+         console.log('network type: ' + this.networkService.getNetworkType());
       });
    }
 
