@@ -13,7 +13,31 @@
 
 <ion-content padding>
    <div style="height: calc(100% - 36px); overflow: scroll;">
-      <form novalidate [formGroup]="userAddressForm">
+
+      <!-- <div style="width: 100%; height: 54px;">
+         <div *ngFor="let date of datesList" class="date-list" [ngClass]="{'active-date': isDateActive(date.dateString)}">
+            <div style="width: 100%; height: 100%;" (click)="getTimeSlots(date.dateString)">
+               <div style="width: 100%; height: 50%; background: goldenrod; padding-top: 5px;">{{ date.dayName}}</div>
+               <div style="width: 100%; height: 50%; background: rgba(225, 162, 2, 0.72); padding-top: 5px;">{{ date.date}}</div>
+            </div>
+         </div>
+      </div> -->
+      <div style="width: 100%; height: 54px;">
+         <div *ngFor="let date of datesList" class="date-list">
+            <div style="width: 100%; height: 100%;" (click)="getTimeSlots(date.dateString)">
+               <div style="width: 100%; height: 50%; background: #fff; padding-top: 5px;">{{ date.dayName}}</div>
+               <div [ngClass]="{'active-date': isDateActive(date.dateString)}" style="width: 60%; height: 50%; background: #fff;    margin-left: 9px; padding-top: 5px;">{{ date.date}}</div>
+            </div>
+         </div>
+      </div>
+      <ion-item>
+         <ion-label>Time</ion-label>
+         <ion-select [interface]="popover" [(ngModel)]="selectedTime" [disabled]="!selectedDate" (ionChange)="selectTime($event)">
+            <ion-option *ngFor="let timeSlote of timeSlotes" [selected]="selectedTime == timeSlote.timeSlot" [value]="timeSlote.timeSlot">{{ timeSlote.timeString }}</ion-option>
+         </ion-select>
+      </ion-item>
+
+      <form novalidate [formGroup]="userAddressForm" *ngIf="orderType == 'takeout'">
          <ion-item>
             <ion-label stacked>
                First name:
@@ -46,22 +70,6 @@
             <ion-input class="delivery-ion-input" type="email" placeholder="Your email address" formControlName="email"></ion-input>
          </ion-item>
       </form>
-
-      <div style="width: 100%; height: 54px;">
-         <div *ngFor="let date of datesList" class="date-list" [ngClass]="{'active-date': isDateActive(date.dateString)}">
-            <div style="width: 100%; height: 100%;" (click)="getTimeSlots(date.dateString)">
-               <div style="width: 100%; height: 50%; background: goldenrod; padding-top: 5px;">{{ date.dayName}}</div>
-               <div style="width: 100%; height: 50%; background: rgba(225, 162, 2, 0.72); padding-top: 5px;">{{ date.date}}</div>
-            </div>
-         </div>
-      </div>
-      <ion-item>
-         <ion-label>Time</ion-label>
-         <ion-select [interface]="popover" [(ngModel)]="selectedTime" [disabled]="!selectedDate" (ionChange)="selectTime($event)">
-            <ion-option *ngFor="let timeSlote of timeSlotes" [selected]="selectedTime == timeSlote.timeSlot" [value]="timeSlote.timeSlot">{{ timeSlote.timeString }}</ion-option>
-         </ion-select>
-      </ion-item>
-
 
       <div class="your-order-block">
          <div style="width: 100%; height: 30px; margin-top: 10px;">

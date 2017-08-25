@@ -19,8 +19,15 @@ page-takeout {
    float: left; text-align: center;
 }
 
+// .active-date {
+//    border: 3px solid rgba(0, 0, 0, 0.52);
+// }
+
 .active-date {
-   border: 3px solid rgba(0, 0, 0, 0.52);
+    border: 1px solid orange;
+    background-color: orange !important;
+    border-radius: 50%;
+    color: #fff !important;
 }
 
 span.thead-change {

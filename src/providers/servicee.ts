@@ -1,4 +1,3 @@
-import { Network } from '@ionic-native/network';
 import { Injectable } from "@angular/core";
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -30,7 +29,7 @@ export class ServiceClass {
    // public loginInfo: any;
    public cartcount: number = 0;
 
-   constructor(private _http: Http, private network :Network) {
+   constructor(private _http: Http) {
       this.globalVarUpdate = Observable.create((observer: Observer<number>) => {
          this.globalVarObserver.next(this.globalTotalItemSelected);
       });
@@ -120,15 +119,6 @@ export class ServiceClass {
                return [];
             }
          })
-   }
-
-    getNetwork() {
-      let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-  console.log('network was disconnected :-(');
-   return 0;
-   });
-
-  
    }
 
    updateGlobalVar(newValue: any) {
