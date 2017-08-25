@@ -1,3 +1,4 @@
+import { Network } from '@ionic-native/network';
 import { Injectable } from "@angular/core";
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -9,6 +10,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 
 import { ConfigService } from '../common/config.service';
+
 // import * as constants from '../app/app.settings';
 @Injectable()
 
@@ -28,7 +30,7 @@ export class ServiceClass {
    // public loginInfo: any;
    public cartcount: number = 0;
 
-   constructor(private _http: Http) {
+   constructor(private _http: Http, private network :Network) {
       this.globalVarUpdate = Observable.create((observer: Observer<number>) => {
          this.globalVarObserver.next(this.globalTotalItemSelected);
       });
