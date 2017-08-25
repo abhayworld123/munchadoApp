@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform, LoadingController } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -8,22 +8,20 @@ import { Storage } from '@ionic/storage';
 import { SelectRestaurantPage } from './../pages/SelectRestaurant/SelectRestaurant';
 import { LocalStorageService } from './../providers/localstorage.service';
 import { ServiceClass } from './../providers/servicee';
-import { LoginPage } from '../pages/login/login';
+import { LoginPage, USER_INFO } from '../pages/login/login';
 import { IntroPage } from '../pages/intro/intro';
 import { CartService } from '../providers/cart/cart.service';
+import { UserService } from '../providers/auth/user.service';
 import { ConfigService } from '../common/config.service';
+import { LoaderService } from '../common/loader.service';
 
 const INTRO_SHOWN = 'introShown';
 @Component({
-
    templateUrl: 'app.html'
-
 })
 export class MyApp {
    errorMessage: any;
    rootPage: any;
-   loader: any;
-   userInfo: any;
    body: any;
 
 
@@ -34,12 +32,12 @@ export class MyApp {
 
       private afAuth: AngularFireAuth,
       public storage: Storage,
-      public loadingCtrl: LoadingController,
+      public loader: LoaderService,
       private localStorageService: LocalStorageService,
-      private cartService: CartService) {
+      private cartService: CartService,
+      private userService: UserService) {
 
       platform.ready().then(() => {
-         // this.presentLoading();
          this.statusBar.overlaysWebView(true);
          this.statusBar.backgroundColorByHexString('#e09100');
 
@@ -54,8 +52,8 @@ export class MyApp {
 
       let user;
 
-      this.loader = this.loadingCtrl.create({ content: 'Loading...' })
-      this.loader.present().then(
+      this.loader.showLoader('Loading...')
+         .then(
          () => {
             this.getToken()
                .then(
@@ -71,33 +69,31 @@ export class MyApp {
                   }
                }).then((userData) => {
                   user = userData;
-                  return this.localStorageService.getItems('userInfo')
+                  return this.localStorageService.getItems(USER_INFO)
                }).then((userInfo) => {
-                  // this.userInfo = data;
-                  console.log('userInfo, user: ', userInfo, user);
-
+                  // console.log('userInfo, user: ', userInfo, user);
                   if (user || userInfo) {
                      this.rootPage = SelectRestaurantPage;
-                     this.dataservice.loginInfo = userInfo;
+                     if (user) {
+                        this.userService.setUser(user, ConfigService.firebaseAPI)
+                     } else if (userInfo) {
+                        this.userService.user = userInfo;
+                     }
                   } else if (!this.rootPage) {
                      this.rootPage = LoginPage;
                   }
                }).then(() => {
-                  this.loader.dismiss();
+                  this.loader.hideLoader();
                }).catch((error) => {
                   this.errorMessage = <any>error;
                });
          }
-      );
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-
+         );
    }
 
    private authenticateUser() {
       return new Promise((resolve, reject) => {
          this.afAuth.authState.subscribe(user => {
-            //  this.presentLoading();
             resolve(user);
          },
             err => {
@@ -124,17 +120,5 @@ export class MyApp {
       })
 
    }
-
-   presentLoading() {
-
-      this.loader = this.loadingCtrl.create({
-         content: "Authenticating..."
-      });
-
-      this.loader.present();
-
-
-   }
-
 }
 

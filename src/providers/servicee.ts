@@ -25,7 +25,7 @@ export class ServiceClass {
    globalVarObserver: Observer<number>;
 
    public extractdata: any;
-   public loginInfo: any;
+   // public loginInfo: any;
    public cartcount: number = 0;
 
    constructor(private _http: Http) {
@@ -103,7 +103,9 @@ export class ServiceClass {
    getRestaurants() {
       return this._http.get("../assets/restaurant.json")
          .map(res => res.json())
-         .do(data => console.log(data));
+         .do(data => {
+            // console.log(data)
+         });
    }
 
    getaddons(itemId): Observable<any> {

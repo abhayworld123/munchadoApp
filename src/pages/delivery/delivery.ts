@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavController, NavParams } from 'ionic-angular';
+import { DatePicker } from '@ionic-native/date-picker';
+// import { Subscription } from 'rxjs/Subscription';
 
 import { CartService } from '../../providers/cart/cart.service';
-import { DatePicker } from '@ionic-native/date-picker';
-
-import { Subscription } from 'rxjs/Subscription';
+import { UserService } from '../../providers/auth/user.service';
 
 @Component({
    selector: 'page-delivery',
@@ -13,16 +13,16 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class DeliveryPage implements OnInit, OnDestroy {
 
-   fname: FormControl = new FormControl('', Validators.required);
-   lname: FormControl = new FormControl('');
-   addressNickname: FormControl = new FormControl('', Validators.required);
-   address: FormControl = new FormControl('');
-   appartment: FormControl = new FormControl('');
-   zipcode: FormControl = new FormControl('', Validators.required);
-   special: FormControl = new FormControl('');
+   fname: FormControl;
+   lname: FormControl;
+   addressNickname: FormControl;
+   address: FormControl;
+   appartment: FormControl;
+   zipcode: FormControl;
+   special: FormControl;
 
-   phone: FormControl = new FormControl('');
-   email: FormControl = new FormControl('');
+   phone: FormControl;
+   email: FormControl;
    // confirm: FormControl = new FormControl('');
 
    userAddressForm: FormGroup;
@@ -31,7 +31,9 @@ export class DeliveryPage implements OnInit, OnDestroy {
    constructor(private datePicker: DatePicker,
       public navCtrl: NavController,
       public navParams: NavParams,
-      private cartService: CartService) {
+      private cartService: CartService,
+      private userService: UserService) {
+
    }
 
    public ngOnInit() {
@@ -48,6 +50,18 @@ export class DeliveryPage implements OnInit, OnDestroy {
    }
 
    private initiateFormGroupMap() {
+
+      this.fname = new FormControl(this.userService.user.firstName, Validators.required);
+      this.lname = new FormControl(this.userService.user.lastName);
+      this.addressNickname = new FormControl('', Validators.required);
+      this.address = new FormControl('');
+      this.appartment = new FormControl('');
+      this.zipcode = new FormControl('', Validators.required);
+      this.special = new FormControl('');
+
+      this.phone = new FormControl(this.userService.user.phoneNumber);
+      this.email = new FormControl(this.userService.user.email);
+
       this.formGroupMap = {
          fname: this.fname,
          lname: this.lname,
@@ -58,10 +72,6 @@ export class DeliveryPage implements OnInit, OnDestroy {
          special: this.special,
          phone: this.phone,
          email: this.email
-         // ,
-         // account: new FormGroup({
-         //    confirm: this.confirm
-         // })
       };
    }
 }

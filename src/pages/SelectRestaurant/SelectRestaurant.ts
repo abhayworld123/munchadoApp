@@ -24,7 +24,7 @@ export class SelectRestaurantPage {
       public http: Http,
       public viewCtrl: ViewController,
       public modalCtrl: ModalController,
-       private LoaderService:LoaderService) {
+      private LoaderService: LoaderService) {
 
 
    }
@@ -38,10 +38,10 @@ export class SelectRestaurantPage {
 
 
    }
-     SelectRestaurant(rest){
-       ConfigService.selectedRestaurentId = rest.id; 
-       this.navCtrl.setRoot(SupertabssPage);
-     } 
+   SelectRestaurant(rest) {
+      ConfigService.selectedRestaurentId = rest.id;
+      this.navCtrl.setRoot(SupertabssPage);
+   }
 
 
 

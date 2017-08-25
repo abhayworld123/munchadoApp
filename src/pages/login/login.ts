@@ -7,11 +7,13 @@ import { LoaderService } from './../../common/loader.service';
 import { ConfigService } from '../../common/config.service';
 import { LocalStorageService } from './../../providers/localstorage.service';
 import { ServiceClass } from './../../providers/servicee';
+import { UserService } from './../../providers/auth/user.service';
 import { ForgotPage } from './../forgot/forgot';
 import { RegisterPage } from './../register/register';
 import { AuthProvider } from './../../providers/auth/auth';
 import firebase from 'firebase';
 
+export const USER_INFO = 'userInfo';
 
 @IonicPage()
 @Component({
@@ -23,7 +25,7 @@ export class LoginPage {
    loginUname: any;
    loginPassword: any;
    params: any;
-   userProfile: any;
+   // userProfile: any;
    wrongcred: any = 0;
    loader: any;
    private loginGrp: FormGroup;
@@ -35,18 +37,17 @@ export class LoginPage {
 
    constructor(private formBuilder: FormBuilder, private loaderCtrl: LoadingController, public service: ServiceClass, public navCtrl: NavController, public navParams: NavParams,
       public authProvider: AuthProvider, private localStorageService: LocalStorageService
-      , private LoaderService: LoaderService) {
+      , private LoaderService: LoaderService,
+      private userService: UserService) {
 
-
-      firebase.auth().onAuthStateChanged(user => {
-         if (user) {
-
-            console.log(user);
-            this.userProfile = user;
-         } else {
-            console.log("There's no user here");
-         }
-      });
+      // firebase.auth().onAuthStateChanged(user => {
+      //    if (user) {
+      //       // console.log(user);
+      //       this.userProfile = user;
+      //    } else {
+      //       // console.log("There's no user here");
+      //    }
+      // });
 
       this.uName = new FormControl('', Validators.required);
       this.pass = new FormControl('', [Validators.required]);
@@ -86,9 +87,9 @@ export class LoginPage {
                this.loader.dismiss();
                this.wrongcred = 0;
                this.anonymous();
-               this.service.loginInfo = result;
-
-               this.localStorageService.setItems('userInfo', this.service.loginInfo);
+               // this.service.loginInfo = result.data;
+               this.userService.setUser(result.data, ConfigService.munchadoAPI);
+               this.localStorageService.setItems(USER_INFO, this.userService.user);
                // this.token =  this.dataservice.token;
             },
             error => {
@@ -111,28 +112,21 @@ export class LoginPage {
       this.navCtrl.push(ForgotPage);
    }
 
-   ionViewDidLoad() {
-      console.log('ionViewDidLoad LoginPage');
-   }
-
-
    googleLogin(): void {
       this.LoaderService.showLoader('Logging In');
       //  this.authProvider.googleLogin();
       const provider = new firebase.auth.GoogleAuthProvider();
-      alert(1);
+      // alert(1);
       firebase.auth().signInWithRedirect(provider).then(() => {
 
          firebase.auth().getRedirectResult().then(result => {
-            alert(12);
-            // This gives you a Google Access Token.
-            // You can use it to access the Google API.
-            var token = result.credential.accessToken;
+            // var token = result.credential.accessToken;
             // The signed-in user info.
+            // console.log(token, result.user);
             var user = result.user;
 
-            console.log(token, user);
-
+            this.userService.setUser(user, ConfigService.firebaseAPI);
+            this.localStorageService.setItems(USER_INFO, this.userService.user);
             this.navCtrl.setRoot(SelectRestaurantPage);
             this.LoaderService.hideLoader();
          }).catch(function (error) {

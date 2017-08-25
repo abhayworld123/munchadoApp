@@ -47,7 +47,7 @@ export class MenuPage {
       public viewCtrl: ViewController,
       private editItemService: EditItemService,
       private loaderService: LoaderService,
-     private PopoverController : PopoverController) {
+      private PopoverController: PopoverController) {
 
    }
 
@@ -85,16 +85,14 @@ export class MenuPage {
       }, 100)
 
    }
-  
 
 
-   showJumptoCategory(){
-      console.log('');
-         let popover = this.PopoverController.create(PopoverrComponent);
-    popover.present({
-    
-    });
-    
+
+   showJumptoCategory() {
+      let popover = this.PopoverController.create(PopoverrComponent);
+      popover.present({
+
+      });
    }
 
    public ngOnInit() {

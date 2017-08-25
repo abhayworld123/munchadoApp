@@ -35,7 +35,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CartService } from '../providers/cart/cart.service';
 import { Geolocation } from '@ionic-native/geolocation';
-import  {Network} from '@ionic-native/network';
+import { Network } from '@ionic-native/network';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DatePicker } from '@ionic-native/date-picker';
@@ -55,6 +55,7 @@ import { AgmCoreModule } from '@agm/core';
 // common components
 import { LoaderService } from '../common/loader.service';
 import { EditItemService } from '../providers/cart/edit-item.service';
+import { UserService } from '../providers/auth/user.service';
 
 import * as firebase from 'firebase';
 
@@ -79,7 +80,7 @@ let COMPONENTS = [
    HomePage, CreatePage, LoginPage, IntroPage, SupertabssPage, checkouttabPage,
    StoryComponent, ReviewsPage, MenuPage, OverviewPage, DinenmorePage, PopoverrComponent,
    ReviewDescComponent, GallaryPage, GallarydetailsPage, RegisterPage, ForgotPage,
-   SelectRestaurantPage,PaymentPageComponent
+   SelectRestaurantPage, PaymentPageComponent
 ];
 
 let PIPES = [
@@ -120,7 +121,8 @@ let PIPES = [
       LoaderService,
       LocalStorageService,
       EditItemService,
-      Network
+      Network,
+      UserService
    ]
 
 
