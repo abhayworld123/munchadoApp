@@ -131,6 +131,19 @@ export class SupertabssPage {
 
 
    ngOnInit() {
+
+      this.editItemService.menutoCheckout.subscribe(
+         ()=> {
+            this.navCtrl.push(checkouttabPage);
+         }
+      )
+
+      this.editItemService.scrollHandler.subscribe(
+         ()=> {
+            // console.log('event scroll');
+            this.content.scrollTo(0,200, 1000);   
+         }
+      );
     
       this.editItemService.slideToMenuPage.subscribe(
          () => {

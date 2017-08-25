@@ -120,6 +120,15 @@ export class ServiceClass {
          })
    }
 
+    getNetwork() {
+      let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+  console.log('network was disconnected :-(');
+   return 0;
+   });
+
+  
+   }
+
    updateGlobalVar(newValue: any) {
       this.globalTotalItemSelected = newValue;
       this.globalVarObserver.next(this.globalTotalItemSelected);

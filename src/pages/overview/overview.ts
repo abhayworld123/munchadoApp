@@ -1,6 +1,6 @@
 import { LoaderService } from './../../common/loader.service';
 import { MapServiceClass } from './../../providers/map.service';
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, NgZone } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
@@ -46,6 +46,8 @@ export class OverviewPage implements AfterViewInit {
    currentlng: number;
    zoom: number = 17;
    mapdistance: any = 0;
+   public scrollAmount = 0;
+   isScrolledTop = false;
    constructor(public modalCtrl: ModalController,
       public service: ServiceClass,
       public storage: Storage,
@@ -54,7 +56,8 @@ export class OverviewPage implements AfterViewInit {
       public viewCtrl: ViewController,
       private editItemService: EditItemService,
       private MapServiceClass: MapServiceClass,
-      private LoaderService: LoaderService) {
+      private LoaderService: LoaderService,
+      public zone: NgZone) {
 
    }
 
@@ -81,6 +84,27 @@ export class OverviewPage implements AfterViewInit {
       });
 
 
+
+   }
+
+
+   scrollHandler(event) {
+      // console.log('event' ,event);
+
+      if (event.scrollTop > 50) {
+         if (!this.isScrolledTop) {
+            this.isScrolledTop = true;
+            this.editItemService.scrollHandlerSuper(event);
+         }
+      }
+     else  if(event.scrollTop < 10 ){
+         this.isScrolledTop = false;
+      }
+      this.zone.run(() => {
+         // since scrollAmount is data-binded,
+         // the update needs to happen in zone
+         this.scrollAmount++
+      })
 
    }
 

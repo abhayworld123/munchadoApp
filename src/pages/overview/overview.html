@@ -13,7 +13,7 @@
 </ion-header> -->
 
 
-<ion-content class="overview-content">
+<ion-content (ionScroll)="scrollHandler($event)" class="overview-content">
 
   <div *ngIf="menuoverviewdata" #slide1 style=" width: 100%;">
 
@@ -121,8 +121,9 @@
 
       <div class="review-block" *ngFor="let rev of restaurantreviews ">
 
-        <div class="over-rev-tips">{{rev.tip}}</div>
-
+        <div *ngIf="rev.tip" class="over-rev-tips">{{rev.tip}}</div>
+        <div *ngIf="rev.review_date" class="over-rev-tips">{{rev.review_date}}</div>
+ 
         <div class="over-rev-nameblock">
           <img src="{{rev.display_pic_url}}" onError="this.src='assets/images/temp/place_holder_home.png'">
           <p>{{rev.reviews}}</p>
