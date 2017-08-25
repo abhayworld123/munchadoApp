@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ViewController } from 'ionic-angular';
 import { NavController, ModalController, AlertController } from 'ionic-angular';
 
-import { PaymentPageComponent } from './../payment-page/payment-page.component';
 import { CartService } from '../../providers/cart/cart.service';
 import { LoaderService } from '../../common/loader.service';
 import { ServiceClass } from '../../providers/servicee';
@@ -11,6 +10,7 @@ import { SupertabssPage } from '../supertabss/supertabss';
 import { ToolServices } from '../../common/tool.service';
 import { ConfigService } from '../../common/config.service';
 import { EditItemService } from '../../providers/cart/edit-item.service';
+import { UserService } from '../../providers/auth/user.service';
 // import * as moment from 'moment';
 
 let DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -23,10 +23,10 @@ let DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 })
 export class TakeoutPage {
 
-   fname: FormControl = new FormControl('', Validators.required);
-   lname: FormControl = new FormControl('');
-   phone: FormControl = new FormControl('');
-   email: FormControl = new FormControl('');
+   fname: FormControl;
+   lname: FormControl;
+   phone: FormControl;
+   email: FormControl;
 
    deliveryUserForm: FormGroup;
    userAddressForm: FormGroup;
@@ -50,15 +50,20 @@ export class TakeoutPage {
       private cartService: CartService,
       private loaderService: LoaderService,
       private alertController: AlertController,
-      private editItemService: EditItemService) {
+      private editItemService: EditItemService,
+      private userService: UserService) {
 
       this.orderType = 'takeout';
-      console.log('takeout constructor');
       this.initiateFormGroupMap();
       this.userAddressForm = new FormGroup(this.formGroupMap);
    }
 
    private initiateFormGroupMap() {
+      this.fname = new FormControl(this.userService.user.firstName, Validators.required);
+      this.lname = new FormControl(this.userService.user.lastName);
+      this.phone = new FormControl(this.userService.user.phoneNumber);
+      this.email = new FormControl(this.userService.user.email);
+
       this.formGroupMap = {
          fname: this.fname,
          lname: this.lname,
@@ -68,7 +73,6 @@ export class TakeoutPage {
    }
 
    public set userForm(form) {
-      console.log('form: ', form);
       this.deliveryUserForm = form;
    }
 
@@ -94,7 +98,7 @@ export class TakeoutPage {
 
       this.initiate$Subscribe = this.editItemService.updateCart.subscribe(
          () => {
-
+            this.cartService.setCartItemsToLocalStorage();
             this.initiate();
 
          }

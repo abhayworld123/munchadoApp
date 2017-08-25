@@ -59,7 +59,7 @@ export class PaymentPageComponent {
    }
    addCod(param) {
       console.log('add cod param: ', param);
-      this.paymentData.cod = param ? 1 : 0;
+      this.paymentData.cod = param ? "" + 1 : "" + 0;
    }
 
    makePayment() {

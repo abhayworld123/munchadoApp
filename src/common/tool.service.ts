@@ -34,6 +34,7 @@ export class ToolServices {
             let timeString = (h < 10 ? '0' + h : h) + ':' + (min < 10 ? '0' + min : min) + ' ' + med;
             let dateObj = {};
             dateObj['slot'] = dateSlot;
+            dateObj['timeSlot'] = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':' + (min < 10 ? '0' + min : min);
             dateObj['dateString'] = dateString;
             dateObj['timeString'] = timeString;
             newSlots.push(dateObj);

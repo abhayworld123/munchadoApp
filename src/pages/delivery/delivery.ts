@@ -23,7 +23,6 @@ export class DeliveryPage implements OnInit, OnDestroy {
 
    phone: FormControl;
    email: FormControl;
-   // confirm: FormControl = new FormControl('');
 
    userAddressForm: FormGroup;
    formGroupMap: any = {};
@@ -37,13 +36,10 @@ export class DeliveryPage implements OnInit, OnDestroy {
    }
 
    public ngOnInit() {
-      if (this.cartService.userAddressForm) {
-         this.userAddressForm = this.cartService.userAddressForm;
-      } else {
-         this.initiateFormGroupMap();
-         this.userAddressForm = new FormGroup(this.formGroupMap);
-         this.cartService.userAddressForm = this.userAddressForm;
-      }
+      console.log('delivery ngOnInit');
+      this.initiateFormGroupMap();
+      this.userAddressForm = new FormGroup(this.formGroupMap);
+      this.cartService.userAddressForm = this.userAddressForm;
    }
 
    public ngOnDestroy() {

@@ -14,7 +14,7 @@ const SELECTED_DATE = 'SELECTED_DATE'
 const SELECTED_TIME = 'SELECTED_TIME'
 @Injectable()
 export class CartService {
-   userAddressForm: FormGroup; 
+   userAddressForm: FormGroup;
    constructor(private http: Http,
       private localStorageService: LocalStorageService,
       private service: ServiceClass,
@@ -92,25 +92,25 @@ export class CartService {
       let allOrders: any = this.service.globalCartitems;
       // let totalBillAmount: number = this.service.globaltotalbill;
       // console.log('placeOrder userDetails: ', userDetails);
-      // console.log('placeOrder allOrders: ', JSON.stringify(allOrders));
+      console.log('placeOrder allOrders: ', JSON.stringify(allOrders));
       // console.log('placeOrder totalBillAmount: ', totalBillAmount);
       let items = [];
       if (allOrders && allOrders.length > 0) {
          for (let i = 0; i < allOrders.length; i++) {
             let obj = allOrders[i];
             let adons = [];
-            if (obj.quantity.addOns && obj.quantity.addOns.length > 0) {
-               for (let j = 0; j < obj.quantity.addOns.length; j++) {
-                  let addonObj = obj.quantity.addOns[i];
+            if (obj.addOns && obj.addOns.length > 0) {
+               for (let j = 0; j < obj.addOns.length; j++) {
+                  let addonObj = obj.addOns[j];
                   adons.push({
-                     optionId: addonObj.addon_id,
-                     priority: 1
+                     optionId: addonObj.id,
+                     priority: '1'
                   })
                }
             }
             items.push({
                quantity: obj.quantity,
-               id: 0,
+               id: '' + (i + 1),
                price_id: obj.prices[0].id,
                item_id: obj.item_id,
                special_instruction: obj.extraInfo || '',
@@ -130,14 +130,15 @@ export class CartService {
          restaurant_id: ConfigService.selectedRestaurentId,
          delivery_date: date,
          delivery_time: time,
-         tip_percent: null,
+         tiptype: 'p',
+         tip_percent: 15,
          order_type1: 'I',
          order_type2: 'p',
          email: userDetails.email,
          items: items
       };
 
-      placeOrder.card_details = {}; // atleast blank object, can not have blank
+      placeOrder.card_details = { billing_zip: "" }; // atleast blank object, can not have blank
       return placeOrder;
    }
 
