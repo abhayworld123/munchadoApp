@@ -1,3 +1,4 @@
+import { SelectCityPage } from './../SelectCity/selectcity.component';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Component } from '@angular/core';
@@ -143,7 +144,7 @@ export class LoginPage {
    }
 
    anonymous() {
-      this.navCtrl.setRoot(SelectRestaurantPage);
+      this.navCtrl.setRoot(SelectCityPage);
    }
 
 }

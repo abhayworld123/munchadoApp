@@ -1,3 +1,4 @@
+import { SelectCityPage } from './../pages/SelectCity/selectcity.component';
 import { PaymentPageComponent } from './../pages/payment-page/payment-page.component';
 import { SelectRestaurantPage } from './../pages/SelectRestaurant/SelectRestaurant';
 import { PopoverrComponent } from './../components/popover/popover';
@@ -80,7 +81,7 @@ let COMPONENTS = [
    HomePage, CreatePage, LoginPage, IntroPage, SupertabssPage, checkouttabPage,
    StoryComponent, ReviewsPage, MenuPage, OverviewPage, DinenmorePage, PopoverrComponent,
    ReviewDescComponent, GallaryPage, GallarydetailsPage, RegisterPage, ForgotPage,
-   SelectRestaurantPage, PaymentPageComponent
+   SelectRestaurantPage, PaymentPageComponent,SelectCityPage
 ];
 
 let PIPES = [

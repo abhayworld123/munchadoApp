@@ -30,7 +30,7 @@ export class ServiceClass {
    // public loginInfo: any;
    public cartcount: number = 0;
 
-   constructor(private _http: Http, private network :Network) {
+   constructor(private _http: Http, private network: Network) {
       this.globalVarUpdate = Observable.create((observer: Observer<number>) => {
          this.globalVarObserver.next(this.globalTotalItemSelected);
       });
@@ -106,9 +106,31 @@ export class ServiceClass {
       return this._http.get("../assets/restaurant.json")
          .map(res => res.json())
          .do(data => {
-            // console.log(data)
+            console.log(data)
          });
    }
+
+   getCities(): Observable<any> {
+      return this._http.get(ConfigService.backendServer + 'home/location' + '?mob=true')
+         .map((response: Response) => <any>response.json())
+         .do(data => {
+            // console.log(data)
+         }).do(ab => 45);
+   }
+
+   mapCityToken(param: any): Observable<any> {
+      return this._http
+         .post(ConfigService.backendServer + 'user/location' + '?mob=true', param, this.options)
+         .map((response: Response) => {
+            try {
+               return response.json();
+            } catch (err) {
+               // console.log('response.text(): ', response.text());
+               return [];
+            }
+         })
+   }
+
 
    getaddons(itemId): Observable<any> {
       return this._http.get(ConfigService.backendServer + 'restaurant/menu/addons/' + itemId + '&mob=true&?token=' + ConfigService.token)
@@ -122,14 +144,14 @@ export class ServiceClass {
          })
    }
 
-    getNetwork() {
+   getNetwork() {
       let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-  console.log('network was disconnected :-(');
-   return 0;
-   });
-
-  
+         console.log('network was disconnected :-(');
+         return 0;
+      });
    }
+
+
 
    updateGlobalVar(newValue: any) {
       this.globalTotalItemSelected = newValue;

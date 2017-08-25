@@ -1,3 +1,4 @@
+import { SelectCityPage } from './../pages/SelectCity/selectcity.component';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -73,7 +74,7 @@ export class MyApp {
                }).then((userInfo) => {
                   // console.log('userInfo, user: ', userInfo, user);
                   if (user || userInfo) {
-                     this.rootPage = SelectRestaurantPage;
+                     this.rootPage = SelectCityPage;
                      if (user) {
                         this.userService.setUser(user, ConfigService.firebaseAPI)
                      } else if (userInfo) {

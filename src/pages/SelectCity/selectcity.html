@@ -1,0 +1,37 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Select Restaurant</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="sel-city-content">
+
+
+  <ion-list *ngIf="cityStatesData">
+    <ion-item>
+      <ion-label>Select State</ion-label>
+      <ion-select (ionChange)="selectState()" [(ngModel)]="state">
+        <div *ngFor="let stateObj of cityStatesData">
+          <ion-option [value]="stateObj">{{stateObj.state}}</ion-option>
+        </div>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Select City</ion-label>
+      <ion-select  [disabled]="!cities" [(ngModel)]="selectedCity">
+        <div *ngFor="let cityObj of cities">
+          <ion-option [value]="cityObj">{{cityObj.city_name}}</ion-option>
+        </div>
+      </ion-select>
+    </ion-item>
+
+
+
+  </ion-list>
+  
+  <button (click)="mapCityToToken()" ion-button block> Done </button>
+  dasdsa
+</ion-content>
