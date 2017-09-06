@@ -52,13 +52,16 @@ export class SelectCityPage {
    }
 
    getCities() {
+      this.LoaderService.showLoader('Getting Cities');
       this.service.getCities().subscribe(data => {
+         this.LoaderService.hideLoader();
          this.cityStatesData = data.data;
          console.log('this.cityStatesData: ', this.cityStatesData);
       })
    }
 
    mapCityToToken() {
+
       if (!this.selectedCity) {
          alert('Please select city first.');
          return;
@@ -67,10 +70,11 @@ export class SelectCityPage {
          "token": ConfigService.token,
          "city_id": this.selectedCity.city_id
       };
-
+  this.LoaderService.showLoader('Please Wait');
       this.service
          .mapCityToken(this.params)
          .subscribe(data => {
+            this.LoaderService.hideLoader();
             if (data && data.data && data.data.selected_location) {
                console.log('user city address: ', data);
                data = data.data.selected_location;

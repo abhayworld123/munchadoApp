@@ -30,8 +30,10 @@ export class SelectRestaurantPage {
    }
 
    ngOnInit() {
+      this.LoaderService.showLoader('Getting Restaurants');
       this.service.getRestaurants()
          .subscribe(data => {
+            this.LoaderService.hideLoader();
             this.restraurantList = data;
             // console.log(this.restraurantList);
          })

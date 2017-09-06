@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-  <form novalidate [formGroup]="paymentForm">
+  <form *ngIf="showForm == 1 " novalidate [formGroup]="paymentForm">
     <ion-item>
       <ion-label stacked>
         NAME ON YOUR CARD:
@@ -64,6 +64,7 @@
     <ion-checkbox (ionChange)="addCod($event.checked)"></ion-checkbox> <span>CASH ON DELIVERY</span>
   </div>
 
-  <button (click)="makePayment()" ion-button block>PAY </button>
+  <button *ngIf="showForm == 0 " (click)="makePayment()" ion-button block>PAY WITH COD </button>
+  <button *ngIf="showForm == 1 " (click)="makePayment2()" ion-button block>PAY BY CARD </button>
 
 </ion-content>

@@ -1,14 +1,16 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Select Restaurant</ion-title>
+    <ion-title>Select State and City</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content class="sel-city-content">
-
-
+ 
+  <ion-list style="text-align:center ; padding-bottom:5px">
+     <h1 >Welcome to MunchAdo</h1>
+  </ion-list>
   <ion-list *ngIf="cityStatesData">
     <ion-item>
       <ion-label>Select State</ion-label>
@@ -32,6 +34,6 @@
 
   </ion-list>
   
-  <button (click)="mapCityToToken()" ion-button block> Done </button>
-  dasdsa
+  <button class="doneButtons"  (click)="mapCityToToken()" ion-button block> Done </button>
+ 
 </ion-content>

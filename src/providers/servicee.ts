@@ -102,7 +102,7 @@ export class ServiceClass {
    }
 
    getRestaurants() {
-      return this._http.get("../assets/restaurant.json")
+      return this._http.get("assets/images/restaurant.json")
          .map(res => res.json())
          .do(data => {
             console.log(data)
